@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+// const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { toJSON, paginate } = require('./plugins');
-const { roles } = require('../config/roles');
 
 const userSchema = mongoose.Schema(
   {
@@ -11,17 +10,17 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    email: {
+    username: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
-      validate(value) {
-        if (!validator.isEmail(value)) {
-          throw new Error('Invalid email');
-        }
-      },
+      // lowercase: true,
+      // validate(value) {
+      //   if (!validator.isEmail(value)) {
+      //     throw new Error('Invalid email');
+      //   }
+      // },
     },
     password: {
       type: String,
@@ -37,7 +36,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: roles,
+      enum: ['user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer'],
       default: 'user',
     },
     isEmailVerified: {
@@ -56,12 +55,12 @@ userSchema.plugin(paginate);
 
 /**
  * Check if email is taken
- * @param {string} email - The user's email
+ * @param {string} username - The user's email
  * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
  * @returns {Promise<boolean>}
  */
-userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
-  const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
+userSchema.statics.isEmailTaken = async function (username, excludeUserId) {
+  const user = await this.findOne({ username, _id: { $ne: excludeUserId } });
   return !!user;
 };
 

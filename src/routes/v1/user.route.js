@@ -8,14 +8,14 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
-  .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+  .post(auth('superadmin'), validate(userValidation.createUser), userController.createUser)
+  .get(auth('superadmin'), validate(userValidation.getUsers), userController.getUsers);
 
 router
   .route('/:userId')
-  .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
-  .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
+  .get(auth('superadmin'), validate(userValidation.getUser), userController.getUser)
+  .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
+  .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = router;
 
@@ -43,15 +43,14 @@ module.exports = router;
  *             type: object
  *             required:
  *               - name
- *               - email
+ *               - username
  *               - password
  *               - role
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
  *                 description: must be unique
  *               password:
  *                 type: string
@@ -60,10 +59,9 @@ module.exports = router;
  *                 description: At least one number and one letter
  *               role:
  *                  type: string
- *                  enum: [user, admin]
  *             example:
  *               name: fake name
- *               email: fake@example.com
+ *               username: fake@example.com
  *               password: password1
  *               role: user
  *     responses:
@@ -198,9 +196,8 @@ module.exports = router;
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
  *                 description: must be unique
  *               password:
  *                 type: string
@@ -209,7 +206,7 @@ module.exports = router;
  *                 description: At least one number and one letter
  *             example:
  *               name: fake name
- *               email: fake@example.com
+ *               username: fake@example.com
  *               password: password1
  *     responses:
  *       "200":
