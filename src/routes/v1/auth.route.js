@@ -38,14 +38,14 @@ module.exports = router;
  *             type: object
  *             required:
  *               - name
- *               - email
+ *               - username
  *               - password
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
+ *                 format: username
  *                 description: must be unique
  *               password:
  *                 type: string
@@ -54,7 +54,7 @@ module.exports = router;
  *                 description: At least one number and one letter
  *             example:
  *               name: fake name
- *               email: fake@example.com
+ *               username: fake@example.com
  *               password: password1
  *     responses:
  *       "201":
@@ -85,17 +85,17 @@ module.exports = router;
  *           schema:
  *             type: object
  *             required:
- *               - email
+ *               - username
  *               - password
  *             properties:
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
+ *                 format: username
  *               password:
  *                 type: string
  *                 format: password
  *             example:
- *               email: fake@example.com
+ *               username: fake@example.com
  *               password: password1
  *     responses:
  *       "200":
@@ -110,14 +110,14 @@ module.exports = router;
  *                 tokens:
  *                   $ref: '#/components/schemas/AuthTokens'
  *       "401":
- *         description: Invalid email or password
+ *         description: Invalid username or password
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *             example:
  *               code: 401
- *               message: Invalid email or password
+ *               message: Invalid username or password
  */
 
 /**
@@ -181,7 +181,7 @@ module.exports = router;
  * /auth/forgot-password:
  *   post:
  *     summary: Forgot password
- *     description: An email will be sent to reset password.
+ *     description: An username will be sent to reset password.
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -190,13 +190,13 @@ module.exports = router;
  *           schema:
  *             type: object
  *             required:
- *               - email
+ *               - username
  *             properties:
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
+ *                 format: username
  *             example:
- *               email: fake@example.com
+ *               username: fake@example.com
  *     responses:
  *       "204":
  *         description: No content
@@ -249,10 +249,10 @@ module.exports = router;
 
 /**
  * @swagger
- * /auth/send-verification-email:
+ * /auth/send-verification-username:
  *   post:
- *     summary: Send verification email
- *     description: An email will be sent to verify email.
+ *     summary: Send verification username
+ *     description: An username will be sent to verify username.
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []
@@ -265,9 +265,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /auth/verify-email:
+ * /auth/verify-username:
  *   post:
- *     summary: verify email
+ *     summary: verify username
  *     tags: [Auth]
  *     parameters:
  *       - in: query
@@ -275,17 +275,17 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: string
- *         description: The verify email token
+ *         description: The verify username token
  *     responses:
  *       "204":
  *         description: No content
  *       "401":
- *         description: verify email failed
+ *         description: verify username failed
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *             example:
  *               code: 401
- *               message: verify email failed
+ *               message: verify username failed
  */
