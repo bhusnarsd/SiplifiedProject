@@ -59,11 +59,14 @@ module.exports = router;
  *                 description: At least one number and one letter
  *               role:
  *                  type: string
+ *               asssignedTo:
+ *                  type: string
  *             example:
  *               name: fake name
  *               username: fake@example.com
  *               password: password1
  *               role: user
+ *               asssignedTo: Pune
  *     responses:
  *       "201":
  *         description: Created
@@ -204,10 +207,13 @@ module.exports = router;
  *                 format: password
  *                 minLength: 8
  *                 description: At least one number and one letter
+ *               asssignedTo:
+ *                  type: string
  *             example:
  *               name: fake name
  *               username: fake@example.com
  *               password: password1
+ *               asssignedTo: Pune
  *     responses:
  *       "200":
  *         description: OK
