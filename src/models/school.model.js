@@ -9,6 +9,7 @@ const schoolSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    index: 'text',
   },
   code: {
     type: String,
@@ -34,6 +35,7 @@ const schoolSchema = mongoose.Schema({
   },
   udisecode: {
     type: String,
+    unique: true,
   },
   district: {
     type: String,

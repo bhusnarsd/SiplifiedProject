@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // const validator = require('validator');
 const bcrypt = require('bcryptjs');
+// const { string } = require('joi');
 const { toJSON, paginate } = require('./plugins');
 
 const userSchema = mongoose.Schema(
@@ -36,12 +37,16 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer'],
+      enum: ['user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'],
       default: 'user',
     },
     isEmailVerified: {
       type: Boolean,
       default: false,
+    },
+    asssignedTo: {
+      type: String,
+      trim: true,
     },
   },
   {
