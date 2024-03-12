@@ -18,6 +18,10 @@ router
 //   .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
 //   .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
 
+
+router
+  .route('/filter/by-post')
+  .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
 module.exports = router;
 
 /**
@@ -43,10 +47,15 @@ module.exports = router;
  *           type: string
  *         description: school name
  *       - in: query
- *         name: udisecode
+ *         name: district
  *         schema:
  *           type: string
- *         description: school udisecode
+ *         description: school district
+ *       - in: query
+ *         name: block
+ *         schema:
+ *           type: string
+ *         description: school block
  *       - in: query
  *         name: sortBy
  *         schema:
@@ -112,6 +121,41 @@ module.exports = router;
  *         schema:
  *           type: string
  *         description: User id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/School'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /schools/filter/by-post:
+ *   get:
+ *     summary: Get a school
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other school.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: district
+ *         schema:
+ *           type: string
+ *         description: district
+ *       - in: query
+ *         name: block
+ *         schema:
+ *           type: string
+ *         description: block
  *     responses:
  *       "200":
  *         description: OK

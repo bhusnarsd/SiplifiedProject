@@ -43,6 +43,19 @@ const getSchoolByUdisecode = async (udisecode) => {
   return School.findOne({ udisecode });
 };
 
+/**
+ * Get user by udisecode
+ * @param {string} district
+ * @returns {Promise<School>}
+ */
+const getSchoolByFilter = async (district, block) => {
+  const filters = {};
+  if (district) filters.district = district;
+  if (block) filters.block = block;
+  console.log(filters);
+  return School.find(filters);
+};
+
 // /**
 //  * Update user by id
 //  * @param {ObjectId} udisecode
@@ -78,6 +91,8 @@ module.exports = {
   querySchool,
   // getUserById,
   getSchoolByUdisecode,
+  getSchoolByFilter,
+
   //   updateUserById,
   //   deleteUserById,
 };

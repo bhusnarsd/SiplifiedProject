@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
@@ -10,7 +11,7 @@ const createSchool = catchAsync(async (req, res) => {
 });
 
 const getSchools = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'udisecode']);
+  const filter = pick(req.query, ['name', 'district', 'block']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await schoolService.querySchool(filter, options);
   res.send(result);
@@ -24,8 +25,19 @@ const getSchool = catchAsync(async (req, res) => {
   res.send(school);
 });
 
+const getSchoolByFilter = catchAsync(async (req, res) => {
+  const {district, block} = req.query;
+  console.log(district, block);
+  // const school = await schoolService.getSchoolByFilter(district, block);
+  // if (!school) {
+  //   throw new ApiError(httpStatus.NOT_FOUND, 'school not found');
+  // }
+  // res.send(school);
+});
+
 module.exports = {
   createSchool,
   getSchools,
   getSchool,
+  getSchoolByFilter
 };

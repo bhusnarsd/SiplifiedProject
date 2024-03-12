@@ -4,7 +4,8 @@ const Joi = require('joi');
 const getSchools = {
   query: Joi.object().keys({
     name: Joi.string(),
-    udisecode: Joi.string(),
+    district: Joi.string(),
+    block: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -17,8 +18,17 @@ const getSchool = {
   }),
 };
 
+const getSchoolByFilter = {
+  query: Joi.object().keys({
+    district: Joi.string(),
+    block: Joi.string(),
+  }),
+};
+
+
 module.exports = {
 //   createUser,
   getSchools,
   getSchool,
+  getSchoolByFilter
 };
