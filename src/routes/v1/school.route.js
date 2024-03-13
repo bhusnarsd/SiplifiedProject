@@ -12,16 +12,21 @@ router
 //   .post(auth('superadmin'), validate(userValidation.createUser), schoolController.createSchool)
   .get(auth('superadmin'), validate(schoolValidation.getSchools), schoolController.getSchools);
 
+  router
+  .route('/filter/by-post')
+  .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
+  router
+  .route('/get-district')
+  .get(auth('superadmin'), schoolController.getDistrictList);
+  router
+  .route('/get-block')
+  .post(auth('superadmin'),  validate(schoolValidation.getBlock), schoolController.getBlockList);
 router
   .route('/:udisecode')
   .get(auth('superadmin'), validate(schoolValidation.getSchool), schoolController.getSchool);
 //   .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
 //   .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
 
-
-router
-  .route('/filter/by-post')
-  .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
 module.exports = router;
 
 /**
@@ -134,6 +139,59 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  *       "404":
  *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /schools/get-district:
+ *   get:
+ *     summary: Get a school
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other school.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/School'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /schools/get-block:
+ *   post:
+ *     summary: Login
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               district:
+ *                 type: string
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/School'
  */
 
 /**

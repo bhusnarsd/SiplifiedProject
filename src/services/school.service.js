@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // const httpStatus = require('http-status');
 const { School } = require('../models');
 // const ApiError = require('../utils/ApiError');
@@ -52,9 +53,40 @@ const getSchoolByFilter = async (district, block) => {
   const filters = {};
   if (district) filters.district = district;
   if (block) filters.block = block;
-  console.log(filters);
   return School.find(filters);
 };
+
+/**
+ * Get district names
+ * @returns {Promise<School>}
+ */
+const getDistrictList = async() => {
+    const district = await School.find({}, { district: 1,  }).distinct('district');
+    return district
+};
+
+/**
+ * Get block names
+ * @param {string} district
+ * @returns {Promise<School>}
+ */
+const getBlockList = async(district) => {
+  const block = await School.find({ district }, { block: 1,  }).distinct('block');
+  return block
+}
+
+
+// Endpoint to get district-wise block names
+// router.get('/district-blocks', async (req, res) => {
+//   try {
+//     const districtWiseBlocks = await School.find({}, { district: 1, block: 1 }).distinct('block');
+//     res.status(200).json({ success: true, data: districtWiseBlocks });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// });
+
+
 
 // /**
 //  * Update user by id
@@ -92,6 +124,8 @@ module.exports = {
   // getUserById,
   getSchoolByUdisecode,
   getSchoolByFilter,
+  getDistrictList,
+  getBlockList,
 
   //   updateUserById,
   //   deleteUserById,
