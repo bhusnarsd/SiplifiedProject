@@ -18,6 +18,22 @@ const getSchools = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getSchoolsByDistrict = catchAsync(async (req, res) => {
+  const  district  = req.user.asssignedTo;
+  const filter = { district };
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await schoolService.querySchool(filter, options);
+  res.send(result);
+});
+
+const getSchoolsByBlock = catchAsync(async (req, res) => {
+  const  block  = req.user.asssignedTo;
+  const filter = { block };
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await schoolService.querySchool(filter, options);
+  res.send(result);
+});
+
 const getSchool = catchAsync(async (req, res) => {
   const school = await schoolService.getSchoolByUdisecode(req.params.udisecode);
   if (!school) {
@@ -51,6 +67,8 @@ const getSchoolByFilter = catchAsync(async (req) => {
 module.exports = {
   createSchool,
   getSchools,
+  getSchoolsByDistrict,
+  getSchoolsByBlock,
   getSchool,
   getDistrictList,
   getBlockList,
