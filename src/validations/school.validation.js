@@ -18,6 +18,12 @@ const getSchool = {
   }),
 };
 
+const getBlock = {
+  body: Joi.object().keys({
+    district: Joi.string(),
+  }),
+};
+
 const getSchoolByFilter = {
   query: Joi.object().keys({
     district: Joi.string(),
@@ -30,5 +36,6 @@ module.exports = {
 //   createUser,
   getSchools,
   getSchool,
-  getSchoolByFilter
+  getSchoolByFilter,
+  getBlock
 };
