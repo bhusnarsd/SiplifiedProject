@@ -11,6 +11,13 @@ const getSchools = {
     page: Joi.number().integer(),
   }),
 };
+const getSchoolsDistrict = {
+  query: Joi.object().keys({
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
 
 const getSchool = {
   params: Joi.object().keys({
@@ -37,5 +44,6 @@ module.exports = {
   getSchools,
   getSchool,
   getSchoolByFilter,
-  getBlock
+  getBlock,
+  getSchoolsDistrict,
 };
