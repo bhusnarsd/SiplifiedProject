@@ -29,6 +29,23 @@ const getSchools = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getSchoolsStats = catchAsync(async (req, res) => {
+  let filter = {};
+  const role = req.user.role;
+  const assignedTo = req.user.asssignedTo;
+
+  if (role === 'district_officer') {
+    filter = { district: assignedTo };
+  } else if (role === 'block_officer') {
+    filter = { block: assignedTo };
+  } else if (role === 'state_officer') {
+    // No specific filtering needed for state officer
+  }
+
+  const result = await schoolService.getSchoolStat(filter);
+  res.send(result);
+});
+
 
 
 const getSchool = catchAsync(async (req, res) => {
@@ -67,5 +84,6 @@ module.exports = {
   getSchool,
   getDistrictList,
   getBlockList,
-  getSchoolByFilter
+  getSchoolByFilter,
+  getSchoolsStats
 };

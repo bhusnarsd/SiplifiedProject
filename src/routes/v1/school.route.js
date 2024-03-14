@@ -11,9 +11,9 @@ router
   .route('/')
 //   .post(auth('superadmin'), validate(userValidation.createUser), schoolController.createSchool)
   .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getSchools), schoolController.getSchools);
-  // router
-  // .route('/district')
-  // .get(auth('district_officer'), validate(schoolValidation.getSchoolsDistrict), schoolController.getSchoolsByDistrict);
+  router
+  .route('/school-stats')
+  .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStats);
 
   // router
   // .route('/block')
@@ -118,6 +118,24 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  */
 
+
+/**
+ * @swagger
+ * /schools/school-stats:
+ *   get:
+ *     summary: Get student and staff count by district
+ *     description: Retrieve the total student and staff count for each district.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
 
 /**
  * @swagger
