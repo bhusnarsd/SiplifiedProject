@@ -12,27 +12,24 @@ const createSchool = catchAsync(async (req, res) => {
 });
 
 const getSchools = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'district', 'block']);
+  let filter = {};
+  const role = req.user.role;
+  const assignedTo = req.user.asssignedTo;
+
+  if (role === 'district_officer') {
+    filter = { district: assignedTo };
+  } else if (role === 'block_officer') {
+    filter = { block: assignedTo };
+  } else if (role === 'state_officer') {
+    // No specific filtering needed for state officer
+  }
+
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await schoolService.querySchool(filter, options);
   res.send(result);
 });
 
-const getSchoolsByDistrict = catchAsync(async (req, res) => {
-  const  district  = req.user.asssignedTo;
-  const filter = { district };
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await schoolService.querySchool(filter, options);
-  res.send(result);
-});
 
-const getSchoolsByBlock = catchAsync(async (req, res) => {
-  const  block  = req.user.asssignedTo;
-  const filter = { block };
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await schoolService.querySchool(filter, options);
-  res.send(result);
-});
 
 const getSchool = catchAsync(async (req, res) => {
   const school = await schoolService.getSchoolByUdisecode(req.params.udisecode);
@@ -67,8 +64,6 @@ const getSchoolByFilter = catchAsync(async (req) => {
 module.exports = {
   createSchool,
   getSchools,
-  getSchoolsByDistrict,
-  getSchoolsByBlock,
   getSchool,
   getDistrictList,
   getBlockList,
