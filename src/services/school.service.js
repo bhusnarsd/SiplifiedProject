@@ -46,6 +46,35 @@ const getSchoolByUdisecode = async (udisecode) => {
 
 /**
  * Get user by udisecode
+ * @param {string} udisecode
+ * @returns {Promise<School>}
+ */
+const getSchoolStat = async (filter) => {
+  const result = await School.aggregate([
+    {
+      $match: filter
+    },
+    {
+      $group: {
+        _id: null,
+        totalStudents: { $sum: '$student' },
+        totalStaff: { $sum: '$staff' }
+      }
+    }
+  ]);
+  const totalSchool = await School.countDocuments(filter);
+  const { totalStudents, totalStaff } = result[0];
+
+  return {
+    totalSchool,
+    totalStudents,
+    totalStaff
+  };
+};
+
+
+/**
+ * Get user by udisecode
  * @param {string} district
  * @returns {Promise<School>}
  */
@@ -121,6 +150,7 @@ const getBlockList = async(district) => {
 module.exports = {
   createSchool,
   querySchool,
+  getSchoolStat,
   // getUserById,
   getSchoolByUdisecode,
   getSchoolByFilter,
