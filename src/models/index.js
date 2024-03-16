@@ -60,3 +60,4 @@ module.exports.Teacher = require('./masterModels/type.of.teacher.model');
 module.exports.Tranningstaff = require('./masterModels/staff.training.model');
 module.exports.Appointed = require('./masterModels/appointed.level.model');
 module.exports.AssetMaster = require('./masterModels/assetMaster.model');
+module.exports.Sansthan = require('./sansthan.model');

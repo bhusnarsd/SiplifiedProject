@@ -14,27 +14,15 @@ const createSection1A10 = {
     urbanlocalbodies: Joi.string().allow('').optional(),
     wardname: Joi.string().allow('').optional(),
     address: Joi.string().allow('').optional(),
-    pincode: Joi.string()
-      .regex(/^\d{6}$/)
-      .allow('')
-      .optional(),
+    pincode: Joi.string().allow('').optional(),
     crc: Joi.string().allow('').optional(),
     assembly: Joi.string().allow('').optional(),
     parliamentary: Joi.string().allow('').optional(),
     latitude: Joi.string().allow('').optional(),
     longitude: Joi.string().allow('').optional(),
-    stdcode: Joi.string()
-      .regex(/^\d{3}$/)
-      .allow('')
-      .optional(),
-    landline: Joi.string()
-      .regex(/^\d{8,}$/)
-      .allow('')
-      .optional(),
-    mobileno: Joi.string()
-      .regex(/^\d{10}$/)
-      .allow('')
-      .optional(),
+    stdcode: Joi.string().allow('').optional(),
+    landline: Joi.string().allow('').optional(),
+    mobileno: Joi.string().allow('').optional(),
     email: Joi.string().email().allow('').optional(),
     website: Joi.string().uri().allow('').optional(),
     profile_count: Joi.string().allow('').optional(),

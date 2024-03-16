@@ -51,6 +51,13 @@ const getSchoolCountDistrict = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getSchoolCountByBlock = catchAsync(async (req, res) => {
+  const district = req.user.assignedTo;
+  console.log(district)
+  const result = await schoolService.getSchoolCountByBlock(district);
+  res.send(result);
+});
+
 
 const getSchool = catchAsync(async (req, res) => {
   const school = await schoolService.getSchoolByUdisecode(req.params.udisecode);
@@ -91,4 +98,5 @@ module.exports = {
   getSchoolByFilter,
   getSchoolsStats,
   getSchoolCountDistrict,
+  getSchoolCountByBlock,
 };

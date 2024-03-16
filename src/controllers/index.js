@@ -58,3 +58,4 @@ module.exports.teacherController = require('./masterControllers/type.of.teacher.
 module.exports.tranningController = require('./masterControllers/staff.training.controller');
 module.exports.appointedController = require('./masterControllers/appointed.level.controller');
 module.exports.assetMasterController = require('./masterControllers/assetMaster.controller');
+module.exports.sansthanController = require('./sansthan.controller');

@@ -8,6 +8,35 @@ const register = {
     name: Joi.string().required(),
   }),
 };
+// Sansthan register
+const sansthanRegister = {
+  body: Joi.object().keys({
+    userID: Joi.string().required(),
+    password: Joi.string().required().custom(password),
+    sansthanName: Joi.string().required(),
+    state: Joi.string().required(),
+    registrationDist: Joi.string().required(),
+    mobNumber: Joi.number().required(),
+    otp: Joi.number().required(),
+  }),
+};
+// Sansthan login
+const sansthanLogin = {
+  body: Joi.object().keys({
+    userID: Joi.string().required(),
+    password: Joi.string().required(),
+  }),
+};
+const checkUserIdExist = {
+  body: Joi.object().keys({
+    userID: Joi.string(),
+  }),
+};
+const verifyMobNumber = {
+  body: Joi.object().keys({
+    mobNumber: Joi.string().required(),
+  }),
+};
 
 const login = {
   body: Joi.object().keys({
@@ -57,4 +86,8 @@ module.exports = {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  sansthanRegister,
+  sansthanLogin,
+  checkUserIdExist,
+  verifyMobNumber,
 };

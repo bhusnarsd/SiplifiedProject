@@ -15,12 +15,13 @@ const { tokenTypes } = require('../config/tokens');
  * @param {string} [secret]
  * @returns {string}
  */
-const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
+const generateToken = (userId, expires, type, userType, secret = config.jwt.secret) => {
   const payload = {
     sub: userId,
     iat: moment().unix(),
     exp: expires.unix(),
     type,
+    userType,
   };
   return jwt.sign(payload, secret);
 };
@@ -65,12 +66,12 @@ const verifyToken = async (token, type) => {
  * @param {User} user
  * @returns {Promise<Object>}
  */
-const generateAuthTokens = async (user) => {
+const generateAuthTokens = async (user, userType) => {
   const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, 'minutes');
-  const accessToken = generateToken(user.id, accessTokenExpires, tokenTypes.ACCESS);
+  const accessToken = generateToken(user.id, accessTokenExpires, tokenTypes.ACCESS, userType);
 
   const refreshTokenExpires = moment().add(config.jwt.refreshExpirationDays, 'days');
-  const refreshToken = generateToken(user.id, refreshTokenExpires, tokenTypes.REFRESH);
+  const refreshToken = generateToken(user.id, refreshTokenExpires, tokenTypes.REFRESH, userType);
   await saveToken(refreshToken, user.id, refreshTokenExpires, tokenTypes.REFRESH);
 
   return {
@@ -87,13 +88,13 @@ const generateAuthTokens = async (user) => {
 
 /**
  * Generate reset password token
- * @param {string} username
+ * @param {string} email
  * @returns {Promise<string>}
  */
-const generateResetPasswordToken = async (username) => {
-  const user = await userService.getUserByEmail(username);
+const generateResetPasswordToken = async (email) => {
+  const user = await userService.getUserByEmail(email);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this username');
+    throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this email');
   }
   const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes');
   const resetPasswordToken = generateToken(user.id, expires, tokenTypes.RESET_PASSWORD);
@@ -102,7 +103,7 @@ const generateResetPasswordToken = async (username) => {
 };
 
 /**
- * Generate verify username token
+ * Generate verify email token
  * @param {User} user
  * @returns {Promise<string>}
  */
