@@ -78,7 +78,7 @@ const getSchoolStat = async (filter) => {
  * @param {string} udisecode
  * @returns {Promise<School>}
  */
-const getSchoolCountDistrict = async (filter) => {
+const getSchoolCountDistrict = async () => {
   const result = await School.aggregate([
     {
       $group: {
@@ -99,7 +99,7 @@ const getSchoolCountDistrict = async (filter) => {
 const getSchoolCountByBlock = async (district) => {
   const result = await School.aggregate([
     {
-$match: district
+      $match: {district}
     },
     {
       $group: {

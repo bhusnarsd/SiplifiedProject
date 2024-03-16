@@ -13,7 +13,7 @@ const createSection1A10 = {
     grampanchayatname: Joi.string().allow('').optional(),
     urbanlocalbodies: Joi.string().allow('').optional(),
     wardname: Joi.string().allow('').optional(),
-    Address: Joi.string().allow('').optional(),
+    Address: Joi.string().allow('').optional(), // changes
     pincode: Joi.string().allow('').optional(),
     crc: Joi.string().allow('').optional(),
     assembly: Joi.string().allow('').optional(),

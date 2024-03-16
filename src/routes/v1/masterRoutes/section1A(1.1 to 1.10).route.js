@@ -13,11 +13,11 @@ router
   .route('/getSchoolByScode/:scode')
   .get(validate(Section1A10Validation.getSchoolByScode), Section1A10Controller.getSchoolByScode);
 
-router
-  .route('/:Section1A10Id')
-  .get(validate(Section1A10Validation.getSection1A10), Section1A10Controller.getSection1A10ById)
-  .patch(validate(Section1A10Validation.updateSection1A10), Section1A10Controller.updateSection1A10)
-  .delete(validate(Section1A10Validation.deleteSection1A10), Section1A10Controller.deleteSection1A10);
+// router
+//   .route('/:Section1A10Id')
+//   .get(validate(Section1A10Validation.getSection1A10), Section1A10Controller.getSection1A10ById)
+//   .patch(validate(Section1A10Validation.updateSection1A10), Section1A10Controller.updateSection1A10)
+//   .delete(validate(Section1A10Validation.deleteSection1A10), Section1A10Controller.deleteSection1A10);
 
 module.exports = router;
 
@@ -183,136 +183,136 @@ module.exports = router;
  *         description: School not found
  */
 
-/**
- * @swagger
- * /section1A10/{Section1A10Id}:
- *   get:
- *     summary: Get a section1A10
- *     tags: [section1A10]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: Section1A10Id
- *         required: true
- *         schema:
- *           type: string
- *         description: Section1A10Id
- *     responses:
- *       "200":
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/section1A10'
- *       "401":
- *         $ref: '#/components/responses/Unauthorized'
- *       "403":
- *         $ref: '#/components/responses/Forbidden'
- *       "404":
- *         $ref: '#/components/responses/NotFound'
- *
- *   patch:
- *     summary: Update a section1A10
- *     tags: [section1A10]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: Section1A10Id
- *         required: true
- *         schema:
- *           type: string
- *         description: Section1A10Id
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               - UDISEcode
- *               - schoolname
- *               - districtname
- *               - udiseblock
- *               - typeofschool
- *               - revenueblock
- *               - villagename
- *               - grampanchayatname
- *               - urbanlocalbodies
- *               - wardname
- *               - address
- *               - pincode
- *               - crc
- *               - assembly
- *               - parliamentary
- *               - latitude
- *               - longitude
- *               - stdcode
- *               - landline
- *               - mobileno
- *               - email
- *               - website
- *               - profile_count
- *               - scode
- *             example:
- *               UDISEcode : UDISE_CODE_VALUE
- *               schoolname: SCHOOL_NAME_VALUE
- *               districtname: 64d327a41128844220f0cce4
- *               udiseblock: 64d327a41128844220f0cce4
- *               typeofschool: TYPE_OF_SCHOOL_VALUE
- *               revenueblock: REVENUE_BLOCK_VALUE
- *               villagename: VILLAGE_NAME_VALUE
- *               grampanchayatname: GRAMPANCHAYAT_NAME_VALUE
- *               urbanlocalbodies: URBAN_LOCAL_BODIES_VALUE
- *               wardname: WARD_NAME_VALUE
- *               address: ADDRESS_VALUE
- *               pincode: "123123"
- *               crc: "CRC"
- *               assembly: ASSEMBLY_CONSTITUENCY_VALUE
- *               parliamentary: PARLIAMENTARY_CONSTITUENCY_VALUE
- *               latitude: LATITUDE_VALUE
- *               longitude: LONGITUDE_VALUE
- *               stdcode: "123"
- *               landline: "12312321"
- *               mobileno: "9049114189"
- *               email: manishspatil345@gmail.com
- *               website: https://www.example.com
- *               profile_count: PROFILE_COUNT_VALUE
- *               scode: SCODE_VALUE
- *     responses:
- *       "200":
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/section1A10'
- *       "401":
- *         $ref: '#/components/responses/Unauthorized'
- *       "403":
- *         $ref: '#/components/responses/Forbidden'
- *       "404":
- *         $ref: '#/components/responses/NotFound'
- *
- *   delete:
- *     summary: Delete a type section1A10
- *     tags: [section1A10]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: Section1A10Id
- *         required: true
- *         schema:
- *           type: string
- *         description: Section1A10Id
- *     responses:
- *       "200":
- *         description: No content
- *       "401":
- *         $ref: '#/components/responses/Unauthorized'
- *       "403":
- *         $ref: '#/components/responses/Forbidden'
- *       "404":
- *         $ref: '#/components/responses/NotFound'
- */
+// /**
+//  * @swagger
+//  * /section1A10/{Section1A10Id}:
+//  *   get:
+//  *     summary: Get a section1A10
+//  *     tags: [section1A10]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: Section1A10Id
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *         description: Section1A10Id
+//  *     responses:
+//  *       "200":
+//  *         description: OK
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *                $ref: '#/components/schemas/section1A10'
+//  *       "401":
+//  *         $ref: '#/components/responses/Unauthorized'
+//  *       "403":
+//  *         $ref: '#/components/responses/Forbidden'
+//  *       "404":
+//  *         $ref: '#/components/responses/NotFound'
+//  *
+//  *   patch:
+//  *     summary: Update a section1A10
+//  *     tags: [section1A10]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: Section1A10Id
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *         description: Section1A10Id
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               - UDISEcode
+//  *               - schoolname
+//  *               - districtname
+//  *               - udiseblock
+//  *               - typeofschool
+//  *               - revenueblock
+//  *               - villagename
+//  *               - grampanchayatname
+//  *               - urbanlocalbodies
+//  *               - wardname
+//  *               - address
+//  *               - pincode
+//  *               - crc
+//  *               - assembly
+//  *               - parliamentary
+//  *               - latitude
+//  *               - longitude
+//  *               - stdcode
+//  *               - landline
+//  *               - mobileno
+//  *               - email
+//  *               - website
+//  *               - profile_count
+//  *               - scode
+//  *             example:
+//  *               UDISEcode : UDISE_CODE_VALUE
+//  *               schoolname: SCHOOL_NAME_VALUE
+//  *               districtname: 64d327a41128844220f0cce4
+//  *               udiseblock: 64d327a41128844220f0cce4
+//  *               typeofschool: TYPE_OF_SCHOOL_VALUE
+//  *               revenueblock: REVENUE_BLOCK_VALUE
+//  *               villagename: VILLAGE_NAME_VALUE
+//  *               grampanchayatname: GRAMPANCHAYAT_NAME_VALUE
+//  *               urbanlocalbodies: URBAN_LOCAL_BODIES_VALUE
+//  *               wardname: WARD_NAME_VALUE
+//  *               address: ADDRESS_VALUE
+//  *               pincode: "123123"
+//  *               crc: "CRC"
+//  *               assembly: ASSEMBLY_CONSTITUENCY_VALUE
+//  *               parliamentary: PARLIAMENTARY_CONSTITUENCY_VALUE
+//  *               latitude: LATITUDE_VALUE
+//  *               longitude: LONGITUDE_VALUE
+//  *               stdcode: "123"
+//  *               landline: "12312321"
+//  *               mobileno: "9049114189"
+//  *               email: manishspatil345@gmail.com
+//  *               website: https://www.example.com
+//  *               profile_count: PROFILE_COUNT_VALUE
+//  *               scode: SCODE_VALUE
+//  *     responses:
+//  *       "200":
+//  *         description: OK
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *                $ref: '#/components/schemas/section1A10'
+//  *       "401":
+//  *         $ref: '#/components/responses/Unauthorized'
+//  *       "403":
+//  *         $ref: '#/components/responses/Forbidden'
+//  *       "404":
+//  *         $ref: '#/components/responses/NotFound'
+//  *
+//  *   delete:
+//  *     summary: Delete a type section1A10
+//  *     tags: [section1A10]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: Section1A10Id
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *         description: Section1A10Id
+//  *     responses:
+//  *       "200":
+//  *         description: No content
+//  *       "401":
+//  *         $ref: '#/components/responses/Unauthorized'
+//  *       "403":
+//  *         $ref: '#/components/responses/Forbidden'
+//  *       "404":
+//  *         $ref: '#/components/responses/NotFound'
+//  */

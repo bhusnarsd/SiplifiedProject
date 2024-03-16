@@ -52,8 +52,7 @@ const getSchoolCountDistrict = catchAsync(async (req, res) => {
 });
 
 const getSchoolCountByBlock = catchAsync(async (req, res) => {
-  const district = req.user.assignedTo;
-  console.log(district)
+  const district = req.user.asssignedTo;
   const result = await schoolService.getSchoolCountByBlock(district);
   res.send(result);
 });

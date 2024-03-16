@@ -5,7 +5,7 @@ const catchAsync = require('../../utils/catchAsync');
 const Section1A10Service = require('../../services/masterService/section1A(1.1 to 1.10).service');
 
 const createSection1A10 = catchAsync(async (req, res) => {
-  const Section1A10 = await Section1A10Service.createsection1A10(req.body);
+  const Section1A10 = await Section1A10Service.createsection1A10(req.body.scode, req.body);
   res.status(httpStatus.CREATED).send(Section1A10);
 });
 
@@ -16,18 +16,18 @@ const getAllSection1A10 = catchAsync(async (req, res) => {
   res.send(result);
 });
 
-const getSection1A10ById = catchAsync(async (req, res) => {
-  const Section1A10 = await Section1A10Service.getsection1A10ById(req.params.Section1A10Id);
-  if (!Section1A10) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Section1A_10 not found');
-  }
-  res.send(Section1A10);
-});
+// const getSection1A10ByScode = catchAsync(async (req, res) => {
+//   const Section1A10 = await Section1A10Service.getsection1A10ByScode(req.params.scode);
+//   if (!Section1A10) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Section1A_10 not found');
+//   }
+//   res.send(Section1A10);
+// });
 
-const updateSection1A10 = catchAsync(async (req, res) => {
-  const Section1A10 = await Section1A10Service.updatesection1A10ById(req.params.Section1A10Id, req.body);
-  res.send(Section1A10);
-});
+// const updateSection1A10 = catchAsync(async (req, res) => {
+//   const Section1A10 = await Section1A10Service.updatesection1A10ById(req.params.Section1A10Id, req.body);
+//   res.send(Section1A10);
+// });
 
 const getSchoolByScode = catchAsync(async (req, res) => {
   const school = await Section1A10Service.getSchoolScode(req.params.scode);
@@ -37,16 +37,16 @@ const getSchoolByScode = catchAsync(async (req, res) => {
   res.send(school);
 });
 
-const deleteSection1A10 = catchAsync(async (req, res) => {
-  await Section1A10Service.deletesection1A10ById(req.params.Section1A10Id);
-  res.status(httpStatus.NO_CONTENT).send();
-});
+// const deleteSection1A10 = catchAsync(async (req, res) => {
+//   await Section1A10Service.deletesection1A10ById(req.params.Section1A10Id);
+//   res.status(httpStatus.NO_CONTENT).send();
+// });
 
 module.exports = {
   createSection1A10,
   getAllSection1A10,
-  getSection1A10ById,
-  updateSection1A10,
-  deleteSection1A10,
+  // getSection1A10ByScode,
+  // updateSection1A10,
+  // deleteSection1A10,
   getSchoolByScode,
 };

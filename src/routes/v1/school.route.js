@@ -7,6 +7,7 @@ const { schoolController } = require('../../controllers');
 
 const router = express.Router();
 
+
 router
   .route('/')
 //   .post(auth('superadmin'), validate(userValidation.createUser), schoolController.createSchool)
@@ -15,14 +16,14 @@ router
   .route('/school-stats')
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStats);
 
-  // router
-  // .route('/school-count/district-wise')
-  // .get(auth('state_officer'), schoolController.getSchoolCountDistrict);
+  router
+  .route('/school-count/district-wise')
+  .get(auth('state_officer'), schoolController.getSchoolCountDistrict);
+
   router
   .route('/school-count/block-wise/abcd')
-  .get(auth('district_officer'), schoolController.getSchoolCountByBlock);
-
-
+  .get(auth('district_officer'), schoolController.getSchoolCountByBlock);// 
+  
   router
   .route('/filter/by-post')
   .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
