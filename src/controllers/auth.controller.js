@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { userTypes } = require('../config/tokens');
-const { authService, userService, tokenService, emailService, sansthanService } = require('../services');
+// const { userTypes } = require('../config/tokens');
+const { authService, userService, tokenService, emailService } = require('../services');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -9,23 +9,23 @@ const register = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
-// Sansthan register
-const sansthanRegister = catchAsync(async (req, res) => {
-  const sansthan = await sansthanService.createSansthan(req.body);
-  res.status(httpStatus.CREATED).send({ sansthan });
-});
+// // Sansthan register
+// const sansthanRegister = catchAsync(async (req, res) => {
+//   const sansthan = await sansthanService.createSansthan(req.body);
+//   res.status(httpStatus.CREATED).send({ sansthan });
+// });
 
-// TO check userId exist in sansthan
-const checkUserIdExist = catchAsync(async (req, res) => {
-  await sansthanService.checkUserIdExist(req.body.userID);
-  res.send('UserID not exist');
-});
-// Verify  phone number
-const verifyNumber = catchAsync(async (req, res) => {
-  const otp = await otpService.generateOTP();
-  await otpService.sendSMSToVerifyNo(req.body.mobNumber, otp);
-  res.status(httpStatus.CREATED).send();
-});
+// // TO check userId exist in sansthan
+// const checkUserIdExist = catchAsync(async (req, res) => {
+//   await sansthanService.checkUserIdExist(req.body.userID);
+//   res.send('UserID not exist');
+// });
+// // Verify  phone number
+// const verifyNumber = catchAsync(async (req, res) => {
+//   const otp = await otpService.generateOTP();
+//   await otpService.sendSMSToVerifyNo(req.body.mobNumber, otp);
+//   res.status(httpStatus.CREATED).send();
+// });
 
 const login = catchAsync(async (req, res) => {
   const { username, password } = req.body;
@@ -33,13 +33,13 @@ const login = catchAsync(async (req, res) => {
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
 });
-// Login for Sansthans
-const loginSansthan = catchAsync(async (req, res) => {
-  const { userID, password } = req.body;
-  const sansthan = await authService.loginSansthanWithUserIDAndPassword(userID, password);
-  const tokens = await tokenService.generateAuthTokens(sansthan, userTypes.SANSTHAN);
-  res.send({ sansthan, tokens });
-});
+// // Login for Sansthans
+// const loginSansthan = catchAsync(async (req, res) => {
+//   const { userID, password } = req.body;
+//   const sansthan = await authService.loginSansthanWithUserIDAndPassword(userID, password);
+//   const tokens = await tokenService.generateAuthTokens(sansthan, userTypes.SANSTHAN);
+//   res.send({ sansthan, tokens });
+// });
 
 const logout = catchAsync(async (req, res) => {
   await authService.logout(req.body.refreshToken);
@@ -82,8 +82,8 @@ module.exports = {
   resetPassword,
   sendVerificationEmail,
   verifyEmail,
-  sansthanRegister,
-  checkUserIdExist,
-  verifyNumber,
-  loginSansthan,
+  // sansthanRegister,
+  // checkUserIdExist,
+  // verifyNumber,
+  // loginSansthan,
 };
