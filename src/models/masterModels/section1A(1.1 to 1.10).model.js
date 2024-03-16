@@ -37,7 +37,7 @@ const section1A10Schema = mongoose.Schema(
     wardname: {
       type: String,
     },
-    address: {
+    Address: {
       type: String,
     },
     pincode: {

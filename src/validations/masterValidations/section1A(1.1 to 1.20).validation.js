@@ -6,10 +6,10 @@ const createSection1A20 = {
     hoschool: Joi.string().allow('').optional().required(),
     hosname: Joi.string().allow('').optional(),
     hosmobileno: Joi.string()
-      .regex(/^\d{10}$/)
+
       .allow('')
       .optional(),
-    schoolcategory: Joi.string().required(),
+    schoolcategory: Joi.string(),
     htlclass: Joi.string().allow('').optional(),
     htlclasshigher: Joi.string().allow('').optional(),
     schoolcwsn: Joi.string().allow('').optional(),
@@ -21,7 +21,7 @@ const createSection1A20 = {
     Streams: Joi.string().allow('').optional(),
     typeschool: Joi.string().allow('').optional(),
     manggroup: Joi.string().allow('').optional(),
-    mangcode: Joi.string().required(),
+    mangcode: Joi.string(),
     code101: Joi.string().allow('').optional(),
     admintype: Joi.string().allow('').optional(),
     affilationBoard: Joi.string().allow('').optional(),
@@ -38,7 +38,7 @@ const createSection1A20 = {
     upperprimary: Joi.string().allow('').optional(),
     Secondary: Joi.string().allow('').optional(),
     higherSecondary: Joi.string().allow('').optional(),
-    scode: Joi.string().allow('').optional(),
+    scode: Joi.string().allow('').required().optional(),
   }),
 };
 
@@ -63,10 +63,10 @@ const updateSection1A20 = {
   }),
   body: Joi.object()
     .keys({
-      hoschool: Joi.string().allow('').optional(),
+      hoschool: Joi.string().allow('').optional().required(),
       hosname: Joi.string().allow('').optional(),
       hosmobileno: Joi.string()
-        .regex(/^\d{10}$/)
+
         .allow('')
         .optional(),
       schoolcategory: Joi.string(),
