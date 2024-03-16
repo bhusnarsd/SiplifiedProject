@@ -53,3 +53,4 @@ module.exports.QualificationValidation = require('./masterValidations/staff.prof
 module.exports.teacherValidation = require('./masterValidations/type.of.teacher.validation');
 module.exports.tranningValidation = require('./masterValidations/staff.training.validation');
 module.exports.appointedValidation = require('./masterValidations/appointed.level.validation');
+module.exports.sansthanValidation = require('./sansthan.validation');

@@ -90,6 +90,27 @@ const getSchoolCountDistrict = async (filter) => {
 
   return  result;
 };
+
+/**
+ * Get user by udisecode
+ * @param {string} udisecode
+ * @returns {Promise<School>}
+ */
+const getSchoolCountByBlock = async (district) => {
+  const result = await School.aggregate([
+    {
+$match: district
+    },
+    {
+      $group: {
+        _id: '$block',
+        totalSchools: { $sum: 1 },
+      }
+    }
+  ]);
+
+  return  result;
+};
 /**
  * Get user by udisecode
  * @param {string} district
@@ -169,6 +190,7 @@ module.exports = {
   querySchool,
   getSchoolStat,
   getSchoolCountDistrict,
+  getSchoolCountByBlock,
   // getUserById,
   getSchoolByUdisecode,
   getSchoolByFilter,
