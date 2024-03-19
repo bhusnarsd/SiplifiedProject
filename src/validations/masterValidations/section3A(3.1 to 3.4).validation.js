@@ -15,7 +15,7 @@ const createSection3A = {
     totalnoofteachingstaff: Joi.string().allow('').optional(),
     noofgusetteacher: Joi.string().allow('').optional(),
     nooftransgenderstaff: Joi.string().allow('').optional(),
-    scode: Joi.string().allow('').optional(),
+    scode: Joi.string().allow('').required().optional(),
   }),
 };
 

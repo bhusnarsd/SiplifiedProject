@@ -28,7 +28,7 @@ const createSection1E62 = {
     sepratrroomavai2: Joi.string().allow('').optional(),
     sepratrroomavai3: Joi.string().allow('').optional(),
     sepratrroomavai4: Joi.string().allow('').optional(),
-    scode: Joi.string().allow('').optional(),
+    scode: Joi.string().allow('').required().optional(),
   }),
 };
 
