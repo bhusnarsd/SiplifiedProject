@@ -5,7 +5,7 @@ const createSection1C57 = {
   body: Joi.object().keys({
     middayMeal: Joi.string().allow('').optional(),
     NoOfDayMidDayMeal: Joi.number().integer(),
-    NoofteacherAadharindatabase: Joi.number().integer(),
+    NoofteacherAadharindatabase: Joi.number(),
     schoolevaluation: Joi.string().allow('').optional(),
     schoolcertifiedFIT: Joi.string().allow('').optional(),
     schoolprovHolisticReportCard: Joi.string().allow('').optional(),
@@ -18,7 +18,7 @@ const createSection1C57 = {
     constEcoClub: Joi.string().allow('').optional(),
     teacherIdcard: Joi.string().allow('').optional(),
     SSSAcertiobtain: Joi.string().allow('').optional(),
-    scode: Joi.string().allow('').optional(),
+    scode: Joi.string().allow('').required().optional(),
   }),
 };
 

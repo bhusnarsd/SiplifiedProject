@@ -50,7 +50,7 @@ const createSection1A40 = {
     anganwaditrained3Boys: Joi.string().allow('').optional(),
     anganwaditrained3Girls: Joi.string().allow('').optional(),
     Balavatikastarted: Joi.string().allow('').optional(),
-    scode: Joi.string().allow('').optional(),
+    scode: Joi.string().allow('').required().optional(),
   }),
 };
 
