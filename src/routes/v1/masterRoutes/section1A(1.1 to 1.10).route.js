@@ -53,7 +53,7 @@ module.exports = router;
  *               - grampanchayatname
  *               - urbanlocalbodies
  *               - wardname
- *               - address
+ *               - Address
  *               - pincode
  *               - crc
  *               - assembly
@@ -78,7 +78,7 @@ module.exports = router;
  *               grampanchayatname: GRAMPANCHAYAT_NAME_VALUE
  *               urbanlocalbodies: URBAN_LOCAL_BODIES_VALUE
  *               wardname: WARD_NAME_VALUE
- *               address: ADDRESS_VALUE
+ *               Address: ADDRESS_VALUE
  *               pincode: "123123"
  *               crc: "CRC"
  *               assembly: ASSEMBLY_CONSTITUENCY_VALUE
