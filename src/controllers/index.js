@@ -59,3 +59,4 @@ module.exports.tranningController = require('./masterControllers/staff.training.
 module.exports.appointedController = require('./masterControllers/appointed.level.controller');
 module.exports.assetMasterController = require('./masterControllers/assetMaster.controller');
 module.exports.sansthanController = require('./sansthan.controller');
+module.exports.assetManagementController = require('./asset.management.controller');
