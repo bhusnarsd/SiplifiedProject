@@ -75,6 +75,7 @@ const schoolSchema = mongoose.Schema({
     type: Number,
   },
   resultlist: [{
+    _id: false, 
     male: String,
     female: String,
     class: String,
