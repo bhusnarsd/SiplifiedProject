@@ -1,6 +1,17 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
+const createSansthan = {
+  body: Joi.object().keys({
+    registrationDist: Joi.string(),
+    state: Joi.string(),
+    mobNumber: Joi.number(),
+    sansthanName: Joi.string(),
+    userName: Joi.string(),
+    password: Joi.string(),
+  }),
+};
+
 const getAllSansthan = {
   query: Joi.object().keys({
     name: Joi.string(),
@@ -38,4 +49,5 @@ module.exports = {
   getAllSansthan,
   getSansthan,
   updateSansthan,
+  createSansthan,
 };

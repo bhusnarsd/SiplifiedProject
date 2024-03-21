@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 // const { userTypes } = require('../config/tokens');
@@ -26,6 +27,9 @@ const register = catchAsync(async (req, res) => {
 //   await otpService.sendSMSToVerifyNo(req.body.mobNumber, otp);
 //   res.status(httpStatus.CREATED).send();
 // });
+
+  
+
 
 const login = catchAsync(async (req, res) => {
   const { username, password } = req.body;

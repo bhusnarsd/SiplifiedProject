@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const { toJSON, paginate } = require('./plugins');
 
 const sansthanShema = mongoose.Schema(
@@ -18,7 +18,7 @@ const sansthanShema = mongoose.Schema(
       type: String,
       required: true,
     },
-    userID: {
+    userName: {
       type: String,
       required: true,
       unique: true,
@@ -43,6 +43,10 @@ const sansthanShema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -53,8 +57,8 @@ sansthanShema.plugin(toJSON);
 sansthanShema.plugin(paginate);
 
 // Static method to check if userID already exists
-sansthanShema.statics.isUserIDTaken = async function (userID) {
-  const existingSansthan = await this.findOne({ userID });
+sansthanShema.statics.isUserNameTaken = async function (userName) {
+  const existingSansthan = await this.findOne({ userName });
   return !!existingSansthan;
 };
 sansthanShema.statics.isMobNumberTaken = async function (mobNumber) {
@@ -66,18 +70,18 @@ sansthanShema.statics.isMobNumberTaken = async function (mobNumber) {
  * @param {string} password
  * @returns {Promise<boolean>}
  */
-sansthanShema.methods.isPasswordMatch = async function (password) {
-  const sansthan = this;
-  return bcrypt.compare(password, sansthan.password);
-};
+// sansthanShema.methods.isPasswordMatch = async function (password) {
+//   const sansthan = this;
+//   return bcrypt.compare(password, sansthan.password);
+// };
 
-sansthanShema.pre('save', async function (next) {
-  const sansthan = this;
-  if (sansthan.isModified('password')) {
-    sansthan.password = await bcrypt.hash(sansthan.password, 8);
-  }
-  next();
-});
+// sansthanShema.pre('save', async function (next) {
+//   const sansthan = this;
+//   if (sansthan.isModified('password')) {
+//     sansthan.password = await bcrypt.hash(sansthan.password, 8);
+//   }
+//   next();
+// });
 
 /**
  * @typedef Sansthan

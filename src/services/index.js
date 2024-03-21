@@ -63,4 +63,5 @@ module.exports.stafftranningService = require('./masterService/staff.training.se
 module.exports.appointedService = require('./masterService/appointed.level.service');
 module.exports.assetMasterService = require('./masterService/assetMaster.service');
 module.exports.sansthanService = require('./sansthan.service');
+module.exports.studentClassService = require('./studentClass.service');
 module.exports.assetManagementService = require('./asset.management.service');

@@ -4,8 +4,26 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { sansthanService } = require('../services');
 
+const createSansthan = catchAsync(async (req, res) => {
+  const sansthan = await sansthanService.createSansthan(req.body);
+  res.status(httpStatus.CREATED).send(sansthan);
+});
+
 const getAllSansthan = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['sasthanName', 'userID']);
+  const filter = {
+    ...pick(req.query, ['sasthanName', 'userID']),
+    isVerified: true,
+  };
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await sansthanService.querySansthan(filter, options);
+  res.send(result);
+});
+
+const getAllSansthanReq = catchAsync(async (req, res) => {
+  const filter = {
+    ...pick(req.query, ['sasthanName', 'userID']),
+    isVerified: false,
+  };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await sansthanService.querySansthan(filter, options);
   res.send(result);
@@ -25,7 +43,9 @@ const updateSansthan = catchAsync(async (req, res) => {
 });
 
 module.exports = {
+  createSansthan,
   updateSansthan,
   getSansthanById,
   getAllSansthan,
+  getAllSansthanReq,
 };
