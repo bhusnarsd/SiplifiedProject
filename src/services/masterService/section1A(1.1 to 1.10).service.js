@@ -15,15 +15,29 @@ const getsection1A10ByScode = async (scode) => {
  * @param {Object} Section1A10SchemaBody
  * @returns {Promise<Section1A10Schema>}
  */
+// const createsection1A10 = async (scode, reqBody) => {
+//   let typesection1A10 = await getsection1A10ByScode(scode);
+//   if (!typesection1A10) {
+//     typesection1A10 = Section1A10Schema.create(reqBody);
+//   }
+//   Object.assign(typesection1A10, reqBody);
+//   await typesection1A10.save();
+//   return typesection1A10;
+// };
 const createsection1A10 = async (scode, reqBody) => {
   let typesection1A10 = await getsection1A10ByScode(scode);
   if (!typesection1A10) {
-    typesection1A10 = Section1A10Schema.create(reqBody);
+    // Create a new instance of Section1A10Schema if not found
+    typesection1A10 = new Section1A10Schema(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(typesection1A10, reqBody);
   }
-  Object.assign(typesection1A10, reqBody);
+  // Save the instance
   await typesection1A10.save();
   return typesection1A10;
 };
+
 
 /**
  * Get school by scode
