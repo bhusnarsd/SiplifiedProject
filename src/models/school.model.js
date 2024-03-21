@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
@@ -73,15 +74,29 @@ const schoolSchema = mongoose.Schema({
   staff: {
     type: Number,
   },
+  resultlist: [{
+    male: String,
+    female: String,
+    class: String,
+    section: String,
+    class_id: String,
+    section_id: String,
+  }],
+  total_student: {
+    type: Number,
+  },
+  total_teacher: {
+    type: Number,
+  },
+  scode: {
+    type: String,
+  }
 });
 
-// add plugin that converts mongoose to json
+// Add plugins
 schoolSchema.plugin(toJSON);
 schoolSchema.plugin(paginate);
 
-/**
- * @typedef School
- */
 const School = mongoose.model('School', schoolSchema);
 
 module.exports = School;

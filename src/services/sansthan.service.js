@@ -6,12 +6,12 @@ const ApiError = require('../utils/ApiError');
 /**
  * Create a sansthan
  * @param {Object} sansthanBody
- * @returns {Promise<Sansthan, User>}
+ * @returns {Promise<Sansthan>}
  */
 const createSansthan = async (sansthanBody) => {
-  const { userID } = sansthanBody;
-  if (await Sansthan.isUserIDTaken(userID)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'UserID  already taken');
+  const { userName } = sansthanBody;
+  if (await Sansthan.isUserNameTaken(userName)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'userName  already taken');
   }
   // await otpService.verifyOtp(mobNumber, otp);
   return Sansthan.create(sansthanBody);

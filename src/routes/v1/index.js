@@ -63,6 +63,7 @@ const teacherTypeRoute = require('./masterRoutes/type.of.teacher.route');
 const traningRoute = require('./masterRoutes/staff.training.route');
 const appointedRoute = require('./masterRoutes/appointed.level.route');
 const assectMasterRoute = require('./masterRoutes/assetMaster.route');
+const sansthanRoute = require('./sansthan.route');
 
 const router = express.Router();
 
@@ -314,6 +315,10 @@ const defaultRoutes = [
   {
     path: '/assetMaster',
     route: assectMasterRoute,
+  },
+  {
+    path: '/sansthan',
+    route: sansthanRoute,
   },
 ];
 

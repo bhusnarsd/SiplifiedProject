@@ -61,3 +61,4 @@ module.exports.Tranningstaff = require('./masterModels/staff.training.model');
 module.exports.Appointed = require('./masterModels/appointed.level.model');
 module.exports.AssetMaster = require('./masterModels/assetMaster.model');
 module.exports.Sansthan = require('./sansthan.model');
+module.exports.StudentClass = require('./studentClass.model');
