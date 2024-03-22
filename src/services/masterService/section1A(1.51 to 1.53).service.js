@@ -3,14 +3,32 @@ const Section1A53Schema = require('../../models/masterModels/section1A(1.51 to 1
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section1A53Schema by id
+ * @param {ObjectId} id
+ * @returns {Promise<Section1A53Schema>}
+ */
+const getSection1A53ById = async (scode) => {
+  return Section1A53Schema.findOne({ scode });
+};
+/**
  * Create a Section1A53Schema
  * @param {Object} Section1A53SchemaBody
  * @returns {Promise<Section1A53Schema>}
  */
-const createSection1A53 = async (Section1A53SchemaBody) => {
-  return Section1A53Schema.create(Section1A53SchemaBody);
-};
 
+const createSection1A53 = async (scode, reqBody) => {
+  let result = await getSection1A53ById(scode);
+  if (!result) {
+    // Create a new instance of Section1A10Schema if not found
+    result = new Section1A53Schema(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(result, reqBody);
+  }
+  // Save the instance
+  await result.save();
+  return result;
+};
 /**
  * Query for Section1A53
  * @param {Object} filter - Mongo filter
@@ -23,15 +41,6 @@ const createSection1A53 = async (Section1A53SchemaBody) => {
 const getAllSection1A53 = async (filter, options) => {
   const Section1A53 = await Section1A53Schema.paginate(filter, options);
   return Section1A53;
-};
-
-/**
- * Get Section1A53Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section1A53Schema>}
- */
-const getSection1A53ById = async (scode) => {
-  return Section1A53Schema.findOne({ scode });
 };
 
 /**

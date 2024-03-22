@@ -5,7 +5,7 @@ const catchAsync = require('../../utils/catchAsync');
 const Section1E62Service = require('../../services/masterService/section1E(1.62 to 1.62).service');
 
 const createSection1E62 = catchAsync(async (req, res) => {
-  const Section1E62 = await Section1E62Service.createSection1E62(req.body);
+  const Section1E62 = await Section1E62Service.createSection1E62(req.body.scode, req.body);
   res.status(httpStatus.CREATED).send(Section1E62);
 });
 

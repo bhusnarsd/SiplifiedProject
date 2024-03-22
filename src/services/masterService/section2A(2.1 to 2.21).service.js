@@ -3,14 +3,29 @@ const Section2A21Schema = require('../../models/masterModels/section2A(2.1 to 2.
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section2A21Schema by id
+ * @param {ObjectId} scode
+ * @returns {Promise<Section2A21Schema>}
+ */
+const getSection2A21ById = async (scode) => {
+  return Section2A21Schema.findOne({ scode });
+};
+
+/**
  * Create a Section2A21Schema
  * @param {Object} Section2A21SchemaBody
  * @returns {Promise<Section2A21Schema>}
  */
-const createSection2A21 = async (Section2A21SchemaBody) => {
-  return Section2A21Schema.create(Section2A21SchemaBody);
+const createSection2A21 = async (scode, reqBody) => {
+  let result = await getSection2A21ById(scode);
+  if (!result) {
+    result = new Section2A21Schema(reqBody);
+  } else {
+    Object.assign(result, reqBody);
+  }
+  await result.save();
+  return result;
 };
-
 /**
  * Query for Section2A21
  * @param {Object} filter - Mongo filter
@@ -23,15 +38,6 @@ const createSection2A21 = async (Section2A21SchemaBody) => {
 const getAllSection2A21 = async (filter, options) => {
   const Section2A21 = await Section2A21Schema.paginate(filter, options);
   return Section2A21;
-};
-
-/**
- * Get Section2A21Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section2A21Schema>}
- */
-const getSection2A21ById = async (scode) => {
-  return Section2A21Schema.findOne({ scode });
 };
 
 /**

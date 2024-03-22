@@ -3,14 +3,29 @@ const Section3ASchema = require('../../models/masterModels/section3A(3.1 to 3.4)
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section3ASchema by id
+ * @param {ObjectId} id
+ * @returns {Promise<Section3ASchema>}
+ */
+const getSection3AById = async (scode) => {
+  return Section3ASchema.findOne({ scode });
+};
+
+/**
  * Create a Section3ASchema
  * @param {Object} Section3ASchemaBody
  * @returns {Promise<Section3ASchema>}
  */
-const createSection3A = async (Section3ASchemaBody) => {
-  return Section3ASchema.create(Section3ASchemaBody);
+const createSection3A = async (scode, reqBody) => {
+  let result = await getSection3AById(scode);
+  if (!result) {
+    result = new Section3ASchema(reqBody);
+  } else {
+    Object.assign(result, reqBody);
+  }
+  await result.save();
+  return result;
 };
-
 /**
  * Query for Section3A
  * @param {Object} filter - Mongo filter
@@ -23,15 +38,6 @@ const createSection3A = async (Section3ASchemaBody) => {
 const getAllSection3A = async (filter, options) => {
   const Section3A = await Section3ASchema.paginate(filter, options);
   return Section3A;
-};
-
-/**
- * Get Section3ASchema by id
- * @param {ObjectId} id
- * @returns {Promise<Section3ASchema>}
- */
-const getSection3AById = async (scode) => {
-  return Section3ASchema.findOne({ scode });
 };
 
 /**

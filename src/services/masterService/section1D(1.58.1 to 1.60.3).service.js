@@ -3,14 +3,29 @@ const Section1D60Schema = require('../../models/masterModels/section1D(1.58.1 to
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section1D60Schema by id
+ * @param {ObjectId} id
+ * @returns {Promise<Section1D60Schema>}
+ */
+const getSection1D60ById = async (scode) => {
+  return Section1D60Schema.findOne({ scode });
+};
+
+/**
  * Create a Section1D60Schema
  * @param {Object} Section1D60SchemaBody
  * @returns {Promise<Section1D60Schema>}
  */
-const createSection1D60 = async (Section1D60SchemaBody) => {
-  return Section1D60Schema.create(Section1D60SchemaBody);
+const createSection1D60 = async (scode, reqBody) => {
+  let result = await getSection1D60ById(scode);
+  if (!result) {
+    result = new Section1D60Schema(reqBody);
+  } else {
+    Object.assign(result, reqBody);
+  }
+  await result.save();
+  return result;
 };
-
 /**
  * Query for Section1D60
  * @param {Object} filter - Mongo filter
@@ -23,15 +38,6 @@ const createSection1D60 = async (Section1D60SchemaBody) => {
 const getAllSection1D60 = async (filter, options) => {
   const Section1D60 = await Section1D60Schema.paginate(filter, options);
   return Section1D60;
-};
-
-/**
- * Get Section1D60Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section1D60Schema>}
- */
-const getSection1D60ById = async (scode) => {
-  return Section1D60Schema.findOne({ scode });
 };
 
 /**
