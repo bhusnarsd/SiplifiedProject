@@ -17,7 +17,7 @@ const getAllSection2B27 = catchAsync(async (req, res) => {
 });
 
 const getSection2B27ById = catchAsync(async (req, res) => {
-  const Section2B27 = await Section2B27Service.getSection2B27ById(req.params.Section2B27Id);
+  const Section2B27 = await Section2B27Service.getSection2B27ById(req.params.scode);
   if (!Section2B27) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section2B27 not found');
   }
@@ -25,12 +25,12 @@ const getSection2B27ById = catchAsync(async (req, res) => {
 });
 
 const updateSection2B27 = catchAsync(async (req, res) => {
-  const Section2B27 = await Section2B27Service.updateSection2B27ById(req.params.Section2B27Id, req.body);
+  const Section2B27 = await Section2B27Service.updateSection2B27ById(req.params.scode, req.body);
   res.send(Section2B27);
 });
 
 const deleteSection2B27 = catchAsync(async (req, res) => {
-  await Section2B27Service.deleteSection2B27ById(req.params.Section2B27Id);
+  await Section2B27Service.deleteSection2B27ById(req.params.scode);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

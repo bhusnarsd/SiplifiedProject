@@ -30,8 +30,8 @@ const getAllSection3A = async (filter, options) => {
  * @param {ObjectId} id
  * @returns {Promise<Section3ASchema>}
  */
-const getSection3AById = async (id) => {
-  return Section3ASchema.findById(id);
+const getSection3AById = async (scode) => {
+  return Section3ASchema.findOne({ scode });
 };
 
 /**
@@ -40,8 +40,8 @@ const getSection3AById = async (id) => {
  * @param {Object} updateBody
  * @returns {Promise<Section3ASchema>}
  */
-const updateSection3AById = async (Section3AId, updateBody) => {
-  const typeSection3A = await getSection3AById(Section3AId);
+const updateSection3AById = async (scode, updateBody) => {
+  const typeSection3A = await getSection3AById(scode);
   if (!typeSection3A) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section3A not found');
   }
@@ -55,8 +55,8 @@ const updateSection3AById = async (Section3AId, updateBody) => {
  * @param {ObjectId} Section3AId
  * @returns {Promise<Section3ASchema>}
  */
-const deleteSection3AById = async (Section3AId) => {
-  const Section3A = await getSection3AById(Section3AId);
+const deleteSection3AById = async (scode) => {
+  const Section3A = await getSection3AById(scode);
   if (!Section3A) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section3A not found');
   }

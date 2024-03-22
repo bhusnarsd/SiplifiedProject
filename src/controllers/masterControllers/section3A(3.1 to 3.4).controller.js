@@ -17,7 +17,7 @@ const getAllSection3A = catchAsync(async (req, res) => {
 });
 
 const getSection3AById = catchAsync(async (req, res) => {
-  const Section3A = await Section3AService.getSection3AById(req.params.Section3AId);
+  const Section3A = await Section3AService.getSection3AById(req.params.scode);
   if (!Section3A) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section3A not found');
   }
@@ -25,12 +25,12 @@ const getSection3AById = catchAsync(async (req, res) => {
 });
 
 const updateSection3A = catchAsync(async (req, res) => {
-  const Section3A = await Section3AService.updateSection3AById(req.params.Section3AId, req.body);
+  const Section3A = await Section3AService.updateSection3AById(req.params.scode, req.body);
   res.send(Section3A);
 });
 
 const deleteSection3A = catchAsync(async (req, res) => {
-  await Section3AService.deleteSection3AById(req.params.Section3AId);
+  await Section3AService.deleteSection3AById(req.params.scode);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

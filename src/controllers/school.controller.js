@@ -88,6 +88,22 @@ const getSchoolByFilter = catchAsync(async (req) => {
   // res.send(school);
 });
 
+const getStudentClassWiseCount = catchAsync(async (req, res) => {
+  let filter = {};
+  const role = req.user.role;
+  const assignedTo = req.user.asssignedTo;
+
+  if (role === 'district_officer') {
+    filter = { district: assignedTo };
+  } else if (role === 'block_officer') {
+    filter = { block: assignedTo };
+  } else if (role === 'state_officer') {
+    // No specific filtering needed for state officer
+  }
+
+  const result = await schoolService.getStudentClassWiseCount(filter, role);
+  res.send(result);
+});
 module.exports = {
   createSchool,
   getSchools,
@@ -98,4 +114,5 @@ module.exports = {
   getSchoolsStats,
   getSchoolCountDistrict,
   getSchoolCountByBlock,
+  getStudentClassWiseCount,
 };

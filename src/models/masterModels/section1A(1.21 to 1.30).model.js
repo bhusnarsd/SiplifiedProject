@@ -121,179 +121,135 @@ const section1A30Schema = mongoose.Schema(
     },
     houpperprimary: {
       type: String,
-      trim: true,
     },
     houpperprimaryboys: {
       type: String,
-      trim: true,
     },
     houpperprimarygirls: {
       type: String,
-      trim: true,
     },
     hosecondary: {
       type: String,
-      trim: true,
     },
     hosecondaryboys: {
       type: String,
-      trim: true,
     },
     hosecondarygirls: {
       type: String,
-      trim: true,
     },
     hohighersecondary: {
       type: String,
-      trim: true,
     },
     hohighersecondaryboys: {
       type: String,
-      trim: true,
     },
     hohighersecondarygirls: {
       type: String,
-      trim: true,
     },
     minorityschool: {
       type: String,
-      trim: true,
     },
     minoritytype: {
       type: String,
-      trim: true,
     },
     mothertongue: {
       type: String,
-      trim: true,
     },
     medium1: {
       type: String,
-      trim: true,
     },
     medium2: {
       type: String,
-      trim: true,
     },
     medium3: {
       type: String,
-      trim: true,
     },
     medium4: {
       type: String,
-      trim: true,
     },
     othermedium: {
       type: String,
-      trim: true,
     },
     languagetaught1: {
       type: String,
-      trim: true,
     },
     classtaught1: {
       type: String,
-      trim: true,
     },
     langtatboys1: {
       type: String,
-      trim: true,
     },
     langtatgirls1: {
       type: String,
-      trim: true,
     },
     langtattrans1: {
       type: String,
-      trim: true,
     },
     languagetaught2: {
       type: String,
-      trim: true,
     },
     classtaught2: {
       type: String,
-      trim: true,
     },
     langtatboys2: {
       type: String,
-      trim: true,
     },
     langtatgirls2: {
       type: String,
-      trim: true,
     },
     langtattrans2: {
       type: String,
-      trim: true,
     },
     languagetaught3: {
       type: String,
-      trim: true,
     },
     classtaught3: {
       type: String,
-      trim: true,
     },
     langtatboys3: {
       type: String,
-      trim: true,
     },
     langtatgirls3: {
       type: String,
-      trim: true,
     },
     langtattrans3: {
       type: String,
-      trim: true,
     },
     languagetaught4: {
       type: String,
-      trim: true,
     },
     classtaught4: {
       type: String,
-      trim: true,
     },
     langtatboys4: {
       type: String,
-      trim: true,
     },
     langtatgirls4: {
       type: String,
-      trim: true,
     },
     langtattrans4: {
       type: String,
-      trim: true,
     },
     languagetaught5: {
       type: String,
-      trim: true,
     },
     classtaught5: {
       type: String,
-      trim: true,
     },
     langtatboys5: {
       type: String,
-      trim: true,
     },
     langtatgirls5: {
       type: String,
-      trim: true,
     },
     langtattrans5: {
       type: String,
-      trim: true,
     },
     prevocational: {
       type: String,
-      trim: true,
     },
     scode: {
       type: String,
-      required: true,
     },
   },
   {

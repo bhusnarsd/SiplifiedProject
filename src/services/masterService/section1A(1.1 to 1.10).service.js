@@ -38,7 +38,6 @@ const createsection1A10 = async (scode, reqBody) => {
   return typesection1A10;
 };
 
-
 /**
  * Get school by scode
  * @param {ObjectId} scode

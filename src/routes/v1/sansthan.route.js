@@ -9,7 +9,7 @@ const router = express.Router();
 
 router
 .route('/')
-.post(auth('superadmin'), validate(sansthanValidation.createSansthan), sansthanController.createSansthan)
+.post( validate(sansthanValidation.createSansthan), sansthanController.createSansthan)
 .get(auth('superadmin'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthan);
 router
   .route('/get-requests/sansthan')
