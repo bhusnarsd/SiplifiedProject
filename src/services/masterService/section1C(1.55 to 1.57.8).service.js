@@ -3,14 +3,31 @@ const Section1C57Schema = require('../../models/masterModels/section1C(1.55.1 to
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section1C57Schema by id
+ * @param {ObjectId} id
+ * @returns {Promise<Section1C57Schema>}
+ */
+const getSection1C57ById = async (scode) => {
+  return Section1C57Schema.findOne({ scode });
+};
+/**
  * Create a Section1C57Schema
  * @param {Object} Section1C57SchemaBody
  * @returns {Promise<Section1C57Schema>}
  */
-const createSection1C57 = async (Section1C57SchemaBody) => {
-  return Section1C57Schema.create(Section1C57SchemaBody);
+const createSection1C57 = async (scode, reqBody) => {
+  let result = await getSection1C57ById(scode);
+  if (!result) {
+    // Create a new instance of Section1A10Schema if not found
+    result = new Section1C57Schema(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(result, reqBody);
+  }
+  // Save the instance
+  await result.save();
+  return result;
 };
-
 /**
  * Query for Section1C57
  * @param {Object} filter - Mongo filter
@@ -23,15 +40,6 @@ const createSection1C57 = async (Section1C57SchemaBody) => {
 const getAllSection1C57 = async (filter, options) => {
   const Section1C57 = await Section1C57Schema.paginate(filter, options);
   return Section1C57;
-};
-
-/**
- * Get Section1C57Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section1C57Schema>}
- */
-const getSection1C57ById = async (scode) => {
-  return Section1C57Schema.findOne({ scode });
 };
 
 /**

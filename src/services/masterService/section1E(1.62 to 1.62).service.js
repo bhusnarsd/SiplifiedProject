@@ -3,14 +3,24 @@ const Section1E62Schema = require('../../models/masterModels/section1E(1.62 to 1
 const ApiError = require('../../utils/ApiError');
 
 /**
- * Create a Section1E62Schema
- * @param {Object} Section1E62SchemaBody
+ * Get Section1E62Schema by id
+ * @param {ObjectId} id
  * @returns {Promise<Section1E62Schema>}
  */
-const createSection1E62 = async (Section1E62SchemaBody) => {
-  return Section1E62Schema.create(Section1E62SchemaBody);
+const getSection1E62ById = async (scode) => {
+  return Section1E62Schema.findOne({ scode });
 };
 
+const createSection1E62 = async (scode, reqBody) => {
+  let result = await getSection1E62ById(scode);
+  if (!result) {
+    result = new Section1E62Schema(reqBody);
+  } else {
+    Object.assign(result, reqBody);
+  }
+  await result.save();
+  return result;
+};
 /**
  * Query for Section1E62
  * @param {Object} filter - Mongo filter
@@ -23,15 +33,6 @@ const createSection1E62 = async (Section1E62SchemaBody) => {
 const getAllSection1E62 = async (filter, options) => {
   const Section1E62 = await Section1E62Schema.paginate(filter, options);
   return Section1E62;
-};
-
-/**
- * Get Section1E62Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section1E62Schema>}
- */
-const getSection1E62ById = async (scode) => {
-  return Section1E62Schema.findOne({ scode });
 };
 
 /**

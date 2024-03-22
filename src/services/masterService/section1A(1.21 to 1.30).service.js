@@ -3,12 +3,31 @@ const Section1A30Schema = require('../../models/masterModels/section1A(1.21 to 1
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section1A30Schema by id
+ * @param {ObjectId} scode
+ * @returns {Promise<Section1A30Schema>}
+ */
+const getSection1A30ById = async (scode) => {
+  return Section1A30Schema.findOne({ scode });
+};
+
+/**
  * Create a Section1A30Schema
  * @param {Object} Section1A30SchemaBody
  * @returns {Promise<Section1A30Schema>}
  */
-const createSection1A30 = async (Section1A30SchemaBody) => {
-  return Section1A30Schema.create(Section1A30SchemaBody);
+const createSection1A30 = async (scode, reqBody) => {
+  let result = await getSection1A30ById(scode);
+  if (!result) {
+    // Create a new instance of Section1A10Schema if not found
+    result = new Section1A30Schema(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(result, reqBody);
+  }
+  // Save the instance
+  await result.save();
+  return result;
 };
 
 /**
@@ -23,15 +42,6 @@ const createSection1A30 = async (Section1A30SchemaBody) => {
 const getAllSection1A30 = async (filter, options) => {
   const Section1A30 = await Section1A30Schema.paginate(filter, options);
   return Section1A30;
-};
-
-/**
- * Get Section1A30Schema by id
- * @param {ObjectId} scode
- * @returns {Promise<Section1A30Schema>}
- */
-const getSection1A30ById = async (scode) => {
-  return Section1A30Schema.findOne({ scode });
 };
 
 /**

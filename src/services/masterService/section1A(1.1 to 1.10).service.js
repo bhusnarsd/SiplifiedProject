@@ -44,7 +44,7 @@ const createsection1A10 = async (scode, reqBody) => {
  * @returns {Promise<School>}
  */
 const getSchoolScode = async (scode) => {
-  const school = await Section1A10Schema.find({ scode });
+  const school = await Section1A10Schema.findOne({ scode });
   return school;
 };
 

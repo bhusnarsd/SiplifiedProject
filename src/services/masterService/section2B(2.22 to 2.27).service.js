@@ -3,12 +3,28 @@ const Section2B27Schema = require('../../models/masterModels/section2B(2.2 to 2.
 const ApiError = require('../../utils/ApiError');
 
 /**
+ * Get Section2B27Schema by id
+ * @param {ObjectId} id
+ * @returns {Promise<Section2B27Schema>}
+ */
+const getSection2B27ById = async (scode) => {
+  return Section2B27Schema.findOne({ scode });
+};
+
+/**
  * Create a Section2B27Schema
  * @param {Object} Section2B27SchemaBody
  * @returns {Promise<Section2B27Schema>}
  */
-const createSection2B27 = async (Section2B27SchemaBody) => {
-  return Section2B27Schema.create(Section2B27SchemaBody);
+const createSection2B27 = async (scode, reqBody) => {
+  let result = await getSection2B27ById(scode);
+  if (!result) {
+    result = new Section2B27Schema(reqBody);
+  } else {
+    Object.assign(result, reqBody);
+  }
+  await result.save();
+  return result;
 };
 
 /**
@@ -23,15 +39,6 @@ const createSection2B27 = async (Section2B27SchemaBody) => {
 const getAllSection2B27 = async (filter, options) => {
   const Section2B27 = await Section2B27Schema.paginate(filter, options);
   return Section2B27;
-};
-
-/**
- * Get Section2B27Schema by id
- * @param {ObjectId} id
- * @returns {Promise<Section2B27Schema>}
- */
-const getSection2B27ById = async (scode) => {
-  return Section2B27Schema.findOne({ scode });
 };
 
 /**
