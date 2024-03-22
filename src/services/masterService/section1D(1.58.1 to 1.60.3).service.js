@@ -30,8 +30,8 @@ const getAllSection1D60 = async (filter, options) => {
  * @param {ObjectId} id
  * @returns {Promise<Section1D60Schema>}
  */
-const getSection1D60ById = async (id) => {
-  return Section1D60Schema.findById(id);
+const getSection1D60ById = async (scode) => {
+  return Section1D60Schema.findOne({ scode });
 };
 
 /**
@@ -40,8 +40,8 @@ const getSection1D60ById = async (id) => {
  * @param {Object} updateBody
  * @returns {Promise<Section1D60Schema>}
  */
-const updateSection1D60ById = async (Section1D60Id, updateBody) => {
-  const typeSection1D60 = await getSection1D60ById(Section1D60Id);
+const updateSection1D60ById = async (scode, updateBody) => {
+  const typeSection1D60 = await getSection1D60ById(scode);
   if (!typeSection1D60) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section1D60 not found');
   }
@@ -55,8 +55,8 @@ const updateSection1D60ById = async (Section1D60Id, updateBody) => {
  * @param {ObjectId} Section1D60Id
  * @returns {Promise<Section1D60Schema>}
  */
-const deleteSection1D60ById = async (Section1D60Id) => {
-  const Section1D60 = await getSection1D60ById(Section1D60Id);
+const deleteSection1D60ById = async (scode) => {
+  const Section1D60 = await getSection1D60ById(scode);
   if (!Section1D60) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section1D60 not found');
   }

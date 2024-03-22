@@ -141,7 +141,37 @@ const getBlockList = async(district) => {
   const block = await School.find({ district }, { block: 1,  }).distinct('block');
   return block
 }
+/**
+Retrieves the count of male and female students by state and class.
+// @param {string} - The district to filter the schools by.
+@returns {Promise<Array>} - A promise that resolves to an array of objects containing the state, class, male count, and female count.
+*/
+const getStudentClassWiseCount = async (filter) => {
+  const result = await School.aggregate([
+    { $match: filter },
+    { $unwind: "$resultlist" },
+    {
+      $group: {
+        _id: {
+          // district: "$district",
+          class: "$resultlist.class",
+        },
+        maleCount: { $sum: "$resultlist.male" },
+        femaleCount: { $sum: "$resultlist.female" }
+      }
+    },
 
+  ]);
+  return result;
+};
+// // // Example usage
+// getMaleFemaleCountByDistrictAndClass('AHMADNAGAR')
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.error('Error:', error);
+//   });
 
 // Endpoint to get district-wise block names
 // router.get('/district-blocks', async (req, res) => {
@@ -191,12 +221,9 @@ module.exports = {
   getSchoolStat,
   getSchoolCountDistrict,
   getSchoolCountByBlock,
-  // getUserById,
   getSchoolByUdisecode,
   getSchoolByFilter,
   getDistrictList,
   getBlockList,
-
-  //   updateUserById,
-  //   deleteUserById,
+  getStudentClassWiseCount,
 };

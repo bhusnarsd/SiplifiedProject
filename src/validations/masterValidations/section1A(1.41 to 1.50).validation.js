@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { objectId } = require('../custom.validation');
+// const { objectId } = require('../custom.validation');
 
 const createSection1A50 = {
   body: Joi.object().keys({
@@ -62,13 +62,13 @@ const getAllSection1A50 = {
 
 const getSection1A50 = {
   params: Joi.object().keys({
-    Section1A50Id: Joi.string().custom(objectId),
+    scode: Joi.string(),
   }),
 };
 
 const updateSection1A50 = {
   params: Joi.object().keys({
-    Section1A50Id: Joi.required().custom(objectId),
+    scode: Joi.string(),
   }),
   body: Joi.object()
     .keys({
@@ -123,7 +123,7 @@ const updateSection1A50 = {
 
 const deleteSection1A50 = {
   params: Joi.object().keys({
-    Section1A50Id: Joi.string().custom(objectId),
+    scode: Joi.string(),
   }),
 };
 

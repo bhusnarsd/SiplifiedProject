@@ -11,7 +11,7 @@ router
   .get(validate(Section1A53Validation.getAllSection1A53), Section1A53Controller.getAllSection1A53);
 
 router
-  .route('/:Section1A53Id')
+  .route('/:scode')
   .get(validate(Section1A53Validation.getSection1A53), Section1A53Controller.getSection1A53ById)
   .patch(validate(Section1A53Validation.updateSection1A53), Section1A53Controller.updateSection1A53)
   .delete(validate(Section1A53Validation.deleteSection1A53), Section1A53Controller.deleteSection1A53);

@@ -17,7 +17,7 @@ const getAllSection2A21 = catchAsync(async (req, res) => {
 });
 
 const getSection2A21ById = catchAsync(async (req, res) => {
-  const Section2A21 = await Section2A21Service.getSection2A21ById(req.params.Section2A21Id);
+  const Section2A21 = await Section2A21Service.getSection2A21ById(req.params.scode);
   if (!Section2A21) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section2A21 not found');
   }
@@ -25,12 +25,12 @@ const getSection2A21ById = catchAsync(async (req, res) => {
 });
 
 const updateSection2A21 = catchAsync(async (req, res) => {
-  const Section2A21 = await Section2A21Service.updateSection2A21ById(req.params.Section2A21Id, req.body);
+  const Section2A21 = await Section2A21Service.updateSection2A21ById(req.params.scode, req.body);
   res.send(Section2A21);
 });
 
 const deleteSection2A21 = catchAsync(async (req, res) => {
-  await Section2A21Service.deleteSection2A21ById(req.params.Section2A21Id);
+  await Section2A21Service.deleteSection2A21ById(req.params.scode);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

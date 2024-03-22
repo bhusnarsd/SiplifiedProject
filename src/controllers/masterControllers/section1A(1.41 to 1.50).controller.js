@@ -17,7 +17,7 @@ const getAllSection1A50 = catchAsync(async (req, res) => {
 });
 
 const getSection1A50ById = catchAsync(async (req, res) => {
-  const Section1A50 = await Section1A50Service.getSection1A50ById(req.params.Section1A50Id);
+  const Section1A50 = await Section1A50Service.getSection1A50ById(req.params.scode);
   if (!Section1A50) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Section1A Section1A50 not found');
   }
@@ -25,12 +25,12 @@ const getSection1A50ById = catchAsync(async (req, res) => {
 });
 
 const updateSection1A50 = catchAsync(async (req, res) => {
-  const Section1A50 = await Section1A50Service.updateSection1A50ById(req.params.Section1A50Id, req.body);
+  const Section1A50 = await Section1A50Service.updateSection1A50ById(req.params.scode, req.body);
   res.send(Section1A50);
 });
 
 const deleteSection1A50 = catchAsync(async (req, res) => {
-  await Section1A50Service.deleteSection1A50ById(req.params.Section1A50Id);
+  await Section1A50Service.deleteSection1A50ById(req.params.scode);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
