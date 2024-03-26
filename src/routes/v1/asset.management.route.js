@@ -12,7 +12,7 @@ router
   .route('/section1A20/:scode')
   .get(validate(assetManagementValidation.getSection1a1to10ByScode), assetManagementController.getSection1A20ByScode);
 router
-  .route('/section1A30/:scode')
+  .route('/section1A30/hostel/:scode')
   .get(validate(assetManagementValidation.getSection1a1to10ByScode), assetManagementController.getSection1A30ByScode);
 router
   .route('/section1A40/:scode')
@@ -36,10 +36,10 @@ router
   .route('/section1E62/:scode')
   .get(validate(assetManagementValidation.getSection1a1to10ByScode), assetManagementController.getSection1E62ByScode);
 router
-  .route('/section2A21/:scode')
+  .route('/section2A21/land/building/drinkingwater/toilet/solarpanel/:scode')
   .get(validate(assetManagementValidation.getSection1a1to10ByScode), assetManagementController.getSection2A21ByScode);
 router
-  .route('/section2B27/:scode')
+  .route('/section2B27/digital-equipment/ictlab/:scode')
   .get(validate(assetManagementValidation.getSection1a1to10ByScode), assetManagementController.getSection2B27ByScode);
 router
   .route('/section3A/:scode')
@@ -124,7 +124,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /asset-management/section1A30/{scode}:
+ * /asset-management/section1A30/hostel/{scode}:
  *   get:
  *     summary: Get section1A30 data by scode
  *     tags: [AssetManagement]
@@ -394,9 +394,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /asset-management/section2A21/{scode}:
+ * /asset-management/section2A21/land/building/drinkingwater/toilet/solarpanel/{scode}:
  *   get:
- *     summary: Get section2A21 data by scode
+ *     summary: Get section2A21 land data by scode
  *     tags: [AssetManagement]
  *     parameters:
  *       - name: scode
@@ -428,7 +428,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /asset-management/section2B27/{scode}:
+ * /asset-management/section2B27/digital-equipment/ictlab/{scode}:
  *   get:
  *     summary: Get section2B27 data by scode
  *     tags: [AssetManagement]
