@@ -198,7 +198,7 @@ module.exports = router;
 /**
  * @swagger
  * /schools/school-stats/district-wise:
- *   get:
+ *   post:
  *     summary: Get student and staff count by division
  *     description: Retrieve the total student and staff count for each division.
  *     tags: [School]
@@ -228,7 +228,7 @@ module.exports = router;
 /**
  * @swagger
  * /schools/school-stats/block-wise:
- *   get:
+ *   post:
  *     summary: Get student and staff count by division
  *     description: Retrieve the total student and staff count for each division.
  *     tags: [School]
