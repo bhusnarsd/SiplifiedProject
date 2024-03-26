@@ -38,6 +38,9 @@ const schoolSchema = mongoose.Schema({
     type: String,
     unique: true,
   },
+  division:{
+    type: String,
+  },
   district: {
     type: String,
   },

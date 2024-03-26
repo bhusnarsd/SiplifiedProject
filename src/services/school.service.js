@@ -49,28 +49,28 @@ const getSchoolByUdisecode = async (udisecode) => {
  * @param {string} udisecode
  * @returns {Promise<School>}
  */
-const getSchoolStat = async (filter) => {
-  const result = await School.aggregate([
-    {
-      $match: filter
-    },
-    {
-      $group: {
-        _id: null,
-        totalStudents: { $sum: '$student' },
-        totalStaff: { $sum: '$staff' }
-      }
-    }
-  ]);
-  const totalSchool = await School.countDocuments(filter);
-  const { totalStudents, totalStaff } = result[0];
+// const getSchoolStat = async (filter) => {
+//   const result = await School.aggregate([
+//     {
+//       $match: filter
+//     },
+//     {
+//       $group: {
+//         _id: null,
+//         totalStudents: { $sum: '$student' },
+//         totalStaff: { $sum: '$staff' }
+//       }
+//     }
+//   ]);
+//   const totalSchool = await School.countDocuments(filter);
+//   const { totalStudents, totalStaff } = result[0];
 
-  return {
-    totalSchool,
-    totalStudents,
-    totalStaff
-  };
-};
+//   return {
+//     totalSchool,
+//     totalStudents,
+//     totalStaff
+//   };
+// };
 
 
 /**
@@ -152,10 +152,7 @@ const getStudentClassWiseCount = async (filter) => {
     { $unwind: "$resultlist" },
     {
       $group: {
-        _id: {
-          // district: "$district",
-          class: "$resultlist.class",
-        },
+        _id:  "$resultlist.class",
         maleCount: { $sum: "$resultlist.male" },
         femaleCount: { $sum: "$resultlist.female" }
       }
@@ -164,56 +161,77 @@ const getStudentClassWiseCount = async (filter) => {
   ]);
   return result;
 };
-// // // Example usage
-// getMaleFemaleCountByDistrictAndClass('AHMADNAGAR')
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((error) => {
-//     console.error('Error:', error);
-//   });
 
-// Endpoint to get district-wise block names
-// router.get('/district-blocks', async (req, res) => {
-//   try {
-//     const districtWiseBlocks = await School.find({}, { district: 1, block: 1 }).distinct('block');
-//     res.status(200).json({ success: true, data: districtWiseBlocks });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// });
+/**
+ * Get user by udisecode
+ * @param {string} udisecode
+ * @returns {Promise<School>}
+ */
+const getSchoolStat = async (filter, role) => {
+    const result = await School.aggregate([
+      { $match: filter },
+      {
+        $group: {
+          _id: `$${role}`,
+          total_student: { $sum: "$total_student" },
+          total_teacher: { $sum: "$total_teacher" }
+        }
+      }
+    ]);
+    const totalSchool = await School.countDocuments(filter);
+    return {result, totalSchool};
+};
+
+/**
+Function to get school division wise data
+@param {string} division - The division to filter the schools
+@returns {Object} - An object containing the result and total number of schools
+*/
+const getSchoolDivisionWise = async (division) => {
+  const result = await School.aggregate([
+    { $match: {division} },
+    {
+      $group: {
+        _id: `$district`,
+        total_student: { $sum: "$total_student" },
+        total_teacher: { $sum: "$total_teacher" }
+      }
+    }
+  ]);
+const totalSchool = await School.countDocuments({division});
+  return {result, totalSchool};
+};
 
 
+const getSchoolDistrictWise = async (district) => {
+  const result = await School.aggregate([
+    { $match: {district} },
+    {
+      $group: {
+        _id: `$block`,
+        total_student: { $sum: "$total_student" },
+        total_teacher: { $sum: "$total_teacher" }
+      }
+    }
+  ]);
+const totalSchool = await School.countDocuments({district});
+  return {result, totalSchool};
+};
 
-// /**
-//  * Update user by id
-//  * @param {ObjectId} udisecode
-//  * @param {Object} updateBody
-//  * @returns {Promise<School>}
-//  */
-// const updateUserById = async (udisecode, updateBody) => {
-//   const school = await getSchoolByUdisecode(udisecode);
-//   if (!school) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'School not found');
-//   }
-//   Object.assign(school, updateBody);
-//   await school.save();
-//   return school;
-// };
-
-// /**
-//  * Delete user by id
-//  * @param {ObjectId} userId
-//  * @returns {Promise<User>}
-//  */
-// const deleteUserById = async (userId) => {
-//   const user = await getUserById(userId);
-//   if (!user) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-//   }
-//   await user.remove();
-//   return user;
-// };
+const getSchoolBlockWise = async (block) => {
+  const result = await School.aggregate([
+    { $match: {block} },
+    {
+      $group: {
+        _id: `$name`,
+        total_student: { $sum: "$total_student" },
+        total_teacher: { $sum: "$total_teacher" }
+      }
+    }
+  ]);
+const totalSchool = await School.countDocuments({block});
+  return {result, totalSchool};
+};
 
 module.exports = {
   createSchool,
@@ -226,4 +244,7 @@ module.exports = {
   getDistrictList,
   getBlockList,
   getStudentClassWiseCount,
-};
+  getSchoolDivisionWise,
+  getSchoolDistrictWise,
+  getSchoolBlockWise,
+ };
