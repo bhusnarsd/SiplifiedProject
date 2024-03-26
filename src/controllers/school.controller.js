@@ -66,7 +66,7 @@ const getSchoolsStatsAll = catchAsync(async (req, res) => {
     // No specific filtering needed for state officer
   }
 
-  const result = await schoolService.getSchoolStat(filter);
+  const result = await schoolService.getSchoolStatAll(filter);
   res.send(result);
 });
 
