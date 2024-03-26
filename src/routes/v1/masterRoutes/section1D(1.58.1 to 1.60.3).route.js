@@ -50,7 +50,7 @@ module.exports = router;
  *               - phyedugrantexpen
  *               - mediagrantreceipt
  *               - mediagrantexpen
- *               - traininggrantreceipt
+ *               - tarininggrantreceipt
  *               - traininggrantexpen
  *               - preschoolgrantreceipt
  *               - preschoolgrantexpen
@@ -80,7 +80,7 @@ module.exports = router;
  *               phyedugrantexpen: Received
  *               mediagrantreceipt: Spent
  *               mediagrantexpen: Received
- *               traininggrantreceipt: Spent
+ *               tarininggrantreceipt: Spent
  *               traininggrantexpen: Received
  *               preschoolgrantreceipt: Spent
  *               preschoolgrantexpen: Received
