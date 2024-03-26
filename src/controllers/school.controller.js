@@ -31,18 +31,24 @@ const getSchools = catchAsync(async (req, res) => {
 
 const getSchoolsStats = catchAsync(async (req, res) => {
   let filter = {};
+  let value;
   const role = req.user.role;
   const assignedTo = req.user.asssignedTo;
-
-  if (role === 'district_officer') {
+  if (role === 'division_officer') {
+    filter = { division: assignedTo };
+    value = 'district';
+  } else if (role === 'district_officer') {
     filter = { district: assignedTo };
+    value = 'block';
   } else if (role === 'block_officer') {
     filter = { block: assignedTo };
+    value = 'name';
   } else if (role === 'state_officer') {
+    value = 'division';
     // No specific filtering needed for state officer
   }
 
-  const result = await schoolService.getSchoolStat(filter);
+  const result = await schoolService.getSchoolStat(filter, value);
   res.send(result);
 });
 
@@ -77,23 +83,13 @@ const getBlockList = catchAsync(async (req, res) => {
   res.send(districtList);
 });
 
-
-const getSchoolByFilter = catchAsync(async (req) => {
-  // eslint-disable-next-line no-unused-vars
-  const {district, block} = req.query;
-  // const school = await schoolService.getSchoolByFilter(district, block);
-  // if (!school) {
-  //   throw new ApiError(httpStatus.NOT_FOUND, 'school not found');
-  // }
-  // res.send(school);
-});
-
 const getStudentClassWiseCount = catchAsync(async (req, res) => {
   let filter = {};
   const role = req.user.role;
   const assignedTo = req.user.asssignedTo;
-
-  if (role === 'district_officer') {
+  if (role === 'division_officer') {
+    filter = { district: assignedTo };
+  } else if (role === 'district_officer') {
     filter = { district: assignedTo };
   } else if (role === 'block_officer') {
     filter = { block: assignedTo };
@@ -101,18 +97,36 @@ const getStudentClassWiseCount = catchAsync(async (req, res) => {
     // No specific filtering needed for state officer
   }
 
-  const result = await schoolService.getStudentClassWiseCount(filter, role);
+  const result = await schoolService.getStudentClassWiseCount(filter);
   res.send(result);
 });
+
+const getSchoolDivisionWise = catchAsync(async (req, res) => {
+  const result = await schoolService.getSchoolDivisionWise(req.body.division);
+  res.send(result);
+});
+
+const getSchoolDistrictWise = catchAsync(async (req, res) => {
+  const result = await schoolService.getSchoolDistrictWise(req.body.district);
+  res.send(result);
+});
+
+const getSchoolBlockWise = catchAsync(async (req, res) => {
+  const result = await schoolService.getSchoolBlockWise(req.body.block);
+  res.send(result);
+});
+
 module.exports = {
   createSchool,
   getSchools,
   getSchool,
   getDistrictList,
   getBlockList,
-  getSchoolByFilter,
   getSchoolsStats,
   getSchoolCountDistrict,
   getSchoolCountByBlock,
   getStudentClassWiseCount,
+  getSchoolDivisionWise,
+  getSchoolDistrictWise,
+  getSchoolBlockWise
 };
