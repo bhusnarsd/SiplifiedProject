@@ -105,6 +105,7 @@ const getStudentClassWiseCount = catchAsync(async (req, res) => {
   let filter = {};
   const role = req.user.role;
   const assignedTo = req.user.asssignedTo;
+  console.log(role, assignedTo)
   if (role === 'division_officer') {
     filter = { district: assignedTo };
   } else if (role === 'district_officer') {
