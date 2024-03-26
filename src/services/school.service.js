@@ -49,28 +49,28 @@ const getSchoolByUdisecode = async (udisecode) => {
  * @param {string} udisecode
  * @returns {Promise<School>}
  */
-// const getSchoolStat = async (filter) => {
-//   const result = await School.aggregate([
-//     {
-//       $match: filter
-//     },
-//     {
-//       $group: {
-//         _id: null,
-//         totalStudents: { $sum: '$student' },
-//         totalStaff: { $sum: '$staff' }
-//       }
-//     }
-//   ]);
-//   const totalSchool = await School.countDocuments(filter);
-//   const { totalStudents, totalStaff } = result[0];
+const getSchoolStatAll = async (filter) => {
+  const result = await School.aggregate([
+    {
+      $match: filter
+    },
+    {
+      $group: {
+        _id: null,
+        totalStudents: { $sum: '$student' },
+        totalStaff: { $sum: '$staff' }
+      }
+    }
+  ]);
+  const totalSchool = await School.countDocuments(filter);
+  const { totalStudents, totalStaff } = result[0];
 
-//   return {
-//     totalSchool,
-//     totalStudents,
-//     totalStaff
-//   };
-// };
+  return {
+    totalSchool,
+    totalStudents,
+    totalStaff
+  };
+};
 
 
 /**
@@ -147,7 +147,6 @@ Retrieves the count of male and female students by state and class.
 @returns {Promise<Array>} - A promise that resolves to an array of objects containing the state, class, male count, and female count.
 */
 const getStudentClassWiseCount = async (filter) => {
-  console.log( await School.countDocuments())
   const result = await School.aggregate([
     { $match: filter },
     { $unwind: "$resultlist" },
@@ -244,6 +243,7 @@ module.exports = {
   getSchoolByFilter,
   getDistrictList,
   getBlockList,
+  getSchoolStatAll,
   getStudentClassWiseCount,
   getSchoolDivisionWise,
   getSchoolDistrictWise,

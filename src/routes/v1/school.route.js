@@ -17,6 +17,10 @@ router
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStats);
 
   router
+  .route('/school-stats/dashboard')
+  .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStatsAll);
+
+  router
   .route('/school-stats/division-wise')
   .post(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolDivisionWise);
 
