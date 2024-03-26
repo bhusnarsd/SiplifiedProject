@@ -154,6 +154,7 @@ const getSection3AByScode = async (scode) => {
   const sectionData = await Section3ASchema.findOne({ scode });
   return sectionData;
 };
+
 module.exports = {
   getSection1a1to10ByScode,
   getSection1A20ByScode,
