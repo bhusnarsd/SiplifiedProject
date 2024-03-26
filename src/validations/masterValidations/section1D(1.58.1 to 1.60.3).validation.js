@@ -13,7 +13,7 @@ const createSection1D60 = {
     phyedugrantexpen: Joi.string().allow('').optional(),
     mediagrantreceipt: Joi.string().allow('').optional(),
     mediagrantexpen: Joi.string().allow('').optional(),
-    traininggrantreceipt: Joi.string().allow('').optional(),
+    tarininggrantreceipt: Joi.string().allow('').optional(),
     traininggrantexpen: Joi.string().allow('').optional(),
     preschoolgrantreceipt: Joi.string().allow('').optional(),
     preschoolgrantexpen: Joi.string().allow('').optional(),
