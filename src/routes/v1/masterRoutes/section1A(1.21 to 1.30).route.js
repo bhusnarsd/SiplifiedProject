@@ -183,7 +183,7 @@ module.exports = router;
  *               langtatgirls5: Language Taught Girls 5 Value
  *               langtattrans5: Language Taught Trans 5 Value
  *               prevocational: prevocational
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

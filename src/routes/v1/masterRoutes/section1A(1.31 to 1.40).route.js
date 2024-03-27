@@ -136,7 +136,7 @@ module.exports = router;
  *               anganwaditrained3Boys: Anganwadi Trained 3 Boys Value
  *               anganwaditrained3Girls: Anganwadi Trained 3 Girls Value
  *               Balavatikastarted: Balavatika Started Value
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

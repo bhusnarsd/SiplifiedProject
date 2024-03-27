@@ -73,7 +73,7 @@ module.exports = router;
  *               constEcoClub: Active
  *               teacherIdcard: Issued
  *               SSSAcertiobtain: Not Available
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

@@ -55,4 +55,8 @@ module.exports.tranningValidation = require('./masterValidations/staff.training.
 module.exports.appointedValidation = require('./masterValidations/appointed.level.validation');
 module.exports.sansthanValidation = require('./sansthan.validation');
 module.exports.assetManagementValidation = require('./assset.management.validation');
+
+module.exports.teacherTrainingValidation = require('./teacher.training.validation');
+
 module.exports.teacherValidation = require('./teacher.validation');
+

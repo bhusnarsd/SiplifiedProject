@@ -88,7 +88,7 @@ const deleteSaralInfo4ById = {
 };
 const getSaralInfo = {
   params: Joi.object().keys({
-    saralId: Joi.string(),
+    scode: Joi.string(),
   }),
 };
 module.exports = {

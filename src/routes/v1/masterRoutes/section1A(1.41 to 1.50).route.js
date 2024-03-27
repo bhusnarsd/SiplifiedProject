@@ -130,7 +130,7 @@ module.exports = router;
  *               nosecondaryschoolcomplex: "3"
  *               nohigherseconadryschoolcomplex: "2"
  *               totalschoolcomplex: "3"
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

@@ -66,7 +66,7 @@ module.exports = router;
  *               totalnoofteachingstaff: "2"
  *               noofgusetteacher: "2"
  *               nooftransgenderstaff: "0"
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

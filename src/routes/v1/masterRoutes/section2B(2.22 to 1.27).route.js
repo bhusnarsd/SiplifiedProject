@@ -134,7 +134,7 @@ module.exports = router;
  *               ictlabfunct: Yes
  *               model1: HP Pavilion
  *               ictinst: XYZ Institute
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

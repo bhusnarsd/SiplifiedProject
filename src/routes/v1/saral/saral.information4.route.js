@@ -17,7 +17,7 @@ router
   .patch(validate(saralInformation4Validation.updateSaralInfo4ById), saralInfo4Controller.updateSaralInfo4)
   .delete(validate(saralInformation4Validation.deleteSaralInfo4ById), saralInfo4Controller.deleteSaralInfo4);
 router
-  .route('/saral-info/:saralId')
+  .route('/saral-info/:scode')
   .get(validate(saralInformation4Validation.getSaralInfo), saralInfo4Controller.getSaralInfoBysaralId);
 
 module.exports = router;
@@ -325,13 +325,13 @@ module.exports = router;
 
 /**
  * @swagger
- * /saralInformation4/saral-info/{saralId}:
+ * /saralInformation4/saral-info/{scode}:
  *   get:
- *     summary: Get  saralInformation4 by saralId
+ *     summary: Get  saralInformation4 by scode
  *     tags: [SaralInformation4]
  *     parameters:
  *       - in: path
- *         name: saralId
+ *         name: scode
  *         schema:
  *           type: string
  *         required: true
