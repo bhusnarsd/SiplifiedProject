@@ -71,5 +71,4 @@ module.exports.saralInformation3Service = require('./saral/saral.information3.se
 module.exports.saralInformation4Service = require('./saral/saral.information4.service');
 module.exports.middayMealService = require('./midday.meal.service');
 module.exports.teacherTrainingService = require('./teacher.training.service');
-
-
+module.exports.courseEnrollmentService = require('./course.enrollment.service');

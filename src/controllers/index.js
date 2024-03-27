@@ -67,3 +67,4 @@ module.exports.saralInfo4Controller = require('./saral/saral.information4.contro
 module.exports.teacherTrainingController = require('./teacher.training.controller');
 module.exports.teacherController = require('./teacher.controller');
 module.exports.middayMealController = require('./midday.meal.controller');
+module.exports.courseEntrollmentController = require('./course.enrollment.controller');

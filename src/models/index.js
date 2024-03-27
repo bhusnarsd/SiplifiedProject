@@ -69,3 +69,4 @@ module.exports.SaralInformation4 = require('./saral/saral.information4.model');
 module.exports.TeacherTraining = require('./teacher.training.model');
 module.exports.Teacher = require('./teacher.model');
 module.exports.MiddayMeal = require('./midday.meal.model');
+module.exports.CourseEnrollement = require('./course.enrollment.model');

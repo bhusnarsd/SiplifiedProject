@@ -69,20 +69,23 @@ const saralInformation1Route = require('./saral/saral.information1.route');
 const saralInformation2Route = require('./saral/saral.information2.route');
 const saralInformation3Route = require('./saral/saral.information3.route');
 const saralInformation4Route = require('./saral/saral.information4.route');
-
 const teacherTrainingRoute = require('./teacher.training.route');
-
 const teacherRoute = require('./teacher.route');
 const middayMealRoute = require('./midday.meal.route');
+const courseEnrollmentRoute = require('./course.enrollment.route');
 
 
 const router = express.Router();
 
 const defaultRoutes = [
-
+  
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/course-enrollment',
+    route: courseEnrollmentRoute,
   },
   {
     path: '/midday-meal',
