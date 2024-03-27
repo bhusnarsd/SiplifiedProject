@@ -15,7 +15,7 @@ const createSaralInfo4 = {
     smcsmdccommitte: Joi.string(),
     smdcpreviousyear: Joi.number(),
     smdccommitteimprove: Joi.string(),
-    committedetail: Joi.string(),
+    committedetail1: Joi.string(),
     committeeconstitutepta: Joi.string(),
     noofmeetingpta: Joi.number(),
     committedetailpta: Joi.string(),

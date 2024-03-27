@@ -12,7 +12,7 @@ const createSaralInfo3 = {
     complearnpurp: Joi.string(),
     computeradminpurp: Joi.string(),
     schoolnetwork: Joi.string(),
-    bandwidth: Joi.number(),
+    bandwidth: Joi.string(),
     serviceprovider: Joi.string(),
     campusplan: Joi.string(),
     englishkit: Joi.string(),
