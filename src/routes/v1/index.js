@@ -74,7 +74,6 @@ const teacherTrainingRoute = require('./teacher.training.route');
 
 const teacherRoute = require('./teacher.route');
 
-
 const router = express.Router();
 
 const defaultRoutes = [
