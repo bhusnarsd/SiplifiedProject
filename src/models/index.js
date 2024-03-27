@@ -62,3 +62,7 @@ module.exports.Appointed = require('./masterModels/appointed.level.model');
 module.exports.AssetMaster = require('./masterModels/assetMaster.model');
 module.exports.Sansthan = require('./sansthan.model');
 module.exports.StudentClass = require('./studentClass.model');
+module.exports.SaralInformation1 = require('./saral/saral.information1.model');
+module.exports.SaralInformation2 = require('./saral/saral.information2.model');
+module.exports.SaralInformation3 = require('./saral/saral.information3.model');
+module.exports.SaralInformation4 = require('./saral/saral.information4.model');
