@@ -163,8 +163,8 @@ const getStudentClassWiseCount = async (filter) => {
 
   ]);
   const school = await School.find(filter).limit(2);
-  console.log(result);
-  return result;
+  
+  return {...result, school};
       
 }catch (error) {
   console.error(error);
