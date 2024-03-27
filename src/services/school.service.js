@@ -147,9 +147,6 @@ Retrieves the count of male and female students by state and class.
 @returns {Promise<Array>} - A promise that resolves to an array of objects containing the state, class, male count, and female count.
 */
 const getStudentClassWiseCount = async (filter) => {
-  console.log(filter);
-  try{
-
   const result = await School.aggregate([
     { $match: filter },
     { $unwind: "$resultlist" },
@@ -161,15 +158,8 @@ const getStudentClassWiseCount = async (filter) => {
       }
     },
 
-  ]);
-  const school = await School.find(filter).limit(2);
-  
-  return {...result, school};
-      
-}catch (error) {
-  console.error(error);
-  throw new Error('Failed to fetch student classwise count'); 
-}
+  ]);  
+  return result
 };
 
 /**
