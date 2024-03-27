@@ -75,7 +75,7 @@ const getSaralInfo1BySaralId = async (saralId) => {
  * @returns {Promise<SaralInformation3>}
  */
 const updateSaralInfo3ById = async (saralInfo3Id, updateBody) => {
-  const saral = await getSaralInfo1BySaralId(saralInfo3Id);
+  const saral = await getSaralInfo3ById(saralInfo3Id);
   if (!saral) {
     throw new ApiError(httpStatus.NOT_FOUND, 'saral Information3 not found');
   }
@@ -90,7 +90,7 @@ const updateSaralInfo3ById = async (saralInfo3Id, updateBody) => {
  * @returns {Promise<SaralInformation3>}
  */
 const deleteSaralInfo3ById = async (saralInfo3Id) => {
-  const saral = await getSaralInfo1BySaralId(saralInfo3Id);
+  const saral = await getSaralInfo3ById(saralInfo3Id);
   if (!saral) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Saral Information3 not found');
   }
