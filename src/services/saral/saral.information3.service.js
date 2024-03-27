@@ -2,13 +2,39 @@ const httpStatus = require('http-status');
 const SaralInformation3 = require('../../models/saral/saral.information3.model');
 const ApiError = require('../../utils/ApiError');
 
+// /**
+//  * Create a Saral Information3
+//  * @param {Object} saralInfo3
+//  * @returns {Promise<SaralInformation3>}
+//  */
+// const createSaralInfo3 = async (saralInfo3) => {
+//   return SaralInformation3.create(saralInfo3);
+// };
 /**
- * Create a Saral Information3
- * @param {Object} saralInfo3
+ * Get SaralInformation1 by scode
+ * @param {ObjectId} scode
  * @returns {Promise<SaralInformation3>}
  */
-const createSaralInfo3 = async (saralInfo3) => {
-  return SaralInformation3.create(saralInfo3);
+const getsection1A10ByScode = async (scode) => {
+  return SaralInformation3.findOne({ scode });
+};
+/**
+ * Create a SaralInformation1Schema
+ * @param {Object} Section1A10SchemaBody
+ * @returns {Promise<SaralInformation3>}
+ */
+const createSaralInfo3 = async (scode, reqBody) => {
+  let saralInfo1 = await getsection1A10ByScode(scode);
+  if (!saralInfo1) {
+    // Create a new instance of SaralInformation1Schema if not found
+    saralInfo1 = new SaralInformation3(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(saralInfo1, reqBody);
+  }
+  // Save the instance
+  await saralInfo1.save();
+  return saralInfo1;
 };
 
 /**

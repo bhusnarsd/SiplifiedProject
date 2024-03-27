@@ -55,7 +55,7 @@ module.exports = router;
  *               - smcsmdccommitte
  *               - smdcpreviousyear
  *               - smdccommitteimprove
- *               - committedetail
+ *               - committedetail1
  *               - committeeconstitutepta
  *               - noofmeetingpta
  *               - committedetailpta
@@ -82,7 +82,7 @@ module.exports = router;
  *               smcsmdccommitte: string
  *               smdcpreviousyear: number
  *               smdccommitteimprove: string
- *               committedetail: string
+ *               committedetail1: string
  *               committeeconstitutepta: string
  *               noofmeetingpta: number
  *               committedetailpta: string
@@ -109,7 +109,7 @@ module.exports = router;
  *               smcsmdccommitte: Yes
  *               smdcpreviousyear: 7
  *               smdccommitteimprove: Yes
- *               committedetail: Yes
+ *               committedetail1: Yes
  *               committeeconstitutepta: Yes
  *               noofmeetingpta: 7
  *               committedetailpta: Yes
@@ -247,7 +247,7 @@ module.exports = router;
  *               smcsmdccommitte: string
  *               smdcpreviousyear: number
  *               smdccommitteimprove: string
- *               committedetail: string
+ *               committedetail1: string
  *               committeeconstitutepta: string
  *               noofmeetingpta: number
  *               committedetailpta: string
@@ -272,7 +272,7 @@ module.exports = router;
  *               smcsmdccommitte: Yes
  *               smdcpreviousyear: 7
  *               smdccommitteimprove: Yes
- *               committedetail: Yes
+ *               committedetail1: Yes
  *               committeeconstitutepta: Yes
  *               noofmeetingpta: 7
  *               committedetailpta: Yes
