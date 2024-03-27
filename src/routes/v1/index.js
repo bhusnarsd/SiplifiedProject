@@ -69,7 +69,12 @@ const saralInformation1Route = require('./saral/saral.information1.route');
 const saralInformation2Route = require('./saral/saral.information2.route');
 const saralInformation3Route = require('./saral/saral.information3.route');
 const saralInformation4Route = require('./saral/saral.information4.route');
+
 const teacherTrainingRoute = require('./teacher.training.route');
+
+const teacherRoute = require('./teacher.route');
+
+
 const router = express.Router();
 
 const defaultRoutes = [
@@ -348,6 +353,10 @@ const defaultRoutes = [
   {
     path: '/saralInformation4',
     route: saralInformation4Route,
+  },
+  {
+    path: '/teacher',
+    route: teacherRoute,
   },
 ];
 
