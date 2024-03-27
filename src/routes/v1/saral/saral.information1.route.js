@@ -1,5 +1,5 @@
 const express = require('express');
-const auth = require('../../../middlewares/auth');
+
 const validate = require('../../../middlewares/validate');
 const saralInformation1Validation = require('../../../validations/saral/saral.information1.validation');
 const saralInfo1Controller = require('../../../controllers/saral/saral.information1.controller');
@@ -8,18 +8,18 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.createSaralInfo1), saralInfo1Controller.createSaralInfo1)
-  .get(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.getAllSaralInfo1s), saralInfo1Controller.getSaralInfo1s);
+  .post(validate(saralInformation1Validation.createSaralInfo1), saralInfo1Controller.createSaralInfo1)
+  .get(validate(saralInformation1Validation.getAllSaralInfo1s), saralInfo1Controller.getSaralInfo1s);
 
 router
   .route('/:saralId')
-  .get(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.getSaralByobjectId), saralInfo1Controller.getSaralInfo1)
-  .patch(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.updateSaralInfo1ById), saralInfo1Controller.updateSaralInfo1)
-  .delete(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.deleteSaralInfo1ById), saralInfo1Controller.deleteSaralInfo1);
+  .get(validate(saralInformation1Validation.getSaralByobjectId), saralInfo1Controller.getSaralInfo1)
+  .patch(validate(saralInformation1Validation.updateSaralInfo1ById), saralInfo1Controller.updateSaralInfo1)
+  .delete(validate(saralInformation1Validation.deleteSaralInfo1ById), saralInfo1Controller.deleteSaralInfo1);
 
 router
   .route('/saral-info/:saralId')
-  .get(auth('user', 'admin', 'superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(saralInformation1Validation.getSaralInfo1), saralInfo1Controller.getSaralInfoBysaralId);
+  .get(validate(saralInformation1Validation.getSaralInfo1), saralInfo1Controller.getSaralInfoBysaralId);
 
 module.exports = router;
 
