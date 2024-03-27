@@ -73,14 +73,20 @@ const saralInformation4Route = require('./saral/saral.information4.route');
 const teacherTrainingRoute = require('./teacher.training.route');
 
 const teacherRoute = require('./teacher.route');
+const middayMealRoute = require('./midday.meal.route');
 
 
 const router = express.Router();
 
 const defaultRoutes = [
+
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/midday-meal',
+    route: middayMealRoute,
   },
   {
     path: '/users',
