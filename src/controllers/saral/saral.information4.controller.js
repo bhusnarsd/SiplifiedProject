@@ -5,7 +5,7 @@ const catchAsync = require('../../utils/catchAsync');
 const saralInformation4Service = require('../../services/saral/saral.information4.service');
 
 const createSaralInfo4 = catchAsync(async (req, res) => {
-  const saral = await saralInformation4Service.createSaralInfo4(req.body);
+  const saral = await saralInformation4Service.createSaralInfo4(req.body.scode, req.body);
   res.status(httpStatus.CREATED).send(saral);
 });
 

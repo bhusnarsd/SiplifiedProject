@@ -2,15 +2,40 @@ const httpStatus = require('http-status');
 const SaralInformation4 = require('../../models/saral/saral.information4.model');
 const ApiError = require('../../utils/ApiError');
 
+// /**
+//  * Create a Saral Information4
+//  * @param {Object} saralInfo4
+//  * @returns {Promise<SaralInformation4>}
+//  */
+// const createSaralInfo4 = async (saralInfo4) => {
+//   return SaralInformation4.create(saralInfo4);
+// };
 /**
- * Create a Saral Information4
- * @param {Object} saralInfo4
+ * Get SaralInformation1 by scode
+ * @param {ObjectId} scode
  * @returns {Promise<SaralInformation4>}
  */
-const createSaralInfo4 = async (saralInfo4) => {
-  return SaralInformation4.create(saralInfo4);
+const getsection1A10ByScode = async (scode) => {
+  return SaralInformation4.findOne({ scode });
 };
-
+/**
+ * Create a SaralInformation1Schema
+ * @param {Object} Section1A10SchemaBody
+ * @returns {Promise<SaralInformation4>}
+ */
+const createSaralInfo4 = async (scode, reqBody) => {
+  let saralInfo1 = await getsection1A10ByScode(scode);
+  if (!saralInfo1) {
+    // Create a new instance of SaralInformation1Schema if not found
+    saralInfo1 = new SaralInformation4(reqBody);
+  } else {
+    // Update existing instance with new data
+    Object.assign(saralInfo1, reqBody);
+  }
+  // Save the instance
+  await saralInfo1.save();
+  return saralInfo1;
+};
 /**
  * Query for Saral information4
  * @param {Object} filter - Mongo filter

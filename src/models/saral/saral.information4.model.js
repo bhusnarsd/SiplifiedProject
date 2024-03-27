@@ -49,7 +49,7 @@ const saralInformation4Schema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    committedetail: {
+    committedetail1: {
       type: String,
       trim: true,
     },
