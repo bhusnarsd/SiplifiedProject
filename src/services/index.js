@@ -65,3 +65,7 @@ module.exports.assetMasterService = require('./masterService/assetMaster.service
 module.exports.sansthanService = require('./sansthan.service');
 module.exports.studentClassService = require('./studentClass.service');
 module.exports.assetManagementService = require('./asset.management.service');
+module.exports.saralInformation1Service = require('./saral/saral.information1.service');
+module.exports.saralInformation2Service = require('./saral/saral.information2.service');
+module.exports.saralInformation3Service = require('./saral/saral.information3.service');
+module.exports.saralInformation4Service = require('./saral/saral.information4.service');

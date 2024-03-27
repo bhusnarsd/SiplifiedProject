@@ -60,3 +60,7 @@ module.exports.appointedController = require('./masterControllers/appointed.leve
 module.exports.assetMasterController = require('./masterControllers/assetMaster.controller');
 module.exports.sansthanController = require('./sansthan.controller');
 module.exports.assetManagementController = require('./asset.management.controller');
+module.exports.saralInfo1Controller = require('./saral/saral.information1.controller');
+module.exports.saralInfo2Controller = require('./saral/saral.information2.controller');
+module.exports.saralInfo3Controller = require('./saral/saral.information3.controller');
+module.exports.saralInfo4Controller = require('./saral/saral.information4.controller');
