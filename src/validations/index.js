@@ -60,3 +60,4 @@ module.exports.teacherTrainingValidation = require('./teacher.training.validatio
 
 module.exports.teacherValidation = require('./teacher.validation');
 module.exports.middayMealValidation = require('./midday.meal.validation');
+module.exports.courseEnrollmentValidation = require('./course.enrollment.validation');
