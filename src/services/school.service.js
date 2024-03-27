@@ -162,6 +162,7 @@ const getStudentClassWiseCount = async (filter) => {
     },
 
   ]);
+  const school = await School.find(filter).limit(2);
   console.log(result);
   return result;
       
