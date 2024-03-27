@@ -65,6 +65,10 @@ const appointedRoute = require('./masterRoutes/appointed.level.route');
 const assectMasterRoute = require('./masterRoutes/assetMaster.route');
 const sansthanRoute = require('./sansthan.route');
 const assetManagementRoute = require('./asset.management.route');
+const saralInformation1Route = require('./saral/saral.information1.route');
+const saralInformation2Route = require('./saral/saral.information2.route');
+const saralInformation3Route = require('./saral/saral.information3.route');
+const saralInformation4Route = require('./saral/saral.information4.route');
 
 const router = express.Router();
 
@@ -324,6 +328,22 @@ const defaultRoutes = [
   {
     path: '/sansthan',
     route: sansthanRoute,
+  },
+  {
+    path: '/saralInformation1',
+    route: saralInformation1Route,
+  },
+  {
+    path: '/saralInformation2',
+    route: saralInformation2Route,
+  },
+  {
+    path: '/saralInformation3',
+    route: saralInformation3Route,
+  },
+  {
+    path: '/saralInformation4',
+    route: saralInformation4Route,
   },
 ];
 
