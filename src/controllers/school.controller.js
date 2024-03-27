@@ -134,10 +134,16 @@ const getSchoolBlockWise = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getSchoolList = catchAsync(async (req, res) => {
+  console.log(req.body.block)
+  const result = await schoolService.getSchoolList(req.body.block);
+  res.send(result);
+});
 module.exports = {
   createSchool,
   getSchools,
   getSchool,
+  getSchoolList,
   getDistrictList,
   getBlockList,
   getSchoolsStats,

@@ -141,6 +141,18 @@ const getBlockList = async(district) => {
   const block = await School.find({ district }, { block: 1,  }).distinct('block');
   return block
 }
+
+/**
+ * Get block names
+ * @param {string} block
+ * @returns {Promise<School>}
+ */
+const getSchoolList = async (block) => {
+    const schools = await School.find({ block }, { name: 1 }).distinct('name');
+    return schools;
+};
+
+
 /**
 Retrieves the count of male and female students by state and class.
 // @param {string} - The district to filter the schools by.
@@ -237,6 +249,7 @@ module.exports = {
   createSchool,
   querySchool,
   getSchoolStat,
+  getSchoolList,
   getSchoolCountDistrict,
   getSchoolCountByBlock,
   getSchoolByUdisecode,

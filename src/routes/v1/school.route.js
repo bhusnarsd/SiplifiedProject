@@ -53,13 +53,16 @@ router
   // .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
   router
   .route('/get-district')
-  .get(auth('superadmin'), schoolController.getDistrictList);
+  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDistrictList);
   router
   .route('/get-block')
-  .post(auth('superadmin'),  validate(schoolValidation.getBlock), schoolController.getBlockList);
+  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),  validate(schoolValidation.getBlock), schoolController.getBlockList);
+  router
+  .route('/get-schools')
+  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolList);
 router
   .route('/:udisecode')
-  .get(auth('superadmin'), validate(schoolValidation.getSchool), schoolController.getSchool);
+  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getSchool), schoolController.getSchool);
 //   .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
 //   .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
 
@@ -375,6 +378,35 @@ module.exports = router;
  *                   $ref: '#/components/schemas/School'
  */
 
+
+/**
+ * @swagger
+ * /schools/get-schools:
+ *   post:
+ *     summary: Login
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               block:
+ *                 type: string
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/School'
+ */
 /**
  * @swagger
  * /schools/filter/by-post:

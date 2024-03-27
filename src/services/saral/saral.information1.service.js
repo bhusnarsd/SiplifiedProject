@@ -2,7 +2,6 @@ const httpStatus = require('http-status');
 const SaralInformation1 = require('../../models/saral/saral.information1.model');
 const ApiError = require('../../utils/ApiError');
 
-
 /**
  * Get SaralInformation1 by scode
  * @param {ObjectId} scode

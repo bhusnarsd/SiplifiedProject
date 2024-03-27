@@ -11,7 +11,6 @@ const createCourse = async (course) => {
   return TeacherTraining.create(course);
 };
 
-
 /**
  * Query for Course
  * @param {Object} filter - Mongo filter
@@ -34,7 +33,6 @@ const getAllCourses = async (filter, options) => {
 const getCourseById = async (id) => {
   return TeacherTraining.findById(id);
 };
-
 
 /**
  * Update Course by id
