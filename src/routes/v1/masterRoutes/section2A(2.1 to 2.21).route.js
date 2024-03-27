@@ -343,7 +343,7 @@ module.exports = router;
  *               biometrickit: Yes
  *               essentialmedicineavai: Yes
  *               firstaidavai: Yes
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

@@ -35,8 +35,8 @@ const deleteSaralInfo1 = catchAsync(async (req, res) => {
 });
 
 const getSaralInfoBysaralId = catchAsync(async (req, res) => {
-  const { saralId } = req.params;
-  const result = await saralInformation1Service.getSaralInfo1BySaralId(saralId);
+  const { scode } = req.params;
+  const result = await saralInformation1Service.getSaralInfo1BySaralId(scode);
   res.send(result);
 });
 

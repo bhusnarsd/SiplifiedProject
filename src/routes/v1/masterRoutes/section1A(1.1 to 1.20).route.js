@@ -105,7 +105,7 @@ module.exports = router;
  *               upperprimary: upper Secondary Class
  *               Secondary: Secondary Class
  *               higherSecondary: Higher Secondary Class
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

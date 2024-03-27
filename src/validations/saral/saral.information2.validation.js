@@ -53,7 +53,7 @@ const getSaralInfo2 = {
 
 const getSaralInfo = {
   params: Joi.object().keys({
-    saralId: Joi.string(),
+    scode: Joi.string(),
   }),
 };
 

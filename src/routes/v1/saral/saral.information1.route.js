@@ -18,7 +18,7 @@ router
   .delete(validate(saralInformation1Validation.deleteSaralInfo1ById), saralInfo1Controller.deleteSaralInfo1);
 
 router
-  .route('/saral-info/:saralId')
+  .route('/saral-info/:scode')
   .get(validate(saralInformation1Validation.getSaralInfo1), saralInfo1Controller.getSaralInfoBysaralId);
 
 module.exports = router;
@@ -463,13 +463,13 @@ module.exports = router;
 //  */
 /**
  * @swagger
- * /saralInformation1/saral-info/{saralId}:
+ * /saralInformation1/saral-info/{scode}:
  *   get:
- *     summary: Get Saral Information1 by saralId
+ *     summary: Get Saral Information1 by scode
  *     tags: [SaralInformation1]
  *     parameters:
  *       - in: path
- *         name: saralId
+ *         name: scode
  *         schema:
  *           type: string
  *         required: true

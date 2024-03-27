@@ -64,8 +64,8 @@ const getSaralInfo4ById = async (id) => {
  * @param {string} saralId - The ID of the Saral Information1.
  * @returns {Promise<SaralInformation4>}
  */
-const getSaralInfo1BySaralId = async (saralId) => {
-  return SaralInformation4.findOne({ saralId });
+const getSaralInfo1BySaralId = async (scode) => {
+  return SaralInformation4.findOne({ scode });
 };
 
 /**

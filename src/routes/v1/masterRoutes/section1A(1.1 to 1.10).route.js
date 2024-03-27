@@ -91,7 +91,7 @@ module.exports = router;
  *               email: manishspatil345@gmail.com
  *               website: https://www.example.com
  *               profile_count: PROFILE_COUNT_VALUE
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

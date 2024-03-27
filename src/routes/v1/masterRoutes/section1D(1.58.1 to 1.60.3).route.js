@@ -98,7 +98,7 @@ module.exports = router;
  *               ictItem: Laptop
  *               sportEqu: "Sports Equipment"
  *               libraryBooks: Books and Magazine
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

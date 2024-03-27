@@ -92,7 +92,7 @@ module.exports = router;
  *               sepratrroomavai2: Yes
  *               sepratrroomavai3: No
  *               sepratrroomavai4: No
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created

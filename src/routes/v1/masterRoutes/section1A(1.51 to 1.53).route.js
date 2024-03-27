@@ -360,7 +360,7 @@ module.exports = router;
  *               trainingsocial10: Training Social data
  *               trainingsocial11: Training Social data
  *               trainingsocial12: Training Social data
- *               scode: SCODE_VALUE
+ *               scode: mh000101
  *     responses:
  *       "201":
  *         description: Created
