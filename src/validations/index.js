@@ -59,4 +59,4 @@ module.exports.assetManagementValidation = require('./assset.management.validati
 module.exports.teacherTrainingValidation = require('./teacher.training.validation');
 
 module.exports.teacherValidation = require('./teacher.validation');
-
+module.exports.middayMealValidation = require('./midday.meal.validation');
