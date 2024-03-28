@@ -73,14 +73,18 @@ const teacherTrainingRoute = require('./teacher.training.route');
 const teacherRoute = require('./teacher.route');
 const middayMealRoute = require('./midday.meal.route');
 const courseEnrollmentRoute = require('./course.enrollment.route');
+const selfAssessmentRoute = require('./self.assessment.route');
 
 const router = express.Router();
 
 const defaultRoutes = [
-  
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/self-assessment',
+    route: selfAssessmentRoute,
   },
   {
     path: '/course-enrollment',

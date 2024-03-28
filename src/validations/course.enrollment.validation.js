@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { objectId } = require('../validations/custom.validation');
+const { objectId } = require('./custom.validation');
 
 const createEnrollment = {
   body: Joi.object().keys({
@@ -8,6 +8,7 @@ const createEnrollment = {
     teacherName: Joi.string().required(),
     teacherId: Joi.string().required(),
     scode: Joi.string().required(),
+    feedback: Joi.string().allow(''),
     contactNo: Joi.number().required(),
   }),
 };
@@ -33,12 +34,13 @@ const updateEnrollmentById = {
   }),
   body: Joi.object()
     .keys({
-        courseName: Joi.string(),
-        courseObjectId: Joi.string(),
-        teacherName: Joi.string(),
-        teacherId: Joi.string(),
-        scode: Joi.string(),
-        contactNo: Joi.number(),
+      courseName: Joi.string(),
+      courseObjectId: Joi.string(),
+      teacherName: Joi.string(),
+      teacherId: Joi.string(),
+      scode: Joi.string(),
+      contactNo: Joi.number(),
+      feedback: Joi.string(),
     })
     .min(1),
 };
