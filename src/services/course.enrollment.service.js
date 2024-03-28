@@ -11,7 +11,6 @@ const createEnrollement = async (enrollment) => {
   return CourseEnrollement.create(enrollment);
 };
 
-
 /**
  * Query for Enrollement
  * @param {Object} filter - Mongo filter
@@ -34,7 +33,6 @@ const getAllEnrollements = async (filter, options) => {
 const getEnrollementById = async (id) => {
   return CourseEnrollement.findById(id);
 };
-
 
 /**
  * Update Enrollement by id

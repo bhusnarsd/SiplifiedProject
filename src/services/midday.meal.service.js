@@ -11,7 +11,6 @@ const createMeal = async (meal) => {
   return MiddayMeal.create(meal);
 };
 
-
 /**
  * Query for Meal
  * @param {Object} filter - Mongo filter
@@ -34,7 +33,6 @@ const getAllMeals = async (filter, options) => {
 const getMealById = async (id) => {
   return MiddayMeal.findById(id);
 };
-
 
 /**
  * Update Meal by id

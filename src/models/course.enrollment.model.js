@@ -22,6 +22,9 @@ const courseEnrollement = mongoose.Schema(
     scode: {
         type: String,
     },
+    feedback: {
+      type: String,
+  },
     contactNo: {
         type: Number,
     },
@@ -37,5 +40,6 @@ courseEnrollement.plugin(paginate);
 /**
  * @typedef CourseEnrollement
  */
+
 const CourseEnrollement = mongoose.model('CourseEnrollement', courseEnrollement);
 module.exports = CourseEnrollement;

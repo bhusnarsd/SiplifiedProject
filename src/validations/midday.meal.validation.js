@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { objectId } = require('../validations/custom.validation');
+const { objectId } = require('./custom.validation');
 
 const createMeal = {
   body: Joi.object().keys({
@@ -30,9 +30,9 @@ const updateMealById = {
   }),
   body: Joi.object()
     .keys({
-        receipeName: Joi.string(),
-        day: Joi.string(),
-        time: Joi.string(),
+      receipeName: Joi.string(),
+      day: Joi.string(),
+      time: Joi.string(),
     })
     .min(1),
 };

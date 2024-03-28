@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 const express = require('express');
-const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const { teacherTrainingValidation } = require('../../validations');
 const { teacherTrainingController } = require('../../controllers');
@@ -55,6 +54,31 @@ module.exports = router;
  *     summary: Get all teacher training courses
  *     description: Retrieve all teacher training courses
  *     tags: [TeacherTraining]
+ *     parameters:
+ *       - in: query
+ *         name: courseName
+ *         schema:
+ *           type: string
+ *         description: courseName
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *         description: sort by query in the form of field:desc/asc (ex. name:asc)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 10
+ *         description: Maximum number of users
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
  *     responses:
  *       "200":
  *         description: OK

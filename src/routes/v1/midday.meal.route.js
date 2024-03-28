@@ -54,6 +54,31 @@ module.exports = router;
  *     summary: Get all midday meals
  *     description: Retrieve all midday meals
  *     tags: [MiddayMeal]
+ *     parameters:
+ *       - in: query
+ *         name: receipeName
+ *         schema:
+ *           type: string
+ *         description: receipeName
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *         description: sort by query in the form of field:desc/asc (ex. name:asc)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 10
+ *         description: Maximum number of users
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
  *     responses:
  *       "200":
  *         description: OK
