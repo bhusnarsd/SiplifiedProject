@@ -148,7 +148,7 @@ const getBlockList = async(district) => {
  * @returns {Promise<School>}
  */
 const getSchoolList = async (block) => {
-    const schools = await School.find({ block }, { name: 1 }).distinct('name');
+    const schools = await School.find({ block }, { name: 1 , code: 1,})
     return schools;
 };
 
