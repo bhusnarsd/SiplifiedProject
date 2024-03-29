@@ -3,46 +3,62 @@ const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const attendanceSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    index: 'text',
-  },
-  scode: {
-    type: String,
-    required: true,
-  },
-  date: { 
-    type: Date,
-    required: true,
-  },
-  udisecode: {
-    type: String,
-  },
-  division:{
-    type: String,
-  },
-  district: {
-    type: String,
-  },
-  block: {
-    type: String,
-  },
-  resultlist: [{
-    _id: false, 
-    present: Number,
-    absent: Number,
-    class: String,
-    section: String,
-    class_id: String,
-    section_id: String,
-  }],
-  totalPresent: {
-    type: Number,
-  },
-  totalAbsent: {
-    type: Number,
-  },
+    date: {
+        type: Date,
+        required: true
+      },
+      resultlist: [{
+        classSection: {
+          type: String,
+        },
+        totalPresent: {
+          type: Number,
+        },
+        totalAbsent: {
+          type: Number,
+        },
+        presentPercent: {
+          type: String,
+        },
+        absentPercent: {
+          type: String,
+        }
+      }],
+      allStudent: {
+        type: Number,
+      },
+      allPresent: {
+        type: Number,
+      },
+      allAbsent: {
+        type: Number,
+      },
+      allPresentPercent: {
+        type: String,
+      },
+      allAbsentPercent: {
+        type: String,
+      },
+      block: {
+        type: String,
+        default: ''
+      },
+      district: {
+        type: String,
+        default: ''
+      },
+      division: {
+        type: String,
+        default: ''
+      },
+      schoolname: {
+        type: String,
+        default: ''
+      },
+      scode: {
+        type: String,
+        required: true
+      }
 });
 
 // Add plugins

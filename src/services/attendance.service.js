@@ -1,14 +1,25 @@
+/* eslint-disable prettier/prettier */
 const httpStatus = require('http-status');
 const { Attendance } = require('../models');
 const ApiError = require('../utils/ApiError');
 
+
+const getAttendanceByScodeAndDate = async (scode, date) => {
+    return Attendance.findOne({scode, date});
+  };
 /**
  * Create a attendance
  * @param {Object} reqBody
  * @returns {Promise<Attendance>}
  */
-const createAttendance = async (reqBody) => {
-  return Attendance.create(reqBody);
+const createAttendance = async (scode, date, reqBody) => {
+    let result = await getAttendanceByScodeAndDate({scode, date});
+  if (!result) {
+   result = await Attendance.create(reqBody);
+  }
+  Object.assign(result, reqBody);
+  await result.save();
+  return result;
 };
 
 /**
