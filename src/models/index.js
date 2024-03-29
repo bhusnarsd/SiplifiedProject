@@ -70,4 +70,5 @@ module.exports.TeacherTraining = require('./teacher.training.model');
 module.exports.Teacher = require('./teacher.model');
 module.exports.MiddayMeal = require('./midday.meal.model');
 module.exports.CourseEnrollement = require('./course.enrollment.model');
+module.exports.Attendance = require('./attendance.model');
 module.exports.SelfAssessment = require('./self.assessment.model');

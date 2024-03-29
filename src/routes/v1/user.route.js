@@ -8,14 +8,34 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(auth('superadmin', 'district_officer'), validate(userValidation.createUser), userController.createUser)
-  .get(auth('superadmin'), validate(userValidation.getUsers), userController.getUsers);
+  .post(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(userValidation.createUser),
+    userController.createUser
+  )
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(userValidation.getUsers),
+    userController.getUsers
+  );
 
 router
   .route('/:userId')
-  .get(auth('superadmin'), validate(userValidation.getUser), userController.getUser)
-  .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(userValidation.getUser),
+    userController.getUser
+  )
+  .patch(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(userValidation.updateUser),
+    userController.updateUser
+  )
+  .delete(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(userValidation.deleteUser),
+    userController.deleteUser
+  );
 
 module.exports = router;
 
