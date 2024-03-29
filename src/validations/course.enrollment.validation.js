@@ -8,6 +8,7 @@ const createEnrollment = {
     teacherName: Joi.string().required(),
     teacherId: Joi.string().required(),
     scode: Joi.string().required(),
+    feedback: Joi.string().allow(''),
     contactNo: Joi.number().required(),
   }),
 };
@@ -39,6 +40,7 @@ const updateEnrollmentById = {
       teacherId: Joi.string(),
       scode: Joi.string(),
       contactNo: Joi.number(),
+      feedback: Joi.string(),
     })
     .min(1),
 };
