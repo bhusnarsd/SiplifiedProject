@@ -77,7 +77,6 @@ const courseEnrollmentRoute = require('./course.enrollment.route');
 const router = express.Router();
 
 const defaultRoutes = [
-  
   {
     path: '/auth',
     route: authRoute,

@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { objectId } = require('../validations/custom.validation');
+const { objectId } = require('./custom.validation');
 
 const createEnrollment = {
   body: Joi.object().keys({
@@ -33,12 +33,12 @@ const updateEnrollmentById = {
   }),
   body: Joi.object()
     .keys({
-        courseName: Joi.string(),
-        courseObjectId: Joi.string(),
-        teacherName: Joi.string(),
-        teacherId: Joi.string(),
-        scode: Joi.string(),
-        contactNo: Joi.number(),
+      courseName: Joi.string(),
+      courseObjectId: Joi.string(),
+      teacherName: Joi.string(),
+      teacherId: Joi.string(),
+      scode: Joi.string(),
+      contactNo: Joi.number(),
     })
     .min(1),
 };
