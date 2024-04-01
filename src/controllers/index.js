@@ -69,3 +69,4 @@ module.exports.teacherController = require('./teacher.controller');
 module.exports.middayMealController = require('./midday.meal.controller');
 module.exports.courseEntrollmentController = require('./course.enrollment.controller');
 module.exports.selfAssessmentController = require('./self.assessment.controller');
+module.exports.schoolAnalysisController = require('./school.analysis.controller');
