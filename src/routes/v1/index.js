@@ -75,6 +75,7 @@ const middayMealRoute = require('./midday.meal.route');
 const courseEnrollmentRoute = require('./course.enrollment.route');
 const selfAssessmentRoute = require('./self.assessment.route');
 const attendanceRoute = require('./attendance.route');
+const schoolAnalysisRoute = require('./school.analysis.route');
 
 const router = express.Router();
 
@@ -82,6 +83,10 @@ const defaultRoutes = [
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/school-analysis',
+    route: schoolAnalysisRoute,
   },
   {
     path: '/self-assessment',

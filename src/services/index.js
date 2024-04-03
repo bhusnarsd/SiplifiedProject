@@ -74,3 +74,4 @@ module.exports.teacherTrainingService = require('./teacher.training.service');
 module.exports.courseEnrollmentService = require('./course.enrollment.service');
 module.exports.attendanceService = require('./attendance.service');
 module.exports.selfAssessmentService = require('./self.assessment.service');
+module.exports.schoolAnalysisService = require('./school.analysis.service');

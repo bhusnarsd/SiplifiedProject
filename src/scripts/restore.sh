@@ -10,10 +10,10 @@
 #!/bin/bash
 
 # Extract the zip file directly into the ../dbs directory
-unzip -j -o ../dbs/dump.zip -d ../dbs
+# unzip -j -o ../dbs/dump.zip -d ../dbs
 
 # Restore the database
-mongorestore --host localhost --port 27017 --db MHEDU_Server ../dbs
+mongorestore --host localhost --port 27017 --db MHEDU_Server ../dbs/MHEDU_Server
 
 
 # mongorestore --username root --password VRuAd2Nvmp4ELHh5 --authenticationDatabase admin --archive=$BACKUP_FILE --gzip --drop
