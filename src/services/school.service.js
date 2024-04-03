@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
-// const httpStatus = require('http-status');
+const httpStatus = require('http-status');
 const { School } = require('../models');
-// const ApiError = require('../utils/ApiError');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a school
@@ -26,14 +25,14 @@ const querySchool = async (filter, options) => {
   return school;
 };
 
-// /**
-//  * Get user by id
-//  * @param {ObjectId} id
-//  * @returns {Promise<School>}
-//  */
-// const getSchoolById = async (id) => {
-//   return School.findById(id);
-// };
+/**
+ * Get user by id
+ * @param {ObjectId} id
+ * @returns {Promise<School>}
+ */
+const getSchoolByScode = async (code) => {
+  return School.findOne({ code });
+};
 
 /**
  * Get user by udisecode
@@ -52,15 +51,15 @@ const getSchoolByUdisecode = async (udisecode) => {
 const getSchoolStatAll = async (filter) => {
   const result = await School.aggregate([
     {
-      $match: filter
+      $match: filter,
     },
     {
       $group: {
         _id: null,
         totalStudents: { $sum: '$student' },
-        totalStaff: { $sum: '$staff' }
-      }
-    }
+        totalStaff: { $sum: '$staff' },
+      },
+    },
   ]);
   const totalSchool = await School.countDocuments(filter);
   const { totalStudents, totalStaff } = result[0];
@@ -68,10 +67,9 @@ const getSchoolStatAll = async (filter) => {
   return {
     totalSchool,
     totalStudents,
-    totalStaff
+    totalStaff,
   };
 };
-
 
 /**
  * Get user by udisecode
@@ -84,11 +82,11 @@ const getSchoolCountDistrict = async () => {
       $group: {
         _id: '$district',
         totalSchools: { $sum: 1 },
-      }
-    }
+      },
+    },
   ]);
 
-  return  result;
+  return result;
 };
 
 /**
@@ -99,17 +97,17 @@ const getSchoolCountDistrict = async () => {
 const getSchoolCountByBlock = async (district) => {
   const result = await School.aggregate([
     {
-      $match: {district}
+      $match: { district },
     },
     {
       $group: {
         _id: '$block',
         totalSchools: { $sum: 1 },
-      }
-    }
+      },
+    },
   ]);
 
-  return  result;
+  return result;
 };
 /**
  * Get user by udisecode
@@ -127,9 +125,9 @@ const getSchoolByFilter = async (district, block) => {
  * Get district names
  * @returns {Promise<School>}
  */
-const getDistrictList = async() => {
-    const district = await School.find({}, { district: 1,  }).distinct('district');
-    return district
+const getDistrictList = async () => {
+  const district = await School.find({}, { district: 1 }).distinct('district');
+  return district;
 };
 
 /**
@@ -137,10 +135,10 @@ const getDistrictList = async() => {
  * @param {string} district
  * @returns {Promise<School>}
  */
-const getBlockList = async(district) => {
-  const block = await School.find({ district }, { block: 1,  }).distinct('block');
-  return block
-}
+const getBlockList = async (district) => {
+  const block = await School.find({ district }, { block: 1 }).distinct('block');
+  return block;
+};
 
 /**
  * Get block names
@@ -148,10 +146,9 @@ const getBlockList = async(district) => {
  * @returns {Promise<School>}
  */
 const getSchoolList = async (block) => {
-    const schools = await School.find({ block }, { name: 1 , code: 1,})
-    return schools;
+  const schools = await School.find({ block }, { name: 1, code: 1 });
+  return schools;
 };
-
 
 /**
 Retrieves the count of male and female students by state and class.
@@ -161,17 +158,16 @@ Retrieves the count of male and female students by state and class.
 const getStudentClassWiseCount = async (filter) => {
   const result = await School.aggregate([
     { $match: filter },
-    { $unwind: "$resultlist" },
+    { $unwind: '$resultlist' },
     {
       $group: {
-        _id:  "$resultlist.class",
-        maleCount: { $sum: "$resultlist.male" },
-        femaleCount: { $sum: "$resultlist.female" }
-      }
+        _id: '$resultlist.class',
+        maleCount: { $sum: '$resultlist.male' },
+        femaleCount: { $sum: '$resultlist.female' },
+      },
     },
-
-  ]);  
-  return result
+  ]);
+  return result;
 };
 
 /**
@@ -180,18 +176,18 @@ const getStudentClassWiseCount = async (filter) => {
  * @returns {Promise<School>}
  */
 const getSchoolStat = async (filter, role) => {
-    const result = await School.aggregate([
-      { $match: filter },
-      {
-        $group: {
-          _id: `$${role}`,
-          total_student: { $sum: "$total_student" },
-          total_teacher: { $sum: "$total_teacher" }
-        }
-      }
-    ]);
-    const totalSchool = await School.countDocuments(filter);
-    return {result, totalSchool};
+  const result = await School.aggregate([
+    { $match: filter },
+    {
+      $group: {
+        _id: `$${role}`,
+        total_student: { $sum: '$total_student' },
+        total_teacher: { $sum: '$total_teacher' },
+      },
+    },
+  ]);
+  const totalSchool = await School.countDocuments(filter);
+  return { result, totalSchool };
 };
 
 /**
@@ -201,48 +197,62 @@ Function to get school division wise data
 */
 const getSchoolDivisionWise = async (division) => {
   const result = await School.aggregate([
-    { $match: {division} },
+    { $match: { division } },
     {
       $group: {
         _id: `$district`,
-        total_student: { $sum: "$total_student" },
-        total_teacher: { $sum: "$total_teacher" }
-      }
-    }
+        total_student: { $sum: '$total_student' },
+        total_teacher: { $sum: '$total_teacher' },
+      },
+    },
   ]);
-const totalSchool = await School.countDocuments({division});
-  return {result, totalSchool};
+  const totalSchool = await School.countDocuments({ division });
+  return { result, totalSchool };
 };
-
 
 const getSchoolDistrictWise = async (district) => {
   const result = await School.aggregate([
-    { $match: {district} },
+    { $match: { district } },
     {
       $group: {
         _id: `$block`,
-        total_student: { $sum: "$total_student" },
-        total_teacher: { $sum: "$total_teacher" }
-      }
-    }
+        total_student: { $sum: '$total_student' },
+        total_teacher: { $sum: '$total_teacher' },
+      },
+    },
   ]);
-const totalSchool = await School.countDocuments({district});
-  return {result, totalSchool};
+  const totalSchool = await School.countDocuments({ district });
+  return { result, totalSchool };
 };
 
 const getSchoolBlockWise = async (block) => {
   const result = await School.aggregate([
-    { $match: {block} },
+    { $match: { block } },
     {
       $group: {
         _id: `$name`,
-        total_student: { $sum: "$total_student" },
-        total_teacher: { $sum: "$total_teacher" }
-      }
-    }
+        total_student: { $sum: '$total_student' },
+        total_teacher: { $sum: '$total_teacher' },
+      },
+    },
   ]);
-const totalSchool = await School.countDocuments({block});
-  return {result, totalSchool};
+  const totalSchool = await School.countDocuments({ block });
+  return { result, totalSchool };
+};
+/**
+ * Update school by id
+ * @param {ObjectId} scode
+ * @param {Object} updateBody
+ * @returns {Promise<School>}
+ */
+const updateSchoolByScode = async (scode, updateBody) => {
+  const result = await getSchoolByScode(scode);
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'SChool not found');
+  }
+  Object.assign(result, updateBody);
+  await result.save();
+  return result;
 };
 
 module.exports = {
@@ -261,4 +271,5 @@ module.exports = {
   getSchoolDivisionWise,
   getSchoolDistrictWise,
   getSchoolBlockWise,
- };
+  updateSchoolByScode,
+};

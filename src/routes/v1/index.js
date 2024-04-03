@@ -74,6 +74,7 @@ const teacherRoute = require('./teacher.route');
 const middayMealRoute = require('./midday.meal.route');
 const courseEnrollmentRoute = require('./course.enrollment.route');
 const selfAssessmentRoute = require('./self.assessment.route');
+const attendanceRoute = require('./attendance.route');
 const schoolAnalysisRoute = require('./school.analysis.route');
 
 const router = express.Router();
@@ -374,6 +375,10 @@ const defaultRoutes = [
   {
     path: '/teacher',
     route: teacherRoute,
+  },
+  {
+    path: '/attendance',
+    route: attendanceRoute,
   },
 ];
 
