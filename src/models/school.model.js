@@ -47,6 +47,9 @@ const schoolSchema = mongoose.Schema({
   block: {
     type: String,
   },
+  sansthan: {
+    type:String,
+  },
   s_type: {
     type: String,
   },

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
@@ -8,16 +7,32 @@ const { teacherController } = require('../../controllers');
 const router = express.Router();
 
 router
-.route('/')
-.post( validate(teacherValidation.createTeacherSchema), teacherController.createTeacher)
-.get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(teacherValidation.getAllTeacher), teacherController.getAllTeacher);
+  .route('/')
+  .post(validate(teacherValidation.createTeacherSchema), teacherController.createTeacher)
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(teacherValidation.getAllTeacher),
+    teacherController.getAllTeacher
+  );
 router
   .route('/get-requests/teacher')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(teacherValidation.getAllTeacher), teacherController.getAllTeacherReq)
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(teacherValidation.getAllTeacher),
+    teacherController.getAllTeacherReq
+  );
 router
   .route('/:id')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(teacherValidation.getTeacher), teacherController.getTeacherById)
-  .patch(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(teacherValidation.updateTeacherSchema), teacherController.updateTeacher);
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(teacherValidation.getTeacher),
+    teacherController.getTeacherById
+  )
+  .patch(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(teacherValidation.updateTeacherSchema),
+    teacherController.updateTeacher
+  );
 module.exports = router;
 
 /**
@@ -206,7 +221,7 @@ module.exports = router;
  *       - name: id
  *         in: path
  *         required: true
- *         description: ID of the 
+ *         description: ID of the
  *         schema:
  *           type: string
  *     requestBody:

@@ -104,3 +104,87 @@
 //   .catch((error) => {
 //     console.error('Error adding dummy data:', error);
 //   });
+
+const faker = require('faker');
+const { Attendance, School } = require('../models');
+// const School = require('./models/school.model');
+
+// Function to add dummy data to the Attendance collection
+const addDummyData = async (schoolData) => {
+  console.log(schoolData);
+
+  try {
+    // Generate random attendance data with numbers limited to 2 digits
+    const resultlist = [
+      {
+        classSection: 'Class 8 (A)',
+        totalPresent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+        absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      },
+      {
+        classSection: 'Class 9 (A)',
+        totalPresent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+        absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      },
+      {
+        classSection: 'Class 10 (A)',
+        totalPresent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+        absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      },
+    ];
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const date = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
+    // Create new attendance document
+    const attendance = new Attendance({
+      date,
+      resultlist,
+      allStudent: faker.datatype.number({ min: 0, max: 99 }),
+      allPresent: faker.datatype.number({ min: 0, max: 99 }),
+      allAbsent: faker.datatype.number({ min: 0, max: 99 }),
+      allPresentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      allAbsentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      block: schoolData.block,
+      district: schoolData.district,
+      division: schoolData.division,
+      schoolname: schoolData.name,
+      scode: schoolData.code,
+    });
+
+    // Save attendance document to the database
+    await attendance.save();
+
+    console.log('Dummy data added to Attendance collection:', attendance);
+  } catch (error) {
+    console.error('Error adding dummy data to Attendance collection:', error);
+  }
+};
+
+// Function to retrieve school data from the School collection
+const getSchoolData = async () => {
+  try {
+    // Set the timeout option to a higher value (e.g., 30 seconds)
+    const options = { timeout: 30000 }; // 30 seconds
+
+    // Retrieve all schools from the School collection with the specified options
+    const schools = await School.find({}, { block: 1, district: 1, division: 1, name: 1, code: 1 }, options);
+
+    // Iterate through each school and add dummy data to the Attendance collection
+    for (const school of schools) {
+      await addDummyData(school);
+    }
+  } catch (error) {
+    console.error('Error retrieving school data:', error);
+  }
+};
+
+// Call the function to get school data and add dummy data to the Attendance collection
+// getSchoolData();

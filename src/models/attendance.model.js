@@ -1,64 +1,68 @@
-/* eslint-disable prettier/prettier */
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
 const attendanceSchema = mongoose.Schema({
-    date: {
-        type: Date,
-        required: true
+  date: {
+    type: Date,
+    required: true,
+  },
+  resultlist: [
+    {
+      _id: {
+        type: false,
       },
-      resultlist: [{
-        classSection: {
-          type: String,
-        },
-        totalPresent: {
-          type: Number,
-        },
-        totalAbsent: {
-          type: Number,
-        },
-        presentPercent: {
-          type: String,
-        },
-        absentPercent: {
-          type: String,
-        }
-      }],
-      allStudent: {
+      classSection: {
+        type: String,
+      },
+      totalPresent: {
         type: Number,
       },
-      allPresent: {
+      totalAbsent: {
         type: Number,
       },
-      allAbsent: {
-        type: Number,
-      },
-      allPresentPercent: {
+      presentPercent: {
         type: String,
       },
-      allAbsentPercent: {
+      absentPercent: {
         type: String,
       },
-      block: {
-        type: String,
-        default: ''
-      },
-      district: {
-        type: String,
-        default: ''
-      },
-      division: {
-        type: String,
-        default: ''
-      },
-      schoolname: {
-        type: String,
-        default: ''
-      },
-      scode: {
-        type: String,
-        required: true
-      }
+    },
+  ],
+  allStudent: {
+    type: Number,
+  },
+  allPresent: {
+    type: Number,
+  },
+  allAbsent: {
+    type: Number,
+  },
+  allPresentPercent: {
+    type: String,
+  },
+  allAbsentPercent: {
+    type: String,
+  },
+  block: {
+    type: String,
+    default: '',
+  },
+  district: {
+    type: String,
+    default: '',
+  },
+  division: {
+    type: String,
+    default: '',
+  },
+  schoolname: {
+    type: String,
+    default: '',
+  },
+  scode: {
+    type: String,
+    required: true,
+  },
 });
 
 // Add plugins
