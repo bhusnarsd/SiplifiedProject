@@ -139,19 +139,28 @@ const addDummyData = async (schoolData) => {
       },
     ];
     const now = new Date();
+    now.setDate(now.getDate() - 1);
     const day = String(now.getDate()).padStart(2, '0');
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const year = now.getFullYear();
     const date = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
     // Create new attendance document
+    const allStudent = faker.datatype.number({ min: 50, max: 99 });
+    const allPresent = faker.datatype.number({ min: 0, max: allStudent });
+    const allAbsent = allStudent - allPresent;
+
+    // Calculate percentages
+    const allPresentPercent = `${((allPresent / allStudent) * 100).toFixed(2)}%`;
+    const allAbsentPercent = `${((allAbsent / allStudent) * 100).toFixed(2)}%`;
+
     const attendance = new Attendance({
       date,
       resultlist,
-      allStudent: faker.datatype.number({ min: 0, max: 99 }),
-      allPresent: faker.datatype.number({ min: 0, max: 99 }),
-      allAbsent: faker.datatype.number({ min: 0, max: 99 }),
-      allPresentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
-      allAbsentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
+      allStudent,
+      allPresent,
+      allAbsent,
+      allPresentPercent,
+      allAbsentPercent,
       block: schoolData.block,
       district: schoolData.district,
       division: schoolData.division,

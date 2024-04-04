@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { School } = require('../models');
+const { School, Attendance } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -131,12 +131,34 @@ const getDivisionList = async () => {
 };
 
 const getDivisionStats = async (division) => {
+  const now = new Date();
+  now.setDate(now.getDate() - 1); // Subtract one day
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
   const uniqueDistricts = await School.distinct('district', { division });
   const districtBlockCounts = await Promise.all(
     uniqueDistricts.map(async (district) => {
       const uniqueBlocks = await School.distinct('block', { division, district });
       const schoolCount = await School.countDocuments({ division, district });
-      return { district, blockCount: uniqueBlocks.length, schoolCount };
+      const result = await Attendance.aggregate([
+        { $match: { division, district, date } },
+        {
+          $group: {
+            _id: null,
+            totalStudents: { $sum: '$allStudent' },
+            totalPresent: { $sum: '$allPresent' },
+          },
+        },
+      ]);
+      return {
+        district,
+        blockCount: uniqueBlocks.length,
+        schoolCount,
+        totalStudents: result[0]?.totalStudents || 0,
+        totalPresent: result[0]?.totalPresent || 0,
+      };
     })
   );
 
