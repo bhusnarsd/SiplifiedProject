@@ -50,7 +50,7 @@ router
   
   router
   .route('/filter/by-division/count-block-school')
-  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
+  .post( validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
   router
   .route('/get-division')
   .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDivisionList);
