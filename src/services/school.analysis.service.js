@@ -64,7 +64,7 @@ const getSchoolCategoryCounts = async () => {
       },
     },
   ]);
-  let data = {
+  const data = {
     schoolCategoryCounts,
     streamCounts,
     typeOfSchoolCounts,

@@ -90,6 +90,16 @@ const getSchool = catchAsync(async (req, res) => {
   res.send(school);
 });
 
+const getDivisionList = catchAsync(async (req, res) => {
+  const districtList = await schoolService.getDivisionList();
+  res.send(districtList);
+});
+
+const getDivisionWiseStat = catchAsync(async (req, res) => {
+  const districtList = await schoolService.getDivisionStats(req.body.division);
+  res.send(districtList);
+});
+
 const getDistrictList = catchAsync(async (req, res) => {
   const districtList = await schoolService.getDistrictList();
   res.send(districtList);
@@ -153,5 +163,7 @@ module.exports = {
   getSchoolDivisionWise,
   getSchoolDistrictWise,
   getSchoolBlockWise,
-  getSchoolsStatsAll
+  getSchoolsStatsAll,
+  getDivisionList,
+  getDivisionWiseStat,
 };

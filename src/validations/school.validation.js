@@ -38,6 +38,12 @@ const getSchoolByFilter = {
   }),
 };
 
+const getStatsByDivision = {
+  body: Joi.object().keys({
+    division: Joi.string(),
+  }),
+};
+
 
 module.exports = {
 //   createUser,
@@ -46,4 +52,5 @@ module.exports = {
   getSchoolByFilter,
   getBlock,
   getSchoolsDistrict,
+  getStatsByDivision,
 };

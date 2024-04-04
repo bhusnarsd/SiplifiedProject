@@ -48,9 +48,12 @@ router
   .route('/school-count/block-wise/abcd')
   .get(auth('district_officer'), schoolController.getSchoolCountByBlock);// 
   
-  // router
-  // .route('/filter/by-post')
-  // .get(auth('superadmin'), validate(schoolValidation.getSchoolByFilter), schoolController.getSchoolByFilter);
+  router
+  .route('/filter/by-division/count-block-school')
+  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
+  router
+  .route('/get-division')
+  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDivisionList);
   router
   .route('/get-district')
   .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDistrictList);
@@ -459,3 +462,34 @@ module.exports = router;
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
  */  
+
+/**
+ * @swagger
+ * /schools/filter/by-division/count-block-school:
+ *   post:
+ *     summary: Get student and staff count by division
+ *     description: Retrieve the total student and staff count for each division.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - division
+ *             properties:
+ *               division:
+ *                 type: string
+ *             example:
+ *               division: Nashik Division
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */ 
