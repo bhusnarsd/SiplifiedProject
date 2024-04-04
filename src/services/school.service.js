@@ -122,6 +122,28 @@ const getSchoolByFilter = async (district, block) => {
 };
 
 /**
+ * Get division names
+ * @returns {Promise<School>}
+ */
+const getDivisionList = async () => {
+  const division = await School.find({}, { division: 1 }).distinct('division');
+  return division;
+};
+
+const getDivisionStats = async (division) => {
+  const uniqueDistricts = await School.distinct('district', { division });
+  const districtBlockCounts = await Promise.all(
+    uniqueDistricts.map(async (district) => {
+      const uniqueBlocks = await School.distinct('block', { division, district });
+      const schoolCount = await School.countDocuments({ division, district });
+      return { district, blockCount: uniqueBlocks.length, schoolCount };
+    })
+  );
+
+  return { division, districtBlockCounts };
+};
+
+/**
  * Get district names
  * @returns {Promise<School>}
  */
@@ -272,4 +294,6 @@ module.exports = {
   getSchoolDistrictWise,
   getSchoolBlockWise,
   updateSchoolByScode,
+  getDivisionStats,
+  getDivisionList,
 };
