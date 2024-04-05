@@ -10,6 +10,8 @@ const createEnrollment = {
     scode: Joi.string().required(),
     feedback: Joi.string().allow(''),
     contactNo: Joi.number().required(),
+    status: Joi.string().valid('pending', 'approve', 'rejected'),
+    schoolName: Joi.string(),
   }),
 };
 
@@ -41,6 +43,8 @@ const updateEnrollmentById = {
       scode: Joi.string(),
       contactNo: Joi.number(),
       feedback: Joi.string(),
+      status: Joi.string().valid('pending', 'approve', 'rejected'),
+      schoolName: Joi.string(),
     })
     .min(1),
 };

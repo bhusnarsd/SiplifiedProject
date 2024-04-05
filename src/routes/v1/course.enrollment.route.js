@@ -196,6 +196,10 @@ module.exports = router;
  *           type: string
  *         feedback:
  *           type: string
+ *         schoolName:
+ *           type: string
+ *         status:
+ *           type: string
  *         contactNo:
  *           type: number
  *       required:
@@ -206,5 +210,7 @@ module.exports = router;
  *         - scode
  *         - contactNo
  *         - feedback
+ *         - schoolName 
+ *         - status 
  * 
  */
