@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 const express = require('express');
-const auth = require('../../middlewares/auth');
 const { schoolAnalysisController } = require('../../controllers');
 
 const router = express.Router();
@@ -8,6 +7,12 @@ const router = express.Router();
 router
   .route('/data-analysis-states')
   .get(schoolAnalysisController.getSchoolCategoryCounts)
+router
+  .route('/data-analysis-states/mgmt')
+  .get(schoolAnalysisController.geDataAnalysisCounts)
+router
+  .route('/data-analysis-states/infra')
+  .get(schoolAnalysisController.geDataAnalysisCounts3)
 
 module.exports = router;
 
@@ -44,6 +49,55 @@ module.exports = router;
  *         $ref: '#/components/responses/InternalServerError'
  */
 
-// Your other route definitions...
+/**
+ * @swagger
+ * /school-analysis/data-analysis-states/mgmt:
+ *   get:
+ *     summary: Get counts of schools for each school category
+ *     tags: [SchoolAnalysis]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: School category ID
+ *                   count:
+ *                     type: number
+ *                     description: Count of schools for the category
+ *       "500":
+ *         $ref: '#/components/responses/InternalServerError'
+ */
 
-module.exports = router;
+/**
+ * @swagger
+ * /school-analysis/data-analysis-states/infra:
+ *   get:
+ *     summary: Get counts of schools for each school category
+ *     tags: [SchoolAnalysis]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: School category ID
+ *                   count:
+ *                     type: number
+ *                     description: Count of schools for the category
+ *       "500":
+ *         $ref: '#/components/responses/InternalServerError'
+ */
+

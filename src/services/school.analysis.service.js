@@ -1,4 +1,4 @@
-const { Section1A10Schema, Section1A20Schema, Section1A30Schema } = require('../models');
+const { Section1A10Schema, Section1A20Schema, Section1A30Schema, Section1E62Schema, Section2A21Schema, Section2B27Schema } = require('../models');
 
 const getSchoolCategoryCounts = async () => {
   const schoolCategoryCounts = await Section1A20Schema.aggregate([
@@ -39,6 +39,10 @@ const getSchoolCategoryCounts = async () => {
       },
     },
   ]);
+  const SchoolshavingPrePrimarySection = await Section2A21Schema.countDocuments({
+    schoolcwsn: "1",
+  });
+
   const typeOfSchoolCounts2 = await Section1A30Schema.aggregate([
     {
       $group: {
@@ -66,15 +70,122 @@ const getSchoolCategoryCounts = async () => {
   ]);
   const data = {
     schoolCategoryCounts,
+    SchoolshavingPrePrimarySection,
     streamCounts,
     typeOfSchoolCounts,
     typeOfSchoolCounts2,
     typeOfSchoolCounts3,
     schoolLocationCount,
+    
   };
+  return data;
+};
+
+const geDataAnalysisCounts = async () => {
+  const schoolbyManagement = await Section1A20Schema.aggregate([
+    {
+      $group: {
+        _id: '$mangcode',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  const SchoolsbyAffiliationBoardOfSecondary = await Section1A20Schema.aggregate([
+    {
+      $group: {
+        _id: '$affilationBoard',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  const SchoolsbyAffiliationBoardOfHighSecondary = await Section1A30Schema.aggregate([
+    {
+      $group: {
+        _id: '$affilationBoardHigherSecondary',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  const VocationalEducationalDetails = await Section1E62Schema.aggregate([
+    {
+      $group: {
+        _id: '$vocationalNSQF',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const noOfSchoolHavingSecAndHigh = await Section1A20Schema.aggregate([
+    {
+      $group: {
+        _id: '$schoolcategory',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  let data = {
+    schoolbyManagement,
+    SchoolsbyAffiliationBoardOfSecondary,
+    SchoolsbyAffiliationBoardOfHighSecondary,
+    VocationalEducationalDetails,
+    noOfSchoolHavingSecAndHigh,
+  };
+  return data;
+};
+
+const geDataAnalysisCounts3 = async () => {
+  const buildingTypewiseSchoolCount = await Section2A21Schema.aggregate([
+    {
+      $group: {
+        _id: '$statusofschoolbuilding',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const schoolswithICTLab = await Section2B27Schema.aggregate([
+    {
+      $group: {
+        _id: '$ictlab',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const schoolBulidingUnderConst = await Section2A21Schema.aggregate([
+    {
+      $match: {
+        noofbuildingunderconst: { $gt: "0" } // Match documents where noofbuildingunderconst is greater than "0"
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        totalSchools: { $sum: 1 } // Count the number of documents in the result set
+      }
+    }
+  ]);
+
+  const functionalToiletCount = await Section2A21Schema.countDocuments({
+    schooltoilet: "1",
+    nooftoiletseatsfuctionaltotalCWSNfinal: { $gt: "0" }
+  });
+
+  const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
+
+  const data = {
+    buildingTypewiseSchoolCount,
+    buildingUnderConst,
+    schoolswithICTLab,
+    functionalToiletCount,
+  };
+
   return data;
 };
 
 module.exports = {
   getSchoolCategoryCounts,
+  geDataAnalysisCounts,
+  geDataAnalysisCounts3,
 };
