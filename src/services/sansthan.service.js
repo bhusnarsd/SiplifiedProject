@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Sansthan } = require('../models');
+const { Sansthan, User } = require('../models');
 const ApiError = require('../utils/ApiError');
 const userService = require('./user.service');
 // const otpService = require('./otp.service');
@@ -11,7 +11,7 @@ const userService = require('./user.service');
  */
 const createSansthan = async (sansthanBody) => {
   const { userName } = sansthanBody;
-  if (await Sansthan.isUserNameTaken(userName)) {
+  if ((await Sansthan.isUserNameTaken(userName)) && (await User.isEmailTaken(userName))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'userName  already taken');
   }
   // await otpService.verifyOtp(mobNumber, otp);
@@ -91,4 +91,5 @@ module.exports = {
   querySansthan,
   getSansthanByUserID,
   checkUserIdExist,
+  verifySansthanById,
 };

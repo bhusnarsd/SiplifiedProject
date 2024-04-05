@@ -45,16 +45,16 @@ const getData = async () => {
   }
 };
 
-cron.schedule(
-  '0 15 * * *',
-  async () => {
-    console.log('Running getData cron job...');
-    await getData();
-  },
-  {
-    timezone: 'Asia/Kolkata',
-  }
-);
+// cron.schedule(
+//   '0 15 * * *',
+//   async () => {
+//     console.log('Running getData cron job...');
+//     await getData();
+//   },
+//   {
+//     timezone: 'Asia/Kolkata',
+//   }
+// );
 
 const getAllAttendanceCount = async () => {
   const result = await Attendance.aggregate([

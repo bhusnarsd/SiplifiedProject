@@ -42,10 +42,16 @@ const updateSansthan = catchAsync(async (req, res) => {
   res.send(sanstan);
 });
 
+const verifySansthanById = catchAsync(async (req, res) => {
+  const sanstan = await sansthanService.verifySansthanById(req.params.sansthanId);
+  res.send(sanstan);
+});
+
 module.exports = {
   createSansthan,
   updateSansthan,
   getSansthanById,
   getAllSansthan,
   getAllSansthanReq,
+  verifySansthanById,
 };
