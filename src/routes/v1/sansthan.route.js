@@ -10,14 +10,14 @@ const router = express.Router();
 router
 .route('/')
 .post( validate(sansthanValidation.createSansthan), sansthanController.createSansthan)
-.get(auth('superadmin'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthan);
+.get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthan);
 router
   .route('/get-requests/sansthan')
-  .get(auth('superadmin'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthanReq)
+  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthanReq)
 router
   .route('/:sansthanId')
-  .get(auth('superadmin'), validate(sansthanValidation.getSansthan), sansthanController.getSansthanById)
-  .patch(validate(sansthanValidation.updateSansthan), sansthanController.updateSansthan);
+  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getSansthan), sansthanController.getSansthanById)
+  .patch(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(sansthanValidation.updateSansthan), sansthanController.updateSansthan);
 module.exports = router;
 
 /**

@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { Sansthan } = require('../models');
 const ApiError = require('../utils/ApiError');
+const userService = require('./user.service');
 // const otpService = require('./otp.service');
 
 /**
@@ -58,6 +59,27 @@ const updateSansthanById = async (sansthanId, updateBody) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Sansthan not found');
   }
   Object.assign(sansthan, updateBody);
+  await sansthan.save();
+  return sansthan;
+};
+
+const verifySansthanById = async (sansthanId) => {
+  const sansthan = await getSansthanById(sansthanId);
+  if (!sansthan) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Sansthan not found');
+  }
+  const updatebody = {
+    isVerified: true,
+  };
+  const body = {
+    username: sansthan.userName,
+    name: sansthan.sansthanName,
+    password: sansthan.password,
+    role: 'sansthan',
+    asssignedTo: sansthan.userName,
+  };
+  await userService.createUser(body);
+  Object.assign(sansthan, updatebody);
   await sansthan.save();
   return sansthan;
 };
