@@ -13,6 +13,8 @@ const createSelfAssessment = {
     district: Joi.string().required(),
     division: Joi.string().required(),
     status: Joi.string().required().valid('pending', 'approve', 'rejected').default('pending'),
+    schoolName: Joi.string().required(),
+    trainingId: Joi.string().required(),
   }),
 };
 
@@ -46,6 +48,8 @@ const updateSelfAssessmentById = {
       district: Joi.string(),
       division: Joi.string(),
       status: Joi.string().valid('pending', 'approve', 'rejected'),
+      schoolName: Joi.string(),
+      trainingId: Joi.string(),
     })
     .min(1),
 };

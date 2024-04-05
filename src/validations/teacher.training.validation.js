@@ -12,6 +12,8 @@ const createCourse = {
     contactNo: Joi.number().required(),
     path: Joi.string().required(),
     image: Joi.string().required(),
+    enrollment: Joi.string(),
+    
   }),
 };
 
@@ -45,6 +47,7 @@ const updateCourseById = {
       contactNo: Joi.number(),
       path: Joi.string(),
       image: Joi.string(),
+      enrollment: Joi.string(),
     })
     .min(1),
 };
