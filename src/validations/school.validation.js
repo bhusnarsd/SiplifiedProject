@@ -91,9 +91,9 @@ const updateSchools = {
   }),
   body: Joi.object()
     .keys({
-      mid: Joi.number().required(),
-      name: Joi.string().required(),
-      code: Joi.string().required(),
+      mid: Joi.number(),
+      name: Joi.string(),
+      code: Joi.string(),
       contact_number: Joi.string(),
       address: Joi.string(),
       date: Joi.string(),
