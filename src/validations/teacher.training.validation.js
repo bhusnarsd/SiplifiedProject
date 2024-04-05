@@ -13,7 +13,6 @@ const createCourse = {
     path: Joi.string().required(),
     image: Joi.string().required(),
     enrollment: Joi.string(),
-    
   }),
 };
 

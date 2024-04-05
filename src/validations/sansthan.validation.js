@@ -46,9 +46,16 @@ const updateSansthan = {
     .min(1),
 };
 
+const verifySansthan = {
+  params: Joi.object().keys({
+    sansthanId: Joi.required().custom(objectId),
+  }),
+};
+
 module.exports = {
   getAllSansthan,
   getSansthan,
   updateSansthan,
   createSansthan,
+  verifySansthan,
 };

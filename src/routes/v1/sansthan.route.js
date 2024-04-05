@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
@@ -8,16 +7,40 @@ const { sansthanController } = require('../../controllers');
 const router = express.Router();
 
 router
-.route('/')
-.post( validate(sansthanValidation.createSansthan), sansthanController.createSansthan)
-.get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthan);
+  .route('/')
+  .post(validate(sansthanValidation.createSansthan), sansthanController.createSansthan)
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(sansthanValidation.getAllSansthan),
+    sansthanController.getAllSansthan
+  );
 router
   .route('/get-requests/sansthan')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getAllSansthan), sansthanController.getAllSansthanReq)
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(sansthanValidation.getAllSansthan),
+    sansthanController.getAllSansthanReq
+  );
+
+router
+  .route('/verify-sansthan/:sansthanId')
+  .patch(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(sansthanValidation.verifySansthan),
+    sansthanController.verifySansthanById
+  );
 router
   .route('/:sansthanId')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(sansthanValidation.getSansthan), sansthanController.getSansthanById)
-  .patch(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),validate(sansthanValidation.updateSansthan), sansthanController.updateSansthan);
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(sansthanValidation.getSansthan),
+    sansthanController.getSansthanById
+  )
+  .patch(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(sansthanValidation.updateSansthan),
+    sansthanController.updateSansthan
+  );
 module.exports = router;
 
 /**
@@ -225,6 +248,43 @@ module.exports = router;
  *               registrationDist: fake district name
  *               state: fake name of state
  *               mobNumber: 876786070785
+ *     responses:
+ *       "200":
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 sansthanName:
+ *                   type: string
+ *                 registrationDist:
+ *                   type: string
+ *                 state:
+ *                   type: string
+ *                 mobNumber:
+ *                   type: number
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *       "500":
+ *         $ref: '#/components/responses/InternalServer'
+ */
+
+/**
+ * @swagger
+ * /sansthan/verify-sansthan/{sansthanId}:
+ *   patch:
+ *     summary: Update sansthan data by ID
+ *     tags: [Sansthan]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: sansthanId
+ *         in: path
+ *         required: true
+ *         description: ID of the sansthan
+ *         schema:
+ *           type: string
  *     responses:
  *       "200":
  *         description: Successful operation
