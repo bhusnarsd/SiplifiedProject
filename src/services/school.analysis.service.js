@@ -182,7 +182,10 @@ const geDataAnalysisCounts3 = async () => {
   const functionalDrinkingWaterCount = await Section2A21Schema.countDocuments({
     drinkingwater: '1',
   });
-
+  const functionalElectricityCount = await Section2A21Schema.countDocuments({
+    electricityavai: '1',
+  });
+  
   const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
 
   const data = {
@@ -191,6 +194,7 @@ const geDataAnalysisCounts3 = async () => {
     schoolswithICTLab,
     functionalToiletCount,
     functionalDrinkingWaterCount,
+    functionalElectricityCount,
   };
 
   return data;
