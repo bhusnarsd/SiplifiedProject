@@ -28,6 +28,14 @@ const courseEnrollement = mongoose.Schema(
     contactNo: {
         type: Number,
     },
+    status: {
+      type: String,
+      enum: ['pending', 'approve', 'rejected'],
+      default: 'pending',
+    },
+    schoolName: {
+      type: String,
+    },
   },
   {
     timestamps: true,
