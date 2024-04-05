@@ -47,6 +47,9 @@ const sansthanShema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    applyedFrom: {
+      type: String,
+    },
   },
   {
     timestamps: true,

@@ -1,6 +1,46 @@
 /* eslint-disable prettier/prettier */
 const Joi = require('joi');
 
+const createSchools = {
+  body: Joi.object().keys({
+    mid: Joi.number().required(),
+    name: Joi.string().required(),
+    code: Joi.string().required(),
+    contact_number: Joi.string(),
+    address: Joi.string(),
+    date: Joi.string(),
+    month: Joi.number(),
+    year: Joi.number(),
+    logo: Joi.number(),
+    udisecode: Joi.string(),
+    division: Joi.string(),
+    district: Joi.string(),
+    block: Joi.string(),
+    sansthan: Joi.string(),
+    s_type: Joi.string(),
+    management: Joi.string(),
+    category: Joi.string(),
+    status: Joi.string(),
+    preprimaryavl: Joi.string(),
+    initialization_year: Joi.string(),
+    lang: Joi.number(),
+    lat: Joi.number(),
+    student: Joi.number(),
+    staff: Joi.number(),
+    resultlist: Joi.array().items(Joi.object({
+      male: Joi.number(),
+      female: Joi.number(),
+      class: Joi.string(),
+      section: Joi.string(),
+      class_id: Joi.string(),
+      section_id: Joi.string(),
+    })),
+    total_student: Joi.number(),
+    total_teacher: Joi.number(),
+    scode: Joi.string(),
+  })
+};
+
 const getSchools = {
   query: Joi.object().keys({
     name: Joi.string(),
@@ -46,7 +86,7 @@ const getStatsByDivision = {
 
 
 module.exports = {
-//   createUser,
+  createSchools,
   getSchools,
   getSchool,
   getSchoolByFilter,

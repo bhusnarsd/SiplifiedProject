@@ -9,6 +9,7 @@ const createSansthan = {
     sansthanName: Joi.string(),
     userName: Joi.string(),
     password: Joi.string(),
+    applyedFrom: Joi.string(),
   }),
 };
 
