@@ -185,7 +185,7 @@ const geDataAnalysisCounts3 = async () => {
   const functionalElectricityCount = await Section2A21Schema.countDocuments({
     electricityavai: '1',
   });
-  
+
   const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
 
   const data = {

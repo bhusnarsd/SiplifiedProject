@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
@@ -7,66 +6,99 @@ const { schoolController } = require('../../controllers');
 
 const router = express.Router();
 
-
 router
   .route('/')
-  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.createSchools), schoolController.createSchool)
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getSchools), schoolController.getSchools);
-  router
+  .post(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(schoolValidation.createSchools),
+    schoolController.createSchool
+  )
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(schoolValidation.getSchools),
+    schoolController.getSchools
+  );
+router
   .route('/school-stats')
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStats);
 
-  router
+router
   .route('/school-stats/dashboard')
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStatsAll);
 
-  router
+router
   .route('/school-stats/division-wise')
-  .post(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolDivisionWise);
+  .post(
+    auth('district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getSchoolDivisionWise
+  );
 
-  router
+router
   .route('/school-stats/district-wise')
-  .post(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolDistrictWise);
+  .post(
+    auth('district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getSchoolDistrictWise
+  );
 
-  router
+router
   .route('/school-stats/block-wise')
   .post(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolBlockWise);
 
-  router
-  .route('/student-class/wise-stats')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getStudentClassWiseCount);
-
-  // router
-  // .route('/teacher-counts/role-wise')
-  // .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getTotalStudentTeacher);
-
-  router
-  .route('/school-count/district-wise')
-  .get(auth('state_officer'), schoolController.getSchoolCountDistrict);
-
-  router
-  .route('/school-count/block-wise/abcd')
-  .get(auth('district_officer'), schoolController.getSchoolCountByBlock);// 
-  
-  router
-  .route('/filter/by-division/count-block-school')
-  .post( validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
-  router
-  .route('/get-division')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDivisionList);
-  router
-  .route('/get-district')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getDistrictList);
-  router
-  .route('/get-block')
-  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),  validate(schoolValidation.getBlock), schoolController.getBlockList);
-  router
-  .route('/get-schools')
-  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolList);
 router
-  .route('/:udisecode')
-  .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getSchool), schoolController.getSchool);
-//   .patch(auth('superadmin'), validate(userValidation.updateUser), userController.updateUser)
+  .route('/student-class/wise-stats')
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getStudentClassWiseCount
+  );
+
+// router
+// .route('/teacher-counts/role-wise')
+// .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getTotalStudentTeacher);
+
+router.route('/school-count/district-wise').get(auth('state_officer'), schoolController.getSchoolCountDistrict);
+
+router.route('/school-count/block-wise/abcd').get(auth('district_officer'), schoolController.getSchoolCountByBlock); //
+
+router
+  .route('/filter/by-division/count-block-school')
+  .post(validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
+router
+  .route('/get-division')
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getDivisionList
+  );
+router
+  .route('/get-district')
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getDistrictList
+  );
+router
+  .route('/get-block')
+  .post(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(schoolValidation.getBlock),
+    schoolController.getBlockList
+  );
+router
+  .route('/get-schools')
+  .post(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getSchoolList
+  );
+router
+  .route('/:scode')
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(schoolValidation.getSchool),
+    schoolController.getSchool
+  )
+  .patch(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    validate(schoolValidation.updateSchools),
+    schoolController.updateSchool
+  );
 //   .delete(auth('superadmin'), validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = router;
@@ -277,7 +309,6 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  */
 
-
 /**
  * @swagger
  * /schools/school-stats:
@@ -325,7 +356,7 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
- */ 
+ */
 /**
  * @swagger
  * /schools/school-stats/district-wise:
@@ -355,7 +386,7 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
- */ 
+ */
 /**
  * @swagger
  * /schools/school-stats/block-wise:
@@ -385,7 +416,7 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
- */ 
+ */
 /**
  * @swagger
  * /schools/school-count/district-wise:
@@ -422,7 +453,7 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  */
 
-/** 
+/**
  * @swagger
  * /schools/{udisecode}:
  *   get:
@@ -506,7 +537,6 @@ module.exports = router;
  *                   $ref: '#/components/schemas/School'
  */
 
-
 /**
  * @swagger
  * /schools/get-schools:
@@ -586,7 +616,7 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
- */  
+ */
 
 /**
  * @swagger
@@ -617,4 +647,144 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
- */ 
+ */
+
+/**
+ * @swagger
+ * /schools/{scode}:
+ *   patch:
+ *     summary: Update sansthan data by ID
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: sansthanId
+ *         in: path
+ *         required: true
+ *         description: ID of the sansthan
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mid:
+ *                 type: integer
+ *                 description: The school's ID.
+ *               name:
+ *                 type: string
+ *                 description: The name of the school.
+ *               code:
+ *                 type: string
+ *                 description: The school's code.
+ *               contact_number:
+ *                 type: string
+ *                 description: The contact number of the school.
+ *               address:
+ *                 type: string
+ *                 description: The address of the school.
+ *               date:
+ *                 type: string
+ *                 description: The date of establishment of the school.
+ *               month:
+ *                 type: integer
+ *                 description: The month of establishment of the school.
+ *               year:
+ *                 type: integer
+ *                 description: The year of establishment of the school.
+ *               logo:
+ *                 type: integer
+ *                 description: The logo of the school.
+ *               udisecode:
+ *                 type: string
+ *                 description: The UDISE code of the school.
+ *               division:
+ *                 type: string
+ *                 description: The division of the school.
+ *               district:
+ *                 type: string
+ *                 description: The district of the school.
+ *               block:
+ *                 type: string
+ *                 description: The block of the school.
+ *               sansthan:
+ *                 type: string
+ *                 description: The sansthan of the school.
+ *               s_type:
+ *                 type: string
+ *                 description: The type of the school.
+ *               management:
+ *                 type: string
+ *                 description: The management of the school.
+ *               category:
+ *                 type: string
+ *                 description: The category of the school.
+ *               status:
+ *                 type: string
+ *                 description: The status of the school.
+ *               preprimaryavl:
+ *                 type: string
+ *                 description: The availability of preprimary classes in the school.
+ *               initialization_year:
+ *                 type: string
+ *                 description: The initialization year of the school.
+ *               lang:
+ *                 type: integer
+ *                 description: The latitude of the school location.
+ *               lat:
+ *                 type: integer
+ *                 description: The longitude of the school location.
+ *               student:
+ *                 type: integer
+ *                 description: The number of students in the school.
+ *               staff:
+ *                 type: integer
+ *                 description: The number of staff in the school.
+ *               resultlist:
+ *                 type: array
+ *                 description: The list of results.
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     male:
+ *                       type: integer
+ *                       description: The number of male students.
+ *                     female:
+ *                       type: integer
+ *                       description: The number of female students.
+ *                     class:
+ *                       type: string
+ *                       description: The class name.
+ *                     section:
+ *                       type: string
+ *                       description: The section name.
+ *                     class_id:
+ *                       type: string
+ *                       description: The class ID.
+ *                     section_id:
+ *                       type: string
+ *                       description: The section ID.
+ *     responses:
+ *       "200":
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 sansthanName:
+ *                   type: string
+ *                 registrationDist:
+ *                   type: string
+ *                 state:
+ *                   type: string
+ *                 mobNumber:
+ *                   type: number
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *       "500":
+ *         $ref: '#/components/responses/InternalServer'
+ */

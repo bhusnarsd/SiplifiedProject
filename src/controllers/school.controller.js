@@ -147,6 +147,10 @@ const getSchoolList = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const updateSchool = catchAsync(async (req, res) => {
+  const school = await schoolService.updateSchoolByScode(req.params.scode, req.body);
+  res.send(school);
+});
 module.exports = {
   createSchool,
   getSchools,
@@ -164,4 +168,5 @@ module.exports = {
   getSchoolsStatsAll,
   getDivisionList,
   getDivisionWiseStat,
+  updateSchool,
 };
