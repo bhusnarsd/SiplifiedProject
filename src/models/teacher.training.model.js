@@ -31,6 +31,9 @@ const teacherTraining = mongoose.Schema(
     image: {
       type: String,
     },
+    enrollment: {
+      type: String,
+    },
   },
   {
     timestamps: true,

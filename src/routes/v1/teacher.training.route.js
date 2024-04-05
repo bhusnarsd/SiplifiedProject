@@ -203,6 +203,8 @@ module.exports = router;
  *           type: string
  *         image:
  *           type: string
+ *         enrollment:
+ *           type: string
  *       required:
  *         - courseName
  *         - courseCode
@@ -213,6 +215,7 @@ module.exports = router;
  *         - contactNo
  *         - path
  *         - image
+ *         - enrollment
  */
 
 
