@@ -10,7 +10,7 @@ const router = express.Router();
 
 router
   .route('/')
-//   .post(auth('superadmin'), validate(userValidation.createUser), schoolController.createSchool)
+  .post(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.createSchools), schoolController.createSchool)
   .get(auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'), validate(schoolValidation.getSchools), schoolController.getSchools);
   router
   .route('/school-stats')
@@ -76,6 +76,131 @@ module.exports = router;
  * tags:
  *   name: School
  *   description: School management and retrieval
+ */
+
+/**
+ * @swagger
+ * /schools:
+ *   post:
+ *     summary: Create a new school
+ *     description: Endpoint to create a new school record.
+ *     tags: [School]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mid:
+ *                 type: integer
+ *                 description: The school's ID.
+ *               name:
+ *                 type: string
+ *                 description: The name of the school.
+ *               code:
+ *                 type: string
+ *                 description: The school's code.
+ *               contact_number:
+ *                 type: string
+ *                 description: The contact number of the school.
+ *               address:
+ *                 type: string
+ *                 description: The address of the school.
+ *               date:
+ *                 type: string
+ *                 description: The date of establishment of the school.
+ *               month:
+ *                 type: integer
+ *                 description: The month of establishment of the school.
+ *               year:
+ *                 type: integer
+ *                 description: The year of establishment of the school.
+ *               logo:
+ *                 type: integer
+ *                 description: The logo of the school.
+ *               udisecode:
+ *                 type: string
+ *                 description: The UDISE code of the school.
+ *               division:
+ *                 type: string
+ *                 description: The division of the school.
+ *               district:
+ *                 type: string
+ *                 description: The district of the school.
+ *               block:
+ *                 type: string
+ *                 description: The block of the school.
+ *               sansthan:
+ *                 type: string
+ *                 description: The sansthan of the school.
+ *               s_type:
+ *                 type: string
+ *                 description: The type of the school.
+ *               management:
+ *                 type: string
+ *                 description: The management of the school.
+ *               category:
+ *                 type: string
+ *                 description: The category of the school.
+ *               status:
+ *                 type: string
+ *                 description: The status of the school.
+ *               preprimaryavl:
+ *                 type: string
+ *                 description: The availability of preprimary classes in the school.
+ *               initialization_year:
+ *                 type: string
+ *                 description: The initialization year of the school.
+ *               lang:
+ *                 type: integer
+ *                 description: The latitude of the school location.
+ *               lat:
+ *                 type: integer
+ *                 description: The longitude of the school location.
+ *               student:
+ *                 type: integer
+ *                 description: The number of students in the school.
+ *               staff:
+ *                 type: integer
+ *                 description: The number of staff in the school.
+ *               resultlist:
+ *                 type: array
+ *                 description: The list of results.
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     male:
+ *                       type: integer
+ *                       description: The number of male students.
+ *                     female:
+ *                       type: integer
+ *                       description: The number of female students.
+ *                     class:
+ *                       type: string
+ *                       description: The class name.
+ *                     section:
+ *                       type: string
+ *                       description: The section name.
+ *                     class_id:
+ *                       type: string
+ *                       description: The class ID.
+ *                     section_id:
+ *                       type: string
+ *                       description: The section ID.
+ *     responses:
+ *       '201':
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/School'
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden
  */
 
 /**
