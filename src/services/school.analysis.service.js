@@ -214,7 +214,7 @@ const geDataAnalysisCounts3 = async () => {
     noofclassroomforinstructpurpose:{ $gt: '0' },
 
   });
-  
+
   const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
 
   const data = {
