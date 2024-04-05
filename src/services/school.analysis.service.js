@@ -185,6 +185,35 @@ const geDataAnalysisCounts3 = async () => {
   const functionalElectricityCount = await Section2A21Schema.countDocuments({
     electricityavai: '1',
   });
+  const libraryCount = await Section2A21Schema.countDocuments({
+    libraryavai: '1',
+  });
+  const playgroundaCount = await Section2A21Schema.countDocuments({
+    playgroundavai: '1',
+  });
+  const landCount = await Section2A21Schema.countDocuments({
+    landavaiforexpansionofschool: '1',
+  });
+  const furnitureCount = await Section2A21Schema.countDocuments({
+    furnitureforstduent: '1',
+  });
+
+  const functionalComputerCount  = await Section2A21Schema.countDocuments({
+    functpcavai:{ $gt: '0' },
+    functlaptopavai:{ $gt: '0' },
+  });
+  const internetCount  = await Section2A21Schema.countDocuments({
+    internetf:'1',
+
+  });
+  const minoritySchoolCount  = await Section1A30Schema.countDocuments({
+    minorityschool:'1',
+
+  });
+  const classroomCount  = await Section2A21Schema.countDocuments({
+    noofclassroomforinstructpurpose:{ $gt: '0' },
+
+  });
 
   const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
 
@@ -192,9 +221,17 @@ const geDataAnalysisCounts3 = async () => {
     buildingTypewiseSchoolCount,
     buildingUnderConst,
     schoolswithICTLab,
+    classroomCount,
     functionalToiletCount,
     functionalDrinkingWaterCount,
     functionalElectricityCount,
+    libraryCount,
+    playgroundaCount,
+    landCount,
+    furnitureCount,
+    functionalComputerCount,
+    internetCount,
+    minoritySchoolCount,
   };
 
   return data;
