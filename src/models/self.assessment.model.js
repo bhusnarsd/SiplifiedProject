@@ -10,6 +10,12 @@ const selfAssessmentSchema = mongoose.Schema(
     trainingName: {
       type: String,
     },
+    trainingId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'CourseEnrollement',
+      required: true,
+      trim: true,
+    },
     description: {
       type: String,
     },
@@ -34,6 +40,9 @@ const selfAssessmentSchema = mongoose.Schema(
       type: String,
     },
     teacherName: {
+      type: String,
+    },
+    schoolName: {
       type: String,
     },
   },

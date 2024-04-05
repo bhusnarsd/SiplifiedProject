@@ -215,6 +215,8 @@ module.exports = router;
  *         - district
  *         - division
  *         - scode
+ *         - trainingId
+ *         - schoolName
  *       example:
  *         trainingName: Sample Training
  *         description: Sample description
@@ -226,4 +228,6 @@ module.exports = router;
  *         division: Sample Division
  *         status: pending
  *         scode: ABC123
+ *         trainingId : 6602a29b7d3667dd06b5ea97
+ *         schoolName : school name
  */

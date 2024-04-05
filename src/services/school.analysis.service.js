@@ -1,4 +1,11 @@
-const { Section1A10Schema, Section1A20Schema, Section1A30Schema, Section1E62Schema, Section2A21Schema, Section2B27Schema } = require('../models');
+const {
+  Section1A10Schema,
+  Section1A20Schema,
+  Section1A30Schema,
+  Section1E62Schema,
+  Section2A21Schema,
+  Section2B27Schema,
+} = require('../models');
 
 const getSchoolCategoryCounts = async () => {
   const schoolCategoryCounts = await Section1A20Schema.aggregate([
@@ -40,10 +47,10 @@ const getSchoolCategoryCounts = async () => {
     },
   ]);
   const SchoolshavingPrePrimarySection = await Section2A21Schema.countDocuments({
-    schoolcwsn: "1",
+    schoolcwsn: '1',
   });
 
-  const typeOfSchoolCounts2 = await Section1A30Schema.aggregate([
+  const specialSchoolCount = await Section1A30Schema.aggregate([
     {
       $group: {
         _id: '$cwsnschool',
@@ -51,7 +58,7 @@ const getSchoolCategoryCounts = async () => {
       },
     },
   ]);
-  const typeOfSchoolCounts3 = await Section1A30Schema.aggregate([
+  const minoritySchoolCount = await Section1A30Schema.aggregate([
     {
       $group: {
         _id: '$minorityschool',
@@ -73,10 +80,9 @@ const getSchoolCategoryCounts = async () => {
     SchoolshavingPrePrimarySection,
     streamCounts,
     typeOfSchoolCounts,
-    typeOfSchoolCounts2,
-    typeOfSchoolCounts3,
+    specialSchoolCount,
+    minoritySchoolCount,
     schoolLocationCount,
-    
   };
   return data;
 };
@@ -124,7 +130,7 @@ const geDataAnalysisCounts = async () => {
     },
   ]);
 
-  let data = {
+  const data = {
     schoolbyManagement,
     SchoolsbyAffiliationBoardOfSecondary,
     SchoolsbyAffiliationBoardOfHighSecondary,
@@ -156,20 +162,25 @@ const geDataAnalysisCounts3 = async () => {
   const schoolBulidingUnderConst = await Section2A21Schema.aggregate([
     {
       $match: {
-        noofbuildingunderconst: { $gt: "0" } // Match documents where noofbuildingunderconst is greater than "0"
-      }
+        noofbuildingunderconst: { $gt: '0' }, // Match documents where noofbuildingunderconst is greater than "0"
+      },
     },
     {
       $group: {
         _id: null,
-        totalSchools: { $sum: 1 } // Count the number of documents in the result set
-      }
-    }
+        totalSchools: { $sum: 1 }, // Count the number of documents in the result set
+      },
+    },
   ]);
 
   const functionalToiletCount = await Section2A21Schema.countDocuments({
-    schooltoilet: "1",
-    nooftoiletseatsfuctionaltotalCWSNfinal: { $gt: "0" }
+    schooltoilet: '1',
+    nooftoiletsrunningwatersboys: { $gt: '0' },
+    nooftoiletsrunningwatergirls: { $gt: '0' },
+  });
+
+  const functionalDrinkingWaterCount = await Section2A21Schema.countDocuments({
+    drinkingwater: '1',
   });
 
   const buildingUnderConst = schoolBulidingUnderConst[0].totalSchools;
@@ -179,6 +190,7 @@ const geDataAnalysisCounts3 = async () => {
     buildingUnderConst,
     schoolswithICTLab,
     functionalToiletCount,
+    functionalDrinkingWaterCount,
   };
 
   return data;
