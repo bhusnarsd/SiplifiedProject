@@ -30,8 +30,17 @@ const geDataAnalysisCounts3 = catchAsync(async (req, res) => {
   }
 });
 
+const geDataAnalysisCounts4 = catchAsync(async (req, res) => {
+  try {
+    const schoolCategoryCounts = await schoolAnalysisService.geDataAnalysisCounts4();
+    res.status(httpStatus.OK).send(schoolCategoryCounts);
+  } catch (error) {
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error');
+  }
+});
 module.exports = {
   getSchoolCategoryCounts,
   geDataAnalysisCounts,
   geDataAnalysisCounts3,
+  geDataAnalysisCounts4
 };

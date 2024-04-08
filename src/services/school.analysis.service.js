@@ -5,6 +5,8 @@ const {
   Section1E62Schema,
   Section2A21Schema,
   Section2B27Schema,
+  Section3ASchema,
+  Teacher
 } = require('../models');
 
 const getSchoolCategoryCounts = async () => {
@@ -237,8 +239,90 @@ const geDataAnalysisCounts3 = async () => {
   return data;
 };
 
+const geDataAnalysisCounts4 = async () => {
+  const aggregationPipeline = [
+    {
+      $group: {
+        _id: null,
+        totalRegularTeachers: { $sum: { $toInt: "$noforegularteacher" } },
+        totalNonRegularStaff: { $sum: { $toInt: "$nofononregularstaff" } }
+      }
+    }
+  ];
+
+  const result = await Section3ASchema.aggregate(aggregationPipeline);
+
+  // Extract the counts from the result
+  const counts = result[0];
+
+  const aggregationPipeline2 = [
+    {
+      $group: {
+        _id: '$gender',
+        count: { $sum: 1 }
+      }
+    }
+  ];
+
+  const count2 = await Teacher.aggregate(aggregationPipeline2);
+
+  // Construct an object with counts for each gender
+  const genderCounts = {};
+  count2.forEach(({ _id, count }) => {
+    genderCounts[_id] = count;
+  });
+
+  const aggregationPipeline3 = [
+    {
+      $group: {
+        _id: '$caste',
+        count: { $sum: 1 }
+      }
+    }
+  ];
+
+  const count = await Teacher.aggregate(aggregationPipeline3);
+
+  // Construct an object with counts for each gender
+  const categoryCount = {};
+  count.forEach(({ _id, count }) => {
+    categoryCount[_id] = count;
+  });
+  const aggregationPipeline4 = [
+    {
+      $project: {
+        age: 1,
+        isUnder18: { $lt: ['$age', 18] },
+        isOver60: { $gt: ['$age', 60] }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        under18Count: { $sum: { $cond: [{ $eq: ['$isUnder18', true] }, 1, 0] } },
+        over60Count: { $sum: { $cond: [{ $eq: ['$isOver60', true] }, 1, 0] } }
+      }
+    }
+  ];
+
+  const ageCount = await Teacher.aggregate(aggregationPipeline4);
+
+  // Extract counts from the result
+  const { under18Count, over60Count } = ageCount.length > 0 ? ageCount[0] : { under18Count: 0, over60Count: 0 };
+
+  const data = {
+    counts,
+    genderCounts,
+    categoryCount,
+    under18Count,
+    over60Count,
+  }
+
+  return data;
+};
 module.exports = {
   getSchoolCategoryCounts,
   geDataAnalysisCounts,
   geDataAnalysisCounts3,
+  geDataAnalysisCounts4,
 };

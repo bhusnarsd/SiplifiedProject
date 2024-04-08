@@ -13,7 +13,10 @@ router
 router
   .route('/data-analysis-states/infra')
   .get(schoolAnalysisController.geDataAnalysisCounts3)
-
+router
+  .route('/data-analysis/teacher')
+  .get(schoolAnalysisController.geDataAnalysisCounts4)
+  
 module.exports = router;
 
 /**
@@ -101,3 +104,28 @@ module.exports = router;
  *         $ref: '#/components/responses/InternalServerError'
  */
 
+/**
+ * @swagger
+ * /school-analysis/data-analysis/teacher:
+ *   get:
+ *     summary: Get counts of schools for each school category
+ *     tags: [SchoolAnalysis]
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: School category ID
+ *                   count:
+ *                     type: number
+ *                     description: Count of schools for the category
+ *       "500":
+ *         $ref: '#/components/responses/InternalServerError'
+ */
