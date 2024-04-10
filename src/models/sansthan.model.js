@@ -50,6 +50,9 @@ const sansthanShema = mongoose.Schema(
     applyedFrom: {
       type: String,
     },
+    udiseNumbers: {
+      type: [String], // Assuming the UDISE numbers are strings
+    },
   },
   {
     timestamps: true,
