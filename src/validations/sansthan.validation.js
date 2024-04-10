@@ -10,6 +10,7 @@ const createSansthan = {
     userName: Joi.string(),
     password: Joi.string(),
     applyedFrom: Joi.string(),
+    udiseNumbers: Joi.array().items(Joi.string()),
   }),
 };
 
@@ -42,6 +43,7 @@ const updateSansthan = {
       mobNumber: Joi.number(),
       sansthanName: Joi.string(),
       address: Joi.string(),
+      udiseNumbers: Joi.array().items(Joi.string()),
     })
     .min(1),
 };

@@ -111,29 +111,29 @@ const { Attendance, School } = require('../models');
 
 // Function to add dummy data to the Attendance collection
 const addDummyData = async (schoolData) => {
-  console.log(schoolData);
+  // console.log(schoolData);
 
   try {
     // Generate random attendance data with numbers limited to 2 digits
     const resultlist = [
       {
-        classSection: 'Class 8 (A)',
+        classSection: 'Class 8',
         totalPresent: faker.datatype.number({ min: 0, max: 99 }),
-        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 50 }),
         presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
         absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
       },
       {
-        classSection: 'Class 9 (A)',
+        classSection: 'Class 9',
         totalPresent: faker.datatype.number({ min: 0, max: 99 }),
-        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 60 }),
         presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
         absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
       },
       {
-        classSection: 'Class 10 (A)',
+        classSection: 'Class 10',
         totalPresent: faker.datatype.number({ min: 0, max: 99 }),
-        totalAbsent: faker.datatype.number({ min: 0, max: 99 }),
+        totalAbsent: faker.datatype.number({ min: 0, max: 40 }),
         presentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
         absentPercent: `${faker.datatype.number({ min: 0, max: 99 })}%`,
       },
