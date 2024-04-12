@@ -209,6 +209,7 @@ const geDataAnalysisCounts = async () => {
   // Execute all aggregation queries concurrently
   const [
     schoolbyManagement,
+    schoolManagmentGroup,
     SchoolsbyAffiliationBoardOfSecondary,
     SchoolsbyAffiliationBoardOfHighSecondary,
     VocationalEducationalDetails,
@@ -216,6 +217,9 @@ const geDataAnalysisCounts = async () => {
   ] = await Promise.allSettled([
     Section1A20Schema.aggregate([
       { $group: { _id: '$mangcode', count: { $sum: 1 } } }
+    ]),
+    Section1A20Schema.aggregate([
+      { $group: { _id: '$manggroup', count: { $sum: 1 } } }
     ]),
     Section1A20Schema.aggregate([
       { $group: { _id: '$affilationBoard', count: { $sum: 1 } } }
@@ -234,6 +238,7 @@ const geDataAnalysisCounts = async () => {
   // Handle results and set count to 0 if data is not found
   const data = {
     schoolbyManagement: schoolbyManagement.status === 'fulfilled' ? schoolbyManagement.value : [],
+    schoolManagmentGroup: schoolManagmentGroup.status == 'fulfilled' ? schoolManagmentGroup.value : [],
     SchoolsbyAffiliationBoardOfSecondary: SchoolsbyAffiliationBoardOfSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfSecondary.value : [],
     SchoolsbyAffiliationBoardOfHighSecondary: SchoolsbyAffiliationBoardOfHighSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfHighSecondary.value : [],
     VocationalEducationalDetails: VocationalEducationalDetails.status === 'fulfilled' ? VocationalEducationalDetails.value : [],
