@@ -283,6 +283,28 @@ const getSchoolBlockWise = async (block) => {
   const totalSchool = await School.countDocuments({ block });
   return { result, totalSchool };
 };
+
+/**
+ * Get teacher student count by managment wise
+ * @returns {Promise<School>}
+ */
+const getMnagmentWiseTeacherStudent = async () => {
+  const managementCounts = await School.aggregate([
+    {
+      $group: {
+        _id: '$management',
+        total_student: { $sum: '$total_student' },
+        total_teacher: { $sum: '$total_teacher' },
+      }
+    }
+  ]);
+  return managementCounts;
+};
+// getMnagmentWiseTeacherStudent().then( result => {
+//   console.log(result)
+// }).catch(err => {
+//   console.log(err)
+// })
 /**
  * Update school by id
  * @param {ObjectId} scode
@@ -298,6 +320,8 @@ const updateSchoolByScode = async (scode, updateBody) => {
   await result.save();
   return result;
 };
+
+
 
 module.exports = {
   createSchool,
@@ -318,4 +342,5 @@ module.exports = {
   updateSchoolByScode,
   getDivisionStats,
   getDivisionList,
+  getMnagmentWiseTeacherStudent,
 };
