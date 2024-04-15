@@ -6,8 +6,9 @@ const {
   Section2A21Schema,
   Section2B27Schema,
   Section3ASchema,
-  Teacher
+  Teacher,
 } = require('../models');
+
 const getSchoolCategoryCounts = async () => {
   // Execute all aggregation queries concurrently
   const [
@@ -17,11 +18,9 @@ const getSchoolCategoryCounts = async () => {
     SchoolshavingPrePrimarySection,
     specialSchoolCount,
     minoritySchoolCount,
-    schoolLocationCount
+    schoolLocationCount,
   ] = await Promise.allSettled([
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$schoolcategory', count: { $sum: 1 } } }
-    ]),
+    Section1A20Schema.aggregate([{ $group: { _id: '$schoolcategory', count: { $sum: 1 } } }]),
     Section1A20Schema.aggregate([
       {
         $group: {
@@ -30,8 +29,8 @@ const getSchoolCategoryCounts = async () => {
           scienceCount: { $sum: { $cond: [{ $eq: ['$science', 'Science'] }, 1, 0] } },
           commerceCount: { $sum: { $cond: [{ $eq: ['$commerce', 'Commerce'] }, 1, 0] } },
           vocationalCount: { $sum: { $cond: [{ $eq: ['$Vocational', 'Vocational'] }, 1, 0] } },
-          otherStreamsCount: { $sum: { $cond: [{ $eq: ['$Streams', 'Streams'] }, 1, 0] } }
-        }
+          otherStreamsCount: { $sum: { $cond: [{ $eq: ['$Streams', 'Streams'] }, 1, 0] } },
+        },
       },
       {
         $project: {
@@ -40,23 +39,15 @@ const getSchoolCategoryCounts = async () => {
           scienceCount: 1,
           commerceCount: 1,
           vocationalCount: 1,
-          otherStreamsCount: 1
-        }
-      }
+          otherStreamsCount: 1,
+        },
+      },
     ]),
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$typeschool', count: { $sum: 1 } } }
-    ]),
+    Section1A20Schema.aggregate([{ $group: { _id: '$typeschool', count: { $sum: 1 } } }]),
     Section2A21Schema.countDocuments({ schoolcwsn: '1' }),
-    Section1A30Schema.aggregate([
-      { $group: { _id: '$cwsnschool', count: { $sum: 1 } } }
-    ]),
-    Section1A30Schema.aggregate([
-      { $group: { _id: '$minorityschool', count: { $sum: 1 } } }
-    ]),
-    Section1A10Schema.aggregate([
-      { $group: { _id: '$typeofschool', count: { $sum: 1 } } }
-    ])
+    Section1A30Schema.aggregate([{ $group: { _id: '$cwsnschool', count: { $sum: 1 } } }]),
+    Section1A30Schema.aggregate([{ $group: { _id: '$minorityschool', count: { $sum: 1 } } }]),
+    Section1A10Schema.aggregate([{ $group: { _id: '$typeofschool', count: { $sum: 1 } } }]),
   ]);
 
   // Handle results and set count to 0 if data is not found
@@ -64,10 +55,11 @@ const getSchoolCategoryCounts = async () => {
     schoolCategoryCounts: schoolCategoryCounts.status === 'fulfilled' ? schoolCategoryCounts.value : [],
     streamCounts: streamCounts.status === 'fulfilled' ? streamCounts.value : [],
     typeOfSchoolCounts: typeOfSchoolCounts.status === 'fulfilled' ? typeOfSchoolCounts.value : [],
-    SchoolshavingPrePrimarySection: SchoolshavingPrePrimarySection.status === 'fulfilled' ? SchoolshavingPrePrimarySection.value : 0,
+    SchoolshavingPrePrimarySection:
+      SchoolshavingPrePrimarySection.status === 'fulfilled' ? SchoolshavingPrePrimarySection.value : 0,
     specialSchoolCount: specialSchoolCount.status === 'fulfilled' ? specialSchoolCount.value : [],
     minoritySchoolCount: minoritySchoolCount.status === 'fulfilled' ? minoritySchoolCount.value : [],
-    schoolLocationCount: schoolLocationCount.status === 'fulfilled' ? schoolLocationCount.value : []
+    schoolLocationCount: schoolLocationCount.status === 'fulfilled' ? schoolLocationCount.value : [],
   };
 
   return data;
@@ -213,36 +205,27 @@ const geDataAnalysisCounts = async () => {
     SchoolsbyAffiliationBoardOfSecondary,
     SchoolsbyAffiliationBoardOfHighSecondary,
     VocationalEducationalDetails,
-    noOfSchoolHavingSecAndHigh
+    noOfSchoolHavingSecAndHigh,
   ] = await Promise.allSettled([
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$mangcode', count: { $sum: 1 } } }
-    ]),
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$manggroup', count: { $sum: 1 } } }
-    ]),
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$affilationBoard', count: { $sum: 1 } } }
-    ]),
-    Section1A30Schema.aggregate([
-      { $group: { _id: '$affilationBoardHigherSecondary', count: { $sum: 1 } } }
-    ]),
-    Section1E62Schema.aggregate([
-      { $group: { _id: '$vocationalNSQF', count: { $sum: 1 } } }
-    ]),
-    Section1A20Schema.aggregate([
-      { $group: { _id: '$schoolcategory', count: { $sum: 1 } } }
-    ])
+    Section1A20Schema.aggregate([{ $group: { _id: '$mangcode', count: { $sum: 1 } } }]),
+    Section1A20Schema.aggregate([{ $group: { _id: '$manggroup', count: { $sum: 1 } } }]),
+    Section1A20Schema.aggregate([{ $group: { _id: '$affilationBoard', count: { $sum: 1 } } }]),
+    Section1A30Schema.aggregate([{ $group: { _id: '$affilationBoardHigherSecondary', count: { $sum: 1 } } }]),
+    Section1E62Schema.aggregate([{ $group: { _id: '$vocationalNSQF', count: { $sum: 1 } } }]),
+    Section1A20Schema.aggregate([{ $group: { _id: '$schoolcategory', count: { $sum: 1 } } }]),
   ]);
 
   // Handle results and set count to 0 if data is not found
   const data = {
     schoolbyManagement: schoolbyManagement.status === 'fulfilled' ? schoolbyManagement.value : [],
     schoolManagmentGroup: schoolManagmentGroup.status == 'fulfilled' ? schoolManagmentGroup.value : [],
-    SchoolsbyAffiliationBoardOfSecondary: SchoolsbyAffiliationBoardOfSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfSecondary.value : [],
-    SchoolsbyAffiliationBoardOfHighSecondary: SchoolsbyAffiliationBoardOfHighSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfHighSecondary.value : [],
-    VocationalEducationalDetails: VocationalEducationalDetails.status === 'fulfilled' ? VocationalEducationalDetails.value : [],
-    noOfSchoolHavingSecAndHigh: noOfSchoolHavingSecAndHigh.status === 'fulfilled' ? noOfSchoolHavingSecAndHigh.value : []
+    SchoolsbyAffiliationBoardOfSecondary:
+      SchoolsbyAffiliationBoardOfSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfSecondary.value : [],
+    SchoolsbyAffiliationBoardOfHighSecondary:
+      SchoolsbyAffiliationBoardOfHighSecondary.status === 'fulfilled' ? SchoolsbyAffiliationBoardOfHighSecondary.value : [],
+    VocationalEducationalDetails:
+      VocationalEducationalDetails.status === 'fulfilled' ? VocationalEducationalDetails.value : [],
+    noOfSchoolHavingSecAndHigh: noOfSchoolHavingSecAndHigh.status === 'fulfilled' ? noOfSchoolHavingSecAndHigh.value : [],
   };
 
   return data;
@@ -361,7 +344,7 @@ const geDataAnalysisCounts3 = async () => {
     functionalComputerCount,
     internetCount,
     minoritySchoolCount,
-    classroomCount
+    classroomCount,
   ] = await Promise.allSettled([
     Section2A21Schema.aggregate([
       {
@@ -409,17 +392,23 @@ const geDataAnalysisCounts3 = async () => {
     }),
     Section2A21Schema.countDocuments({ internetf: '1' }),
     Section1A30Schema.countDocuments({ minorityschool: '1' }),
-    Section2A21Schema.countDocuments({ noofclassroomforinstructpurpose: { $gt: '0' } })
+    Section2A21Schema.countDocuments({ noofclassroomforinstructpurpose: { $gt: '0' } }),
   ]);
 
   // Handle results and set count to 0 if data is not found
   const data = {
     buildingTypewiseSchoolCount: buildingTypewiseSchoolCount.status === 'fulfilled' ? buildingTypewiseSchoolCount.value : [],
-    buildingUnderConst: schoolBulidingUnderConst.status === 'fulfilled' ? (schoolBulidingUnderConst.value.length > 0 ? schoolBulidingUnderConst.value[0].totalSchools : 0) : 0,
+    buildingUnderConst:
+      schoolBulidingUnderConst.status === 'fulfilled'
+        ? schoolBulidingUnderConst.value.length > 0
+          ? schoolBulidingUnderConst.value[0].totalSchools
+          : 0
+        : 0,
     schoolswithICTLab: schoolswithICTLab.status === 'fulfilled' ? schoolswithICTLab.value : [],
     classroomCount: classroomCount.status === 'fulfilled' ? classroomCount.value : 0,
     functionalToiletCount: functionalToiletCount.status === 'fulfilled' ? functionalToiletCount.value : 0,
-    functionalDrinkingWaterCount: functionalDrinkingWaterCount.status === 'fulfilled' ? functionalDrinkingWaterCount.value : 0,
+    functionalDrinkingWaterCount:
+      functionalDrinkingWaterCount.status === 'fulfilled' ? functionalDrinkingWaterCount.value : 0,
     functionalElectricityCount: functionalElectricityCount.status === 'fulfilled' ? functionalElectricityCount.value : 0,
     libraryCount: libraryCount.status === 'fulfilled' ? libraryCount.value : 0,
     playgroundaCount: playgroundaCount.status === 'fulfilled' ? playgroundaCount.value : 0,
@@ -438,10 +427,10 @@ const geDataAnalysisCounts4 = async () => {
     {
       $group: {
         _id: null,
-        totalRegularTeachers: { $sum: { $toInt: "$noforegularteacher" } },
-        totalNonRegularStaff: { $sum: { $toInt: "$nofononregularstaff" } }
-      }
-    }
+        totalRegularTeachers: { $sum: { $toInt: '$noforegularteacher' } },
+        totalNonRegularStaff: { $sum: { $toInt: '$nofononregularstaff' } },
+      },
+    },
   ];
 
   const result = await Section3ASchema.aggregate(aggregationPipeline);
@@ -453,9 +442,9 @@ const geDataAnalysisCounts4 = async () => {
     {
       $group: {
         _id: '$gender',
-        count: { $sum: 1 }
-      }
-    }
+        count: { $sum: 1 },
+      },
+    },
   ];
 
   const count2 = await Teacher.aggregate(aggregationPipeline2);
@@ -470,9 +459,9 @@ const geDataAnalysisCounts4 = async () => {
     {
       $group: {
         _id: '$caste',
-        count: { $sum: 1 }
-      }
-    }
+        count: { $sum: 1 },
+      },
+    },
   ];
 
   const count = await Teacher.aggregate(aggregationPipeline3);
@@ -487,16 +476,16 @@ const geDataAnalysisCounts4 = async () => {
       $project: {
         age: 1,
         isUnder18: { $lt: ['$age', 18] },
-        isOver60: { $gt: ['$age', 60] }
-      }
+        isOver60: { $gt: ['$age', 60] },
+      },
     },
     {
       $group: {
         _id: null,
         under18Count: { $sum: { $cond: [{ $eq: ['$isUnder18', true] }, 1, 0] } },
-        over60Count: { $sum: { $cond: [{ $eq: ['$isOver60', true] }, 1, 0] } }
-      }
-    }
+        over60Count: { $sum: { $cond: [{ $eq: ['$isOver60', true] }, 1, 0] } },
+      },
+    },
   ];
 
   const ageCount = await Teacher.aggregate(aggregationPipeline4);
@@ -510,10 +499,11 @@ const geDataAnalysisCounts4 = async () => {
     categoryCount,
     under18Count,
     over60Count,
-  }
+  };
 
   return data;
 };
+
 module.exports = {
   getSchoolCategoryCounts,
   geDataAnalysisCounts,

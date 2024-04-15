@@ -22,6 +22,12 @@ router
   .route('/school-stats')
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStats);
 
+router.get(
+  '/mangment-wise/teacher/student-count',
+  auth('superadmin', 'state_officer'),
+  schoolController.getManagWiseTeacherStudent
+);
+
 router
   .route('/school-stats/dashboard')
   .get(auth('district_officer', 'division_officer', 'state_officer', 'block_officer'), schoolController.getSchoolsStatsAll);
@@ -326,7 +332,25 @@ module.exports = router;
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
  */
-/// /////////////////////
+
+/**
+ * @swagger
+ * /schools/mangment-wise/teacher/student-count:
+ *   get:
+ *     summary: Get student and staff count by district
+ *     description: Retrieve the total student and staff count for each district.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
+
 /**
  * @swagger
  * /schools/school-stats/division-wise:

@@ -42,5 +42,5 @@ module.exports = {
   getSchoolCategoryCounts,
   geDataAnalysisCounts,
   geDataAnalysisCounts3,
-  geDataAnalysisCounts4
+  geDataAnalysisCounts4,
 };
