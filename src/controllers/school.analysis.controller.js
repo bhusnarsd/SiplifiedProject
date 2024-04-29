@@ -29,7 +29,7 @@ const geDataAnalysisCounts = catchAsync(async (req, res) => {
 });
 
 const geDataAnalysisMgmCountsDistrict = catchAsync(async (req, res) => {
-  console.log(req.body.district)
+  console.log(req.body.district);
   const schoolCategoryCounts = await schoolAnalysisService.geDataAnalysisCountsDistrict(req.body.district);
   if (!schoolCategoryCounts) {
     res.status(httpStatus.OK).send([]);
