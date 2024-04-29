@@ -320,11 +320,11 @@ const getCategoryWiseTeacherStudent = async () => {
 
   return categoryCounts;
 };
-getCategoryWiseTeacherStudent().then( result => {
-  console.log(result)
-}).catch(err => {
-  console.log(err)
-})
+// getCategoryWiseTeacherStudent().then( result => {
+//   console.log(result)
+// }).catch(err => {
+//   console.log(err)
+// })
 
 
 /**
