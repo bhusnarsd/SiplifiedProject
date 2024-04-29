@@ -300,11 +300,33 @@ const getMnagmentWiseTeacherStudent = async () => {
   ]);
   return managementCounts;
 };
-// getMnagmentWiseTeacherStudent().then( result => {
-//   console.log(result)
-// }).catch(err => {
-//   console.log(err)
-// })
+
+const getCategoryWiseTeacherStudent = async () => {
+  const categoryCounts = await School.aggregate([
+    {
+      $unwind: "$resultlist"
+    },
+    {
+      $group: {
+        _id: {
+          category: "$category", 
+        },
+        total_teacher: {$sum: "$total_teacher"},
+        maleCount: { $sum: "$resultlist.male" },
+        femaleCount: { $sum: "$resultlist.female" }
+      }
+    },
+  ]);
+
+  return categoryCounts;
+};
+getCategoryWiseTeacherStudent().then( result => {
+  console.log(result)
+}).catch(err => {
+  console.log(err)
+})
+
+
 /**
  * Update school by id
  * @param {ObjectId} scode
