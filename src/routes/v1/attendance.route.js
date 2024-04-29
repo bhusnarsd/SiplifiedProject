@@ -5,6 +5,8 @@ const { attendanceController } = require('../../controllers');
 const router = express.Router();
 
 router.route('/class-wise-count').get(attendanceController.getAllAttendanceCount);
+
+router.route('/liveattendance').post(attendanceController.getAttendanceByDateAndScode);
 module.exports = router;
 
 /**

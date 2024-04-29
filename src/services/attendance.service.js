@@ -72,6 +72,22 @@ const getAllAttendanceCount = async () => {
   return result;
 };
 
+const getAttendanceByDate = async (scode, date) => {
+  return Attendance.findOne(scode, date);
+};
+const CreateORUpdateAttendance = async (scode, date, reqBody) => {
+  let attendance = await getAttendanceByDate(scode, date);
+  if (!attendance) {
+    attendance = new Attendance(reqBody);
+  } else {
+    Object.assign(attendance, reqBody);
+  }
+  // Save the instance
+  await attendance.save();
+  return attendance;
+};
+
 module.exports = {
   getAllAttendanceCount,
+  CreateORUpdateAttendance,
 };
