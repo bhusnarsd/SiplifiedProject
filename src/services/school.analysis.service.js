@@ -7,7 +7,10 @@ const {
   Section2B27Schema,
   Section3ASchema,
   Teacher,
+  School,
 } = require('../models');
+
+//  state wise anyalysis
 
 const getSchoolCategoryCounts = async () => {
   // Execute all aggregation queries concurrently
@@ -62,6 +65,107 @@ const getSchoolCategoryCounts = async () => {
     schoolLocationCount: schoolLocationCount.status === 'fulfilled' ? schoolLocationCount.value : [],
   };
 
+  return data;
+};
+
+// district wise anyalysis
+
+const getSchoolCategoryCountsDistrict = async (district) => {
+  const schools = await School.find({ district }, 'code');
+
+  // Step 2: Extract school codes from the retrieved schools
+  const schoolCodes = schools.map((school) => school.code);
+  // Execute all aggregation queries concurrently
+  const [
+    schoolCategoryCounts,
+    streamCounts,
+    typeOfSchoolCounts,
+    SchoolshavingPrePrimarySection,
+    specialSchoolCount,
+    minoritySchoolCount,
+    schoolLocationCount,
+  ] = await Promise.allSettled([
+    Section1A20Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      { $group: { _id: '$schoolcategory', count: { $sum: 1 } } },
+    ]),
+    Section1A20Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          artsCount: { $sum: { $cond: [{ $eq: ['$arts', 'Arts'] }, 1, 0] } },
+          scienceCount: { $sum: { $cond: [{ $eq: ['$science', 'Science'] }, 1, 0] } },
+          commerceCount: { $sum: { $cond: [{ $eq: ['$commerce', 'Commerce'] }, 1, 0] } },
+          vocationalCount: { $sum: { $cond: [{ $eq: ['$Vocational', 'Vocational'] }, 1, 0] } },
+          otherStreamsCount: { $sum: { $cond: [{ $eq: ['$Streams', 'Streams'] }, 1, 0] } },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          artsCount: 1,
+          scienceCount: 1,
+          commerceCount: 1,
+          vocationalCount: 1,
+          otherStreamsCount: 1,
+        },
+      },
+    ]),
+    Section1A20Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      { $group: { _id: '$typeschool', count: { $sum: 1 } } },
+    ]),
+    Section2A21Schema.countDocuments({ scode: { $in: schoolCodes }, schoolcwsn: '1' }),
+    Section1A30Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      { $group: { _id: '$cwsnschool', count: { $sum: 1 } } },
+    ]),
+    Section1A30Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      { $group: { _id: '$minorityschool', count: { $sum: 1 } } },
+    ]),
+    Section1A10Schema.aggregate([
+      {
+        $match: {
+          scode: { $in: schoolCodes }, // Filter by school codes
+        },
+      },
+      { $group: { _id: '$typeofschool', count: { $sum: 1 } } },
+    ]),
+  ]);
+
+  // Handle results and set count to 0 if data is not found
+  const data = {
+    schoolCategoryCounts: schoolCategoryCounts.status === 'fulfilled' ? schoolCategoryCounts.value : [],
+    streamCounts: streamCounts.status === 'fulfilled' ? streamCounts.value : [],
+    typeOfSchoolCounts: typeOfSchoolCounts.status === 'fulfilled' ? typeOfSchoolCounts.value : [],
+    SchoolshavingPrePrimarySection:
+      SchoolshavingPrePrimarySection.status === 'fulfilled' ? SchoolshavingPrePrimarySection.value : 0,
+    specialSchoolCount: specialSchoolCount.status === 'fulfilled' ? specialSchoolCount.value : [],
+    minoritySchoolCount: minoritySchoolCount.status === 'fulfilled' ? minoritySchoolCount.value : [],
+    schoolLocationCount: schoolLocationCount.status === 'fulfilled' ? schoolLocationCount.value : [],
+  };
   return data;
 };
 
@@ -281,6 +385,7 @@ const geDataAnalysisCounts4 = async () => {
 module.exports = {
   getSchoolCategoryCounts,
   geDataAnalysisCounts,
+  getSchoolCategoryCountsDistrict,
   geDataAnalysisCounts3,
   geDataAnalysisCounts4,
 };

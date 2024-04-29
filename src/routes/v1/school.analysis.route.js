@@ -7,6 +7,10 @@ const router = express.Router();
 router
   .route('/data-analysis-states')
   .get(schoolAnalysisController.getSchoolCategoryCounts)
+
+  router
+  .route('/data-analysis-states/district-wise')
+  .post(schoolAnalysisController.getSchoolCategoryCountsDistrict)
 router
   .route('/data-analysis-states/mgmt')
   .get(schoolAnalysisController.geDataAnalysisCounts)
@@ -50,6 +54,33 @@ module.exports = router;
  *                     description: Count of schools for the category
  *       "500":
  *         $ref: '#/components/responses/InternalServerError'
+ */
+
+/**
+ * @swagger
+ * /school-analysis/data-analysis-states/district-wise:
+ *   post:
+ *     summary: analysis
+ *     description: Only admins can create other users.
+ *     tags: [SchoolAnalysis]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - district
+ *             properties:
+ *               district:
+ *                 type: string
+ *             example:
+ *               district: AHMADNAGAR
+ *     responses:
+ *       "201":
+ *         description: Created
  */
 
 /**
