@@ -68,6 +68,8 @@ router.route('/school-count/block-wise/abcd').get(auth('district_officer'), scho
 router
   .route('/filter/by-division/count-block-school')
   .post(validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
+
+router.route('/filter/by-division/count-block-school/district-wise').post(schoolController.getDivisionStatsDistrictWise);
 router
   .route('/get-division')
   .get(
@@ -673,6 +675,36 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  */
 
+/**
+ * @swagger
+ * /schools/filter/by-division/count-block-school/district-wise:
+ *   post:
+ *     summary: Get student and staff count by division
+ *     description: Retrieve the total student and staff count for each division.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - district
+ *             properties:
+ *               district:
+ *                 type: string
+ *             example:
+ *               district: AHMADNAGAR
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
 /**
  * @swagger
  * /schools/{scode}:

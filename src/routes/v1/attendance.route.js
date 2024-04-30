@@ -115,6 +115,7 @@ module.exports = router;
  *             example:
  *               district: AHMADNAGAR
  *               division: NASHIK
+ *               scode: 2456
  *               date: 2024-04-30
  *     responses:
  *       "201":
