@@ -13,7 +13,7 @@ const getAllAttendanceCount = catchAsync(async (req, res) => {
 
 const getAttendanceByDateAndScode = catchAsync(async (req, res) => {
   const { scode, date } = req.body;
-  const user = await attendanceService.getAttendanceByDateAndScode(scode, date, req.body);
+  const user = await attendanceService.CreateORUpdateAttendance(scode, date, req.body);
   res.status(httpStatus.CREATED).send(user);
 });
 module.exports = {
