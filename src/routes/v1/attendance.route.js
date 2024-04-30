@@ -4,9 +4,10 @@ const { attendanceController } = require('../../controllers');
 
 const router = express.Router();
 
+router.route('/').post(attendanceController.getAttendanceByDateAndScode);
+router.route('/liveattendance').post(attendanceController.CreateORUpdateAttendance);
 router.route('/class-wise-count').get(attendanceController.getAllAttendanceCount);
 
-router.route('/liveattendance').post(attendanceController.getAttendanceByDateAndScode);
 module.exports = router;
 
 /**
@@ -51,4 +52,71 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
+ */
+
+/**
+ * @swagger
+ * /attendance:
+ *   post:
+ *     summary: analysis
+ *     description: Only admins can create other users.
+ *     tags: [Attendance]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - scode
+ *             properties:
+ *               scode:
+ *                 type: string
+ *               date:
+ *                 type: date
+ *               division:
+ *                 type: string
+ *             example:
+ *               scode: 2456
+ *               date: 2024-04-30
+ *     responses:
+ *       "201":
+ *         description: Created
+ */
+
+/**
+ * @swagger
+ * /attendance/liveattendance:
+ *   post:
+ *     summary: analysis
+ *     description: Only admins can create other users.
+ *     tags: [Attendance]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - district
+ *             properties:
+ *               district:
+ *                 type: string
+ *               scode:
+ *                 type: string
+ *               date:
+ *                 type: date
+ *               division:
+ *                 type: string
+ *             example:
+ *               district: AHMADNAGAR
+ *               division: NASHIK
+ *               date: 2024-04-30
+ *     responses:
+ *       "201":
+ *         description: Created
  */
