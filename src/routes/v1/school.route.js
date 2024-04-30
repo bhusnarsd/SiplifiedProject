@@ -70,6 +70,9 @@ router
   .post(validate(schoolValidation.getStatsByDivision), schoolController.getDivisionWiseStat);
 
 router.route('/filter/by-division/count-block-school/district-wise').post(schoolController.getDivisionStatsDistrictWise);
+
+router.route('/filter/by-division/count-block-school/block-wise').post(schoolController.getDivisionStatsBlockWise);
+
 router
   .route('/get-division')
   .get(

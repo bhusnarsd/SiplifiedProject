@@ -210,7 +210,48 @@ const getDivisionStatsDistrictWise = async (district) => {
   return { district, districtBlockCounts };
 };
 
-// getDivisionStatsDistrictWise('AHMADNAGAR').then( result => {
+const getDivisionStatsBlockWise = async (block) => {
+  const now = new Date();
+  // now.setDate(now.getDate() - 1); // Subtract one day
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
+  const uniqueDistricts = await School.distinct('name', { block });
+  const districtBlockCounts = await Promise.all(
+    uniqueDistricts.map(async (name) => {
+      // const uniqueBlocks = await School.distinct('name', { block, name });
+      // const schoolCount = await School.countDocuments({ block, name  });
+      const result = await Attendance.find({  block, name  , date }, { })
+      // .aggregate([
+      //   { $match: {  block, name  , date } },
+      //   {
+      //     $group: {
+      //       _id: null,
+      //       totalStudents: { $sum: '$allStudent' },
+      //       totalPresent: { $sum: '$allPresent' },
+      //       totalAbsent: { $sum: '$allAbsent'},
+      //     },
+      //   },
+      // ]);
+      // const attendanceCountOfSchool = await Attendance.countDocuments({block, name  ,date });
+      return {
+        block,
+        // blockCount: uniqueBlocks.length,
+        // schoolCount,
+        totalStudents: result[0]?.totalStudents || 0,
+        totalPresent: result[0]?.totalPresent || 0,
+        totalAbsent: result[0]?.totalAbsent || 0,
+        // attendanceCountOfSchool
+      };
+
+    })
+  );
+
+  return { block, districtBlockCounts };
+};
+
+// getDivisionStatsBlockWise('225-Ahmednagar City').then( result => {
 //   console.log(result)
 // }).catch(err => {
 //   console.log(err)
@@ -416,4 +457,5 @@ module.exports = {
   getDivisionList,
   getMnagmentWiseTeacherStudent,
   getDivisionStatsDistrictWise,
+  getDivisionStatsBlockWise,
 };
