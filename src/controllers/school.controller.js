@@ -152,6 +152,11 @@ const getManagWiseTeacherStudent = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getDivisionStatsDistrictWise = catchAsync(async (req, res) => {
+  const result = await schoolService.getDivisionStatsDistrictWise(req.body.district);
+  res.send(result);
+});
+
 const updateSchool = catchAsync(async (req, res) => {
   const school = await schoolService.updateSchoolByScode(req.params.scode, req.body);
   res.send(school);
@@ -175,4 +180,5 @@ module.exports = {
   getDivisionWiseStat,
   updateSchool,
   getManagWiseTeacherStudent,
+  getDivisionStatsDistrictWise,
 };
