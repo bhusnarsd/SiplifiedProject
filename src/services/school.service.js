@@ -131,43 +131,43 @@ const getDivisionList = async () => {
 };
 
 const getDivisionStats = async (division) => {
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
-
-    const uniqueDistricts = await School.distinct('district', { division });
-    const districtBlockCounts = await Promise.all(
-      uniqueDistricts.map(async (district) => {
-        const uniqueBlocks = await School.distinct('block', { division, district });
-        const schoolCount = await School.countDocuments({ division, district });
-        const result = await Attendance.aggregate([
-          { $match: { division, district, date } },
-          {
-            $group: {
-              _id: null,
-              totalStudents: { $sum: '$allStudent' },
-              totalPresent: { $sum: '$allPresent' },
-              totalAbsent: { $sum: '$allAbsent'},
-            },
+  const now = new Date();
+  // now.setDate(now.getDate() - 1); // Subtract one day
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
+  const uniqueDistricts = await School.distinct('district', { division });
+  const districtBlockCounts = await Promise.all(
+    uniqueDistricts.map(async (district) => {
+      const uniqueBlocks = await School.distinct('district', { division, district });
+      const schoolCount = await School.countDocuments({ division, district });
+      const result = await Attendance.aggregate([
+        { $match: { division, district, date } },
+        {
+          $group: {
+            _id: null,
+            totalStudents: { $sum: '$allStudent' },
+            totalPresent: { $sum: '$allPresent' },
+            totalAbsent: { $sum: '$allAbsent'},
           },
-        ]);
-        const attendanceCountOfSchool = await Attendance.countDocuments({ division, district, date });
-        // console.log(result, division, district, date);
-        return {
-          district,
-          blockCount: uniqueBlocks.length,
-          schoolCount,
-          totalStudents: result[0]?.totalStudents || 0,
-          totalPresent: result[0]?.totalPresent || 0,
-          totalAbsent: result[0]?.totalAbsent || 0,
-          attendanceCountOfSchool,
-        };
-      })
-    );
+        },
+      ]);
+      const attendanceCountOfSchool = await Attendance.countDocuments({division, district, date });
+      // console.log(result, division, district, date)
+      return {
+        district,
+        blockCount: uniqueBlocks.length,
+        schoolCount,
+        totalStudents: result[0]?.totalStudents || 0,
+        totalPresent: result[0]?.totalPresent || 0,
+        totalAbsent: result[0]?.totalAbsent || 0,
+        attendanceCountOfSchool,
+      };
+    })
+  );
 
-    return { division, districtBlockCounts };
+  return { division, districtBlockCounts };
 };
 
 
