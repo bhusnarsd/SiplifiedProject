@@ -218,7 +218,7 @@ const getDivisionStatsBlockWise = async (block) => {
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
   const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
-  const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, _id: 0, schoolname: 1})
+  const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, id: 0, schoolname: 1})
   const attendanceCountOfSchool = await  Attendance.countDocuments({block, date })
 return {result, attendanceCountOfSchool} ;
 };
