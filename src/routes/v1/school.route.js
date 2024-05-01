@@ -708,6 +708,38 @@ module.exports = router;
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
  */
+
+/**
+ * @swagger
+ * /schools/filter/by-division/count-block-school/block-wise:
+ *   post:
+ *     summary: Get student and staff count by division
+ *     description: Retrieve the total student and staff count for each division.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - block
+ *             properties:
+ *               block:
+ *                 type: string
+ *             example:
+ *               block: 225-Ahmednagar City
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
+
 /**
  * @swagger
  * /schools/{scode}:
