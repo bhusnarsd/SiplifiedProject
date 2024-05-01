@@ -1,10 +1,53 @@
 const express = require('express');
+const csv = require('csv-parser');
+const fs = require('fs');
+const multer = require('multer');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const { schoolValidation } = require('../../validations');
 const { schoolController } = require('../../controllers');
+const { School } = require('../../models');
 
 const router = express.Router();
+
+// Set up multer for file upload
+const upload = multer({ dest: 'uploads/' });
+
+// POST endpoint for uploading CSV file
+router.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    // Check if file is provided
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Read the uploaded file
+    const results = [];
+    fs.createReadStream(req.file.path)
+      .pipe(csv())
+      .on('data', (data) => results.push(data))
+      .on('end', async () => {
+        // Process each row in the CSV file
+        for (const row of results) {
+          // Extract data from CSV row and create a new School object
+  
+
+          // Create a new school document and save it to the database
+          await School.create(row);
+        }
+
+        // Delete the uploaded file after processing
+        fs.unlinkSync(req.file.path);
+
+        res.status(200).json({ message: 'CSV file uploaded successfully' });
+      });
+  } catch (error) {
+    console.error('Error uploading CSV file:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+module.exports = router;
 
 router
   .route('/')
@@ -98,6 +141,13 @@ router
     auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
     schoolController.getSchoolList
   );
+
+router
+  .route('/get-schools-by-udisecodes')
+  .post(
+    // auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    schoolController.getSchoolByudiseArray
+  );
 router
   .route('/:scode')
   .get(
@@ -121,6 +171,30 @@ module.exports = router;
  *   description: School management and retrieval
  */
 
+/**
+ * @swagger
+ * /schools/upload:
+ *   post:
+ *     summary: Upload CSV file for bulk school data creation.
+ *     tags: [School]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       '200':
+ *         description: CSV file uploaded successfully.
+ *       '400':
+ *         description: Bad request. No file uploaded.
+ *       '500':
+ *         description: Internal server error.
+ */
 /**
  * @swagger
  * /schools:
@@ -709,6 +783,36 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  */
 
+/**
+ * @swagger
+ * /schools/get-schools-by-udisecodes:
+ *   post:
+ *     summary: Get student and staff count by division
+ *     description: Retrieve the total student and staff count for each division.
+ *     tags: [School]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - udisecodeArray
+ *             properties:
+ *               udisecodeArray:
+ *                 type: array
+ *             example:
+ *               udisecodeArray: ["9250100101" , "9250100201"]
+ *     responses:
+ *       "200":
+ *         description: Successful response
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
 /**
  * @swagger
  * /schools/filter/by-division/count-block-school/block-wise:

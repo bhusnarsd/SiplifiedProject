@@ -220,7 +220,7 @@ const getDivisionStatsBlockWise = async (block) => {
   const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
   const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, _id: 0, schoolname: 1})
   const attendanceCountOfSchool = await  Attendance.countDocuments({block, date })
-return {result, attendanceCountOfSchool} 
+return {result, attendanceCountOfSchool} ;
 };
 
 // getDivisionStatsBlockWise('225-Ahmednagar City').then( result => {
@@ -389,7 +389,15 @@ const getCategoryWiseTeacherStudent = async () => {
 //   console.log(err)
 // })
 
-
+/**
+ * Get user by udisecode
+ * @param {string} udisecode
+ * @returns {Promise<School>}
+ */
+const getSchoolByudiseArray = async (udisecodeArray) => {
+  const result =  await School.find({ udisecode: { $in: udisecodeArray } });
+  return result
+};
 /**
  * Update school by id
  * @param {ObjectId} scode
@@ -430,4 +438,5 @@ module.exports = {
   getMnagmentWiseTeacherStudent,
   getDivisionStatsDistrictWise,
   getDivisionStatsBlockWise,
+  getSchoolByudiseArray,
 };
