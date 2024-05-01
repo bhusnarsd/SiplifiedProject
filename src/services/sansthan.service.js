@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Sansthan, User } = require('../models');
+const { Sansthan, User, School } = require('../models');
 const ApiError = require('../utils/ApiError');
 const userService = require('./user.service');
 // const otpService = require('./otp.service');
@@ -63,6 +63,22 @@ const updateSansthanById = async (sansthanId, updateBody) => {
   return sansthan;
 };
 
+const assignSchoolTOsansthan = async (udisecodeArray, userName) => {
+  // Find schools by udisecodeArray
+  const schools = await School.find({ udisecode: { $in: udisecodeArray } });
+
+  // Update sansthan field for each school
+  const updatedSchools = await Promise.all(
+    schools.map(async (schoolData) => {
+      schoolData.sansthan = userName;
+      await schoolData.save(); // Save the updated school
+      return schoolData;
+    })
+  );
+
+  return updatedSchools;
+};
+
 const verifySansthanById = async (sansthanId) => {
   const sansthan = await getSansthanById(sansthanId);
   if (!sansthan) {
@@ -80,6 +96,7 @@ const verifySansthanById = async (sansthanId) => {
   };
   await userService.createUser(body);
   Object.assign(sansthan, updatebody);
+  assignSchoolTOsansthan(sansthan.udiseNumbers, sansthan.userName);
   await sansthan.save();
   return sansthan;
 };
