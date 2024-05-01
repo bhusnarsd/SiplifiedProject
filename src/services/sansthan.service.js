@@ -51,6 +51,21 @@ const getSchoolBysansthan = async (sansthan) => {
   return Sansthan.find({ sansthan });
 };
 
+const getSchoolCountsOfsansthan = async (sansthan) => {
+  const schoolCount = await School.countDocuments({ sansthan });
+  const result = await School.aggregate([
+    { $match: { sansthan } },
+    {
+      $group: {
+        _id: null,
+        totalStudents: { $sum: '$total_student' },
+        totoalTeacher: { $sum: '$total_teacher' },
+      },
+    },
+  ]);
+  return { schoolCount, result };
+};
+
 /**
  * Update user by id
  * @param {ObjectId} sansthanId
@@ -114,4 +129,5 @@ module.exports = {
   checkUserIdExist,
   verifySansthanById,
   getSchoolBysansthan,
+  getSchoolCountsOfsansthan,
 };
