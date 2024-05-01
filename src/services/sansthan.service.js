@@ -48,7 +48,7 @@ const getSansthanByUserID = async (userID) => {
 };
 
 const getSchoolBysansthan = async (sansthan) => {
-  return Sansthan.find({ sansthan });
+  return School.find({ sansthan });
 };
 
 const getSchoolCountsOfsansthan = async (sansthan) => {

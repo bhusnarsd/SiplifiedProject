@@ -45,6 +45,14 @@ const getSchoolBysansthan = catchAsync(async (req, res) => {
   res.send(sansthan);
 });
 
+const getSchoolCountsOfsansthan = catchAsync(async (req, res) => {
+  const sansthan = await sansthanService.getSchoolCountsOfsansthan(req.query.sansthan);
+  if (!sansthan) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'School not found');
+  }
+  res.send(sansthan);
+});
+
 const updateSansthan = catchAsync(async (req, res) => {
   const sanstan = await sansthanService.updateSansthanById(req.params.sansthanId, req.body);
   res.send(sanstan);
@@ -63,4 +71,5 @@ module.exports = {
   getAllSansthanReq,
   verifySansthanById,
   getSchoolBysansthan,
+  getSchoolCountsOfsansthan,
 };
