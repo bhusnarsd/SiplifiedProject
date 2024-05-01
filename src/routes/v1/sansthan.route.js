@@ -22,13 +22,11 @@ router
     sansthanController.getAllSansthanReq
   );
 
-  router
-  .route('/get-sansthan-shools')
-  .get(
-    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
-    // validate(sansthanValidation.getAllSansthan),
-    sansthanController.getSchoolBysansthan
-  );
+router.route('/get-sansthan-shools').get(
+  // auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+  // validate(sansthanValidation.getAllSansthan),
+  sansthanController.getSchoolBysansthan
+);
 
 router
   .route('/verify-sansthan/:sansthanId')
@@ -163,8 +161,22 @@ module.exports = router;
  *         in: query
  *     responses:
  *       "200":
- *       "400":
- *         $ref: '#/components/responses/BadRequest'
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   sansthanName:
+ *                     type: string
+ *                   registrationDist:
+ *                     type: string
+ *                   state:
+ *                     type: string
+ *                   mobNumber:
+ *                     type: number
  */
 
 /**
