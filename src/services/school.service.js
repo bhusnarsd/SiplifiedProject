@@ -225,7 +225,7 @@ return { result, attendanceCountOfSchool } ;
 };
 
 // getDivisionStatsBlockWise('225-Ahmednagar City').then( result => {
-//   console.log(result)
+//   console.log(result) 
 // }).catch(err => {
 //   console.log(err)
 // })

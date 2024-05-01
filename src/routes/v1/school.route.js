@@ -30,7 +30,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
         // Process each row in the CSV file
         for (const row of results) {
           // Extract data from CSV row and create a new School object
-  
 
           // Create a new school document and save it to the database
           await School.create(row);
@@ -142,12 +141,10 @@ router
     schoolController.getSchoolList
   );
 
-router
-  .route('/get-schools-by-udisecodes')
-  .post(
-    // auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
-    schoolController.getSchoolByudiseArray
-  );
+router.route('/get-schools-by-udisecodes').post(
+  // auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+  schoolController.getSchoolByudiseArray
+);
 router
   .route('/:scode')
   .get(

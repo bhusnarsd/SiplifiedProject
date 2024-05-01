@@ -43,31 +43,31 @@ const updateMongoDB = async (code, data) => {
 };
 
 // // Schedule job to run every day at 11 PM '0 23 * * *'
-cron.schedule(
-  '34 15 * * *',
-  async () => {
-    try {
-      // Fetch all code values from MongoDB
-      const schools = await School.find({}, 'code');
-      console.log(schools);
-      for (const school of schools) {
-        const { code } = school;
-        // Fetch data from API based on code
-        const data = await fetchDataFromAPI(code);
-        if (data) {
-          // Update MongoDB with fetched data
-          await updateMongoDB(code, data);
-        }
-      }
-    } catch (error) {
-      console.error('Error during job execution:', error);
-    }
-  },
-  {
-    scheduled: true,
-    timezone: 'Asia/Kolkata', // Adjust timezone as per your requirement
-  }
-);
+// cron.schedule(
+//   '34 12 * * *',
+//   async () => {
+//     try {
+//       // Fetch all code values from MongoDB
+//       const schools = await School.find({}, 'code');
+//       console.log(schools);
+//       for (const school of schools) {
+//         const { code } = school;
+//         // Fetch data from API based on code
+//         const data = await fetchDataFromAPI(code);
+//         if (data) {
+//           // Update MongoDB with fetched data
+//           await updateMongoDB(code, data);
+//         }
+//       }
+//     } catch (error) {
+//       console.error('Error during job execution:', error);
+//     }
+//   },
+//   {
+//     scheduled: true,
+//     timezone: 'Asia/Kolkata', // Adjust timezone as per your requirement
+//   }
+// );
 
 const faker = require('faker');
 const { Attendance, School } = require('../models');
