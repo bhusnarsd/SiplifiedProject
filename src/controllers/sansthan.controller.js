@@ -22,7 +22,7 @@ const getAllSansthan = catchAsync(async (req, res) => {
 const getAllSansthanReq = catchAsync(async (req, res) => {
   const filter = {
     ...pick(req.query, ['sasthanName', 'userID']),
-    isVerified: false,
+    // isVerified: false,
   };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await sansthanService.querySansthan(filter, options);
@@ -33,6 +33,14 @@ const getSansthanById = catchAsync(async (req, res) => {
   const sansthan = await sansthanService.getSansthanById(req.params.sansthanId);
   if (!sansthan) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Sansthan not found');
+  }
+  res.send(sansthan);
+});
+
+const getSchoolBysansthan = catchAsync(async (req, res) => {
+  const sansthan = await sansthanService.getSchoolBysansthan(req.query.sansthan);
+  if (!sansthan) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'School not found');
   }
   res.send(sansthan);
 });
@@ -54,4 +62,5 @@ module.exports = {
   getAllSansthan,
   getAllSansthanReq,
   verifySansthanById,
+  getSchoolBysansthan,
 };
