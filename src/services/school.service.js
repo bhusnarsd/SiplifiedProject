@@ -147,19 +147,26 @@ const getDivisionStats = async (division) => {
         {
           $group: {
             _id: null,
-            totalStudents: { $sum: '$allStudent' },
             totalPresent: { $sum: '$allPresent' },
             totalAbsent: { $sum: '$allAbsent'},
           },
         },
       ]);
+      const studentCount = await School.aggregate([
+        { $match: { division, district} },
+        {
+          $group: {
+            _id: null,
+            totalStudents: { $sum: '$total_student' },
+          },
+        },
+      ]);
       const attendanceCountOfSchool = await Attendance.countDocuments({division, district, date });
-      // console.log(result, division, district, date)
       return {
         district,
         blockCount: uniqueBlocks.length,
         schoolCount,
-        totalStudents: result[0]?.totalStudents || 0,
+        totalStudents: studentCount[0]?.totalStudents || 0,
         totalPresent: result[0]?.totalPresent || 0,
         totalAbsent: result[0]?.totalAbsent || 0,
         attendanceCountOfSchool,
@@ -169,6 +176,12 @@ const getDivisionStats = async (division) => {
 
   return { division, districtBlockCounts };
 };
+
+// getDivisionStats('Nashik Division').then( result => {
+//   console.log(result) 
+// }).catch(err => {
+//   console.log(err)
+// })
 
 
 const getDivisionStatsDistrictWise = async (district) => {
@@ -194,12 +207,21 @@ const getDivisionStatsDistrictWise = async (district) => {
           },
         },
       ]);
+      const studentCount = await School.aggregate([
+        { $match: { division, district} },
+        {
+          $group: {
+            _id: null,
+            totalStudents: { $sum: '$total_student' },
+          },
+        },
+      ]);
       const attendanceCountOfSchool = await Attendance.countDocuments({district, block ,date });
       return {
         block,
         blockCount: uniqueBlocks.length,
         schoolCount,
-        totalStudents: result[0]?.totalStudents || 0,
+        totalStudents: studentCount[0]?.totalStudents || 0,
         totalPresent: result[0]?.totalPresent || 0,
         totalAbsent: result[0]?.totalAbsent || 0,
         attendanceCountOfSchool
@@ -219,9 +241,10 @@ const getDivisionStatsBlockWise = async (block) => {
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
   const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
-  const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, schoolname: 1})
-  const attendanceCountOfSchool = await  Attendance.countDocuments({block, date })
-return { result, attendanceCountOfSchool } ;
+  const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, schoolname: 1});
+  const studentCount = await School.find({ block });
+  const attendanceCountOfSchool = await Attendance.countDocuments({block, date })
+ return { result, attendanceCountOfSchool, studentCount };
 };
 
 // getDivisionStatsBlockWise('225-Ahmednagar City').then( result => {

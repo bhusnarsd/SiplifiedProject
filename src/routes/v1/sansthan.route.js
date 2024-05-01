@@ -22,6 +22,14 @@ router
     sansthanController.getAllSansthanReq
   );
 
+  router
+  .route('/get-sansthan-shools')
+  .get(
+    auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+    // validate(sansthanValidation.getAllSansthan),
+    sansthanController.getSchoolBysansthan
+  );
+
 router
   .route('/verify-sansthan/:sansthanId')
   .patch(
@@ -141,6 +149,24 @@ module.exports = router;
  *       "400":
  *         $ref: '#/components/responses/BadRequest'
  */
+
+/**
+ * @swagger
+ * /sansthan/get-sansthan-shools:
+ *   get:
+ *     summary: Get all sansthan data
+ *     tags: [Sansthan]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: sansthan
+ *         in: query
+ *     responses:
+ *       "200":
+ *       "400":
+ *         $ref: '#/components/responses/BadRequest'
+ */
+
 /**
  * @swagger
  * /sansthan/get-requests/sansthan:

@@ -47,6 +47,10 @@ const getSansthanByUserID = async (userID) => {
   return Sansthan.findOne({ userID });
 };
 
+const getSchoolBysansthan = async (sansthan) => {
+  return Sansthan.find({ sansthan });
+};
+
 /**
  * Update user by id
  * @param {ObjectId} sansthanId
@@ -109,4 +113,5 @@ module.exports = {
   getSansthanByUserID,
   checkUserIdExist,
   verifySansthanById,
+  getSchoolBysansthan,
 };
