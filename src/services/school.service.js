@@ -211,6 +211,7 @@ const getDivisionStatsDistrictWise = async (district) => {
   return { district, districtBlockCounts };
 };
 
+
 const getDivisionStatsBlockWise = async (block) => {
   const now = new Date();
   // now.setDate(now.getDate() - 1); // Subtract one day
@@ -220,7 +221,7 @@ const getDivisionStatsBlockWise = async (block) => {
   const date = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
   const result = await Attendance.find({date, block}, {allStudent: 1, allPresent: 1, allAbsent:1, schoolname: 1})
   const attendanceCountOfSchool = await  Attendance.countDocuments({block, date })
-return {result, attendanceCountOfSchool} ;
+return { result, attendanceCountOfSchool } ;
 };
 
 // getDivisionStatsBlockWise('225-Ahmednagar City').then( result => {
