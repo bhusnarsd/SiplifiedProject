@@ -61,6 +61,7 @@ const getSchoolStatAll = async (filter) => {
       },
     },
   ]);
+  const count = await School.countDocuments({filter, sansthan: { $exists: true, $ne: null } });
   const totalSchool = await School.countDocuments(filter);
   const { totalStudents, totalStaff } = result[0];
 
@@ -68,6 +69,7 @@ const getSchoolStatAll = async (filter) => {
     totalSchool,
     totalStudents,
     totalStaff,
+    count,
   };
 };
 
@@ -161,6 +163,7 @@ const getDivisionStats = async (division) => {
           },
         },
       ]);
+
       const attendanceCountOfSchool = await Attendance.countDocuments({division, district, date });
       return {
         district,
@@ -170,6 +173,7 @@ const getDivisionStats = async (division) => {
         totalPresent: result[0]?.totalPresent || 0,
         totalAbsent: result[0]?.totalAbsent || 0,
         attendanceCountOfSchool,
+        // sansthanCount: count,
       };
     })
   );
@@ -216,6 +220,7 @@ const getDivisionStatsDistrictWise = async (district) => {
           },
         },
       ]);
+
       const attendanceCountOfSchool = await Attendance.countDocuments({district, block ,date });
       return {
         block,
@@ -224,7 +229,8 @@ const getDivisionStatsDistrictWise = async (district) => {
         totalStudents: studentCount[0]?.totalStudents || 0,
         totalPresent: result[0]?.totalPresent || 0,
         totalAbsent: result[0]?.totalAbsent || 0,
-        attendanceCountOfSchool
+        attendanceCountOfSchool,
+        // sansthanCount: count,
       };
 
     })

@@ -28,6 +28,12 @@ router.route('/get-sansthan-shools').get(
   sansthanController.getSchoolBysansthan
 );
 
+router.route('/get-sansthan-stats').get(
+  // auth('superadmin', 'district_officer', 'division_officer', 'state_officer', 'block_officer'),
+  // validate(sansthanValidation.getAllSansthan),
+  sansthanController.getSchoolCountsOfsansthan
+);
+
 router
   .route('/verify-sansthan/:sansthanId')
   .patch(
